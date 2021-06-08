@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
-    "prepare": "node scripts/generator.js --path config/iexec.json",
+    "generate": "node scripts/generator.js --path example/iexec.json",
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
