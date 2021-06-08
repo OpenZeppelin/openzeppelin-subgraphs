@@ -1,0 +1,33 @@
+{
+  "name": "@openzeppelin/contracts",
+  "description": "",
+  "version": "1.0.0",
+  "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
+  "license": "MIT",
+  "homepage": "https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git/issues"
+  },
+  "scripts": {
+    "prepublish": "rimraf artifacts build cache generated",
+    "prepare": "node scripts/generator.js --path config/iexec.json",
+    "build": "yarn build:codegen && yarn build:compile",
+    "build:codegen": "graph codegen ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
+    "build:compile": "graph build ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/iexec.subgraph.yaml}"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.0.0"
+  },
+  "devDependencies": {
+    "@amxx/graphprotocol-utils": "^0.1.0",
+    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-ts": "^0.20.0",
+    "concat": "^1.0.3",
+    "yargs": "^17.0.1"
+  }
+}

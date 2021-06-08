@@ -1,0 +1,58 @@
+[{
+  "name": "Account",
+  "implements": null,
+  "fields": [
+    { "name": "asERC20",                "type": "ERC20Contract"                        },
+    { "name": "ERC20balances",          "type": "ERC20Balance!",  "derived": "account" },
+  	{ "name": "ERC20approvalsOwner",    "type": "ERC20Approval!", "derived": "owner"   },
+  	{ "name": "ERC20approvalsSpender",  "type": "ERC20Approval!", "derived": "spender" },
+  	{ "name": "ERC20transferFromEvent", "type": "ERC20Transfer!", "derived": "from"    },
+  	{ "name": "ERC20transferToEvent",   "type": "ERC20Transfer!", "derived": "to"      }
+  ]
+},{
+  "name": "ERC20Contract",
+  "implements": null,
+  "fields": [
+    { "name": "name",                   "type": "String"                                },
+  	{ "name": "symbol",                 "type": "String"                                },
+  	{ "name": "decimals",               "type": "Int!"                                  },
+  	{ "name": "balances",               "type": "ERC20Balance!",  "derived": "contract" },
+  	{ "name": "approvals",              "type": "ERC20Approval!", "derived": "contract" },
+  	{ "name": "transfers",              "type": "ERC20Transfer!", "derived": "contract" }
+  ]
+},{
+  "name": "ERC20Balance",
+  "implements": null,
+  "fields": [
+    { "name": "contract",               "type": "ERC20Contract!"                           },
+  	{ "name": "account",                "type": "Account!"                                 },
+  	{ "name": "value",                  "type": "DecimalValue!"                            },
+  	{ "name": "valueExact",             "type": "BigInt!"                                  },
+  	{ "name": "transferFromEvent",      "type": "ERC20Transfer!", "derived": "fromBalance" },
+  	{ "name": "transferToEvent",        "type": "ERC20Transfer!", "derived": "toBalance"   }
+  ]
+},{
+  "name": "ERC20Approval",
+  "implements": null,
+  "fields": [
+    { "name": "contract",               "type": "ERC20Contract!" },
+  	{ "name": "owner",                  "type": "Account!"       },
+  	{ "name": "spender",                "type": "Account!"       },
+  	{ "name": "value",                  "type": "DecimalValue!"  },
+  	{ "name": "valueExact",             "type": "BigInt!"        }
+  ]
+},{
+  "name": "ERC20Transfer",
+  "implements": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"   },
+  	{ "name": "timestamp",              "type": "BigInt!"        },
+  	{ "name": "contract",               "type": "ERC20Contract!" },
+  	{ "name": "from",                   "type": "Account!"       },
+  	{ "name": "fromBalance",            "type": "ERC20Balance"   },
+  	{ "name": "to",                     "type": "Account!"       },
+  	{ "name": "toBalance",              "type": "ERC20Balance"   },
+  	{ "name": "value",                  "type": "BigDecimal!"    },
+  	{ "name": "valueExact",             "type": "BigInt!"        }
+  ]
+}]
