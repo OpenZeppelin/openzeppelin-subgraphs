@@ -1,0 +1,24 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: AccessControl
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - AccessControl
+      abis:
+        - name: AccessControl
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/AccessControl.json
+      eventHandlers:
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ../src/datasources/accesscontrol.ts
