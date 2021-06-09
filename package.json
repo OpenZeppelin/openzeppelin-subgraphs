@@ -4,13 +4,13 @@
   "version": "1.0.0",
   "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
   "license": "MIT",
-  "homepage": "https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git#readme",
+  "homepage": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git"
+    "url": "git+https://github.com/OpenZeppelin/openzeppelin-subgraphs.git"
   },
   "bugs": {
-    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts-subgraphs.git/issues"
+    "url": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git/issues"
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
