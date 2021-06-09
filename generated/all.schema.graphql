@@ -21,6 +21,7 @@ type Account @entity {
 }
 type AccessControl @entity {
   id: ID!
+  asAccount: Account!
   roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
@@ -69,6 +70,7 @@ type RoleRevoked implements Event @entity {
 }
 type ERC20Contract @entity {
   id: ID!
+  asAccount: Account!
   name: String
   symbol: String
   decimals: Int!
@@ -107,6 +109,7 @@ type ERC20Transfer implements Event @entity {
 }
 type ERC721Contract @entity {
   id: ID!
+  asAccount: Account!
   supportsMetadata: Boolean
   name: String
   symbol: String

@@ -20,11 +20,12 @@ import {
 } from '../fetch/account'
 
 export function fetchERC1155(address: Address) : ERC1155Contract {
-	let contract = new ERC1155Contract(address.toHex())
+	let account        = fetchAccount(address)
+	let contract       = new ERC1155Contract(account.id)
+	contract.asAccount = account.id
 	contract.save()
 
-	let account       = fetchAccount(address)
-	account.asERC1155 = contract.id
+	account.asERC1155  = contract.id
 	account.save()
 
 	return contract
@@ -52,7 +53,7 @@ export function fetchERC1155Balance(token: ERC1155Token, account: Account): ERC1
 	if (balance == null) {
 		balance            = new ERC1155Balance(id)
 		let value          = new decimals.Value(id.concat('/balance'))
-		token.contract     = token.contract
+		balance.contract   = token.contract
 		balance.token      = token.id
 		balance.account    = account.id
 		balance.value      = value.id

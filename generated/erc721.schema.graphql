@@ -9,6 +9,7 @@ type Account @entity {
 }
 type ERC721Contract @entity {
   id: ID!
+  asAccount: Account!
   supportsMetadata: Boolean
   name: String
   symbol: String

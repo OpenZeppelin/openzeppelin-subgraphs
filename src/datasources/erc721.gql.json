@@ -11,6 +11,7 @@
 },{
   "name": "ERC721Contract",
   "fields": [
+    { "name": "asAccount",               "type": "Account!"                               },
     { "name": "supportsMetadata",        "type": "Boolean"                                },
     { "name": "name",                    "type": "String"                                 },
     { "name": "symbol",                  "type": "String"                                 },

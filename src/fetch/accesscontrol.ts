@@ -13,11 +13,12 @@ import {
 } from './account'
 
 export function fetchAccessControl(address: Address) : AccessControl {
-	let contract = new AccessControl(address.toHex())
+	let account             = fetchAccount(address)
+	let contract            = new AccessControl(account.id)
+	contract.asAccount      = account.id
 	contract.save()
 
-	let account             = fetchAccount(address)
-	account.asAccessControl = contract.id
+	account.asAccessControl = account.id
 	account.save()
 
 	return contract

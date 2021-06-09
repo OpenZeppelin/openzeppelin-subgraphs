@@ -50,6 +50,7 @@ function registerTransfer(
 	let ev = new ERC1155Transfer(events.id(event).concat(suffix))
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
+	ev.contract    = contract.id
 	ev.token       = token.id
 	ev.operator    = operator.id
 	ev.from        = from.id

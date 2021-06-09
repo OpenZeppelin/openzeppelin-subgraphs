@@ -10,6 +10,7 @@ type Account @entity {
 }
 type ERC1155Contract @entity {
   id: ID!
+  asAccount: Account!
   tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
   balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
   operators: [ERC1155Operator!]! @derivedFrom(field: "contract")

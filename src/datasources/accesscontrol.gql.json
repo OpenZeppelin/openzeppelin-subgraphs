@@ -11,6 +11,7 @@
 },{
   "name": "AccessControl",
   "fields": [
+    { "name": "asAccount",           "type": "Account!"                                                  },
     { "name": "roles",               "type": "AccessControlRole!",        "derived": "contract"          }
   ]
 },{

@@ -11,6 +11,7 @@
 },{
   "name": "ERC20Contract",
   "fields": [
+    { "name": "asAccount",              "type": "Account!"                              },
     { "name": "name",                   "type": "String"                                },
     { "name": "symbol",                 "type": "String"                                },
     { "name": "decimals",               "type": "Int!"                                  },

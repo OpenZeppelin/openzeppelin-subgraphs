@@ -22,7 +22,8 @@ import {
 } from './account'
 
 export function fetchERC20(address: Address): ERC20Contract {
-	let contract = ERC20Contract.load(address.toHex())
+	let account  = fetchAccount(address)
+	let contract = ERC20Contract.load(account.id)
 
 	if (contract == null) {
 		let endpoint              = IERC20.bind(address)
@@ -31,13 +32,13 @@ export function fetchERC20(address: Address): ERC20Contract {
 		let decimals              = endpoint.try_decimals()
 		contract                  = new ERC20Contract(address.toHex())
 		// Common
-		contract.name     = name.reverted     ? null : name.value
-		contract.symbol   = symbol.reverted   ? null : symbol.value
-		contract.decimals = decimals.reverted ? 18   : decimals.value
+		contract.name      = name.reverted     ? null : name.value
+		contract.symbol    = symbol.reverted   ? null : symbol.value
+		contract.decimals  = decimals.reverted ? 18   : decimals.value
+		contract.asAccount = account.id
 		contract.save()
 
-		let account     = fetchAccount(address)
-		account.asERC20 = contract.id
+		account.asERC20    = contract.id
 		account.save()
 	}
 

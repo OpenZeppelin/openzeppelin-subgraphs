@@ -9,6 +9,7 @@ type Account @entity {
 }
 type AccessControl @entity {
   id: ID!
+  asAccount: Account!
   roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {

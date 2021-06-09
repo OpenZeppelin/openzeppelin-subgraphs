@@ -27,7 +27,7 @@ import {
 } from './erc165'
 
 export function fetchERC721(address: Address): ERC721Contract {
-	let erc721   = IERC721.bind(address)
+	let erc721  = IERC721.bind(address)
 	let account = Account.load(address.toHex())
 
 	if (account == null) {
@@ -36,7 +36,7 @@ export function fetchERC721(address: Address): ERC721Contract {
 		let introspection_80ac58cd = supportsInterface(erc721, '80ac58cd') // ERC721
 		let introspection_00000000 = supportsInterface(erc721, '00000000', false)
 		let isERC721               = introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000
-		account.asERC721          = isERC721 ? account.id : null
+		account.asERC721           = isERC721 ? account.id : null
 		account.save()
 	}
 
@@ -50,6 +50,7 @@ export function fetchERC721(address: Address): ERC721Contract {
 			contract.name             = try_name.reverted   ? '' : try_name.value
 			contract.symbol           = try_symbol.reverted ? '' : try_symbol.value
 			contract.supportsMetadata = supportsInterface(erc721, '5b5e139f') // ERC721Metadata
+			contract.asAccount        = account.id
 		}
 		return contract as ERC721Contract
 	}

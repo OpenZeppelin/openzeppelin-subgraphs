@@ -12,6 +12,7 @@
 },{
   "name": "ERC1155Contract",
   "fields": [
+    { "name": "asAccount",                    "type": "Account!"                                   },
     { "name": "tokens",                       "type": "ERC1155Token!",    "derived": "contract"    },
     { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "contract"    },
     { "name": "operators",                    "type": "ERC1155Operator!", "derived": "contract"    },

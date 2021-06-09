@@ -9,6 +9,7 @@ type Account @entity {
 }
 type ERC20Contract @entity {
   id: ID!
+  asAccount: Account!
   name: String
   symbol: String
   decimals: Int!
