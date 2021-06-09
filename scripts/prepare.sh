@@ -1,4 +1,4 @@
-#!/#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 node ./scripts/generator.js --path ./configs/all.json           --export-schema
 node ./scripts/generator.js --path ./configs/accesscontrol.json --export-schema
