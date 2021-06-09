@@ -1,9 +1,5 @@
 import {
-	// Account,
-	// OperatorDelegation,
 	ERC721Transfer,
-	// Approval,
-	// ApprovalForAll,
 } from '../../generated/schema'
 
 import {

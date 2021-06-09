@@ -1,7 +1,6 @@
 type Account @entity {
   id: ID!
-  asERC20: ERC20Contract
-  asERC721: ERC20Contract
+  asERC721: ERC721Contract
   ERC721tokens: [ERC721Token]! @derivedFrom(field: "owner")
   ERC721operatorOwner: [ERC721Operator]! @derivedFrom(field: "owner")
   ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")

@@ -1,8 +1,7 @@
 [{
   "name": "Account",
   "fields": [
-    { "name": "asERC20",                 "type": "ERC20Contract"                          },
-    { "name": "asERC721",                "type": "ERC20Contract"                          },
+    { "name": "asERC721",                "type": "ERC721Contract"                         },
     { "name": "ERC721tokens",            "type": "ERC721Token",     "derived": "owner"    },
     { "name": "ERC721operatorOwner",     "type": "ERC721Operator",  "derived": "owner"    },
     { "name": "ERC721operatorOperator",  "type": "ERC721Operator",  "derived": "operator" },

@@ -1,0 +1,66 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asERC1155",                    "type": "ERC1155Contract"                            },
+    { "name": "ERC1155balances",              "type": "ERC1155Balance!",  "derived": "account"     },
+    { "name": "ERC1155operatorOwner",         "type": "ERC1155Operator!", "derived": "owner"       },
+    { "name": "ERC1155operatorOperator",      "type": "ERC1155Operator!", "derived": "operator"    },
+    { "name": "ERC1155transferFromEvent",     "type": "ERC1155Transfer!", "derived": "from"        },
+    { "name": "ERC1155transferToEvent",       "type": "ERC1155Transfer!", "derived": "to"          },
+    { "name": "ERC1155transferOperatorEvent", "type": "ERC1155Transfer!", "derived": "operator"    }
+  ]
+},{
+  "name": "ERC1155Contract",
+  "fields": [
+    { "name": "tokens",                       "type": "ERC1155Token!",    "derived": "contract"    },
+    { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "contract"    },
+    { "name": "operators",                    "type": "ERC1155Operator!", "derived": "contract"    },
+    { "name": "transfers",                    "type": "ERC1155Transfer!", "derived": "contract"    }
+  ]
+},{
+  "name": "ERC1155Token",
+  "fields": [
+    { "name": "contract",                     "type": "ERC1155Contract!"                           },
+    { "name": "identifier",                   "type": "BigInt!"                                    },
+    { "name": "uri",                          "type": "String"                                     },
+    { "name": "totalSupply",                  "type": "DecimalValue!"                              },
+    { "name": "totalSupplyExact",             "type": "BigInt!"                                    },
+    { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "token"       },
+    { "name": "transfers",                    "type": "ERC1155Transfer!", "derived": "token"       }
+  ]
+},{
+  "name": "ERC1155Balance",
+  "fields": [
+    { "name": "contract",                     "type": "ERC1155Contract!"                           },
+    { "name": "token",                        "type": "ERC1155Token!"                              },
+    { "name": "account",                      "type": "Account!"                                   },
+    { "name": "value",                        "type": "DecimalValue!"                              },
+    { "name": "valueExact",                   "type": "BigInt!"                                    },
+    { "name": "transferFromEvent",            "type": "ERC1155Transfer!", "derived": "fromBalance" },
+    { "name": "transferToEvent",              "type": "ERC1155Transfer!", "derived": "toBalance"   }
+  ]
+},{
+  "name": "ERC1155Operator",
+  "fields": [
+    { "name": "contract",                     "type": "ERC1155Contract!"                           },
+    { "name": "owner",                        "type": "Account!"                                   },
+    { "name": "operator",                     "type": "Account!"                                   },
+    { "name": "approved",                     "type": "Boolean!"                                   }
+  ]
+},{
+  "name": "ERC1155Transfer",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",                  "type": "Transaction!"                               },
+    { "name": "timestamp",                    "type": "BigInt!"                                    },
+    { "name": "contract",                     "type": "ERC1155Contract!"                           },
+    { "name": "token",                        "type": "ERC1155Token!"                              },
+    { "name": "operator",                     "type": "Account!"                                   },
+    { "name": "from",                         "type": "Account!"                                   },
+    { "name": "fromBalance",                  "type": "ERC1155Balance"                             },
+    { "name": "to",                           "type": "Account!"                                   },
+    { "name": "toBalance",                    "type": "ERC1155Balance"                             },
+    { "name": "value",                        "type": "BigDecimal!"                                },
+    { "name": "valueExact",                   "type": "BigInt!"                                    }
+  ]
+}]
