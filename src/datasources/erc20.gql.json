@@ -1,6 +1,5 @@
 [{
   "name": "Account",
-  "implements": null,
   "fields": [
     { "name": "asERC20",                "type": "ERC20Contract"                        },
     { "name": "ERC20balances",          "type": "ERC20Balance!",  "derived": "account" },
@@ -11,7 +10,6 @@
   ]
 },{
   "name": "ERC20Contract",
-  "implements": null,
   "fields": [
     { "name": "name",                   "type": "String"                                },
   	{ "name": "symbol",                 "type": "String"                                },
@@ -22,7 +20,6 @@
   ]
 },{
   "name": "ERC20Balance",
-  "implements": null,
   "fields": [
     { "name": "contract",               "type": "ERC20Contract!"                           },
   	{ "name": "account",                "type": "Account!"                                 },
@@ -33,7 +30,6 @@
   ]
 },{
   "name": "ERC20Approval",
-  "implements": null,
   "fields": [
     { "name": "contract",               "type": "ERC20Contract!" },
   	{ "name": "owner",                  "type": "Account!"       },
@@ -43,7 +39,7 @@
   ]
 },{
   "name": "ERC20Transfer",
-  "implements": "Event",
+  "parent": "Event",
   "fields": [
     { "name": "transaction",            "type": "Transaction!"   },
   	{ "name": "timestamp",              "type": "BigInt!"        },

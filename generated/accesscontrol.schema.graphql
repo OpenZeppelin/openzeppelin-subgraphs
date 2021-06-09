@@ -1,0 +1,57 @@
+type Account @entity {
+  id: ID!
+  asAccessControl: AccessControl
+  membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
+  roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
+  roleGrantedSender: [RoleGranted!]! @derivedFrom(field: "sender")
+  roleRevoked: [RoleRevoked!]! @derivedFrom(field: "account")
+  roleRevokedSender: [RoleRevoked!]! @derivedFrom(field: "sender")
+}
+type AccessControl @entity {
+  id: ID!
+  roles: [AccessControlRole!]! @derivedFrom(field: "contract")
+}
+type Role @entity {
+  id: ID!
+  roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
+  adminOf: [AccessControlRole!]! @derivedFrom(field: "admin")
+}
+type AccessControlRole @entity {
+  id: ID!
+  contract: AccessControl!
+  role: Role!
+  admin: Role
+  members: [AccessControlRoleMember!]! @derivedFrom(field: "accesscontrolrole")
+  roleGranted: [RoleGranted!]! @derivedFrom(field: "role")
+  roleRevoked: [RoleRevoked!]! @derivedFrom(field: "role")
+  roleAdminChanged: [RoleAdminChanged!]! @derivedFrom(field: "role")
+}
+type AccessControlRoleMember @entity {
+  id: ID!
+  accesscontrolrole: AccessControlRole!
+  account: Account!
+}
+type RoleAdminChanged implements Event @entity {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  role: AccessControlRole!
+  newAdminRole: Role!
+  previousAdminRole: Role!
+}
+type RoleGranted implements Event @entity {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  role: AccessControlRole!
+  account: Account!
+  sender: Account!
+}
+type RoleRevoked implements Event @entity {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  role: AccessControlRole!
+  account: Account!
+  sender: Account!
+}

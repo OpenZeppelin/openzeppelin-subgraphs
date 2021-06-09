@@ -1,0 +1,4 @@
+{
+  "output": "../generated/erc20",
+  "datasources": [{ "module": "erc20" }]
+}

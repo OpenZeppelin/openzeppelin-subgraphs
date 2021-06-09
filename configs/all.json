@@ -1,0 +1,8 @@
+{
+  "output": "../generated/all",
+  "datasources": [
+    { "module": "accesscontrol" },
+    { "module": "erc20"         },
+    { "module": "erc721"        }
+  ]
+}

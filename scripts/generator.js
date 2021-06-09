@@ -1,5 +1,4 @@
 #!/bin/env node
-
 'use strict';
 
 const fs   = require('fs');
@@ -7,121 +6,169 @@ const path = require('path');
 const argv = require('yargs/yargs')(require('yargs/helpers').hideBin(process.argv)).argv;
 
 
-
-function loadFile(path) {
-  return fs.readFileSync(path, { encoding: 'utf8' })
+Array.prototype.unique = function(op = x => x) {
+  return this.filter((obj, i) => this.findIndex(entry => op(obj) === op(entry)) === i)
 }
 
-function unique(array = [], op = undefined) {
-  return op
-    ? array.filter((obj, i, array) => array.findIndex(entry => op(obj) === op(entry)) === i)
-    : array.filter((key, i, array) => array.indexOf(key) === i)
-}
-
-function specialize(template = '', vars = {}) {
-  return template.replace(/\{(\w+)\}/g, (_, varname) => vars[varname])
-}
-
-function merge(block, ...rem) {
-  if (rem.length == 0) {
-    return block
-  } else {
-    const acc = merge(...rem)
-
-    if (acc.name!== block.name) {
-      throw new Error(`Error merging definitions for ${acc.name}`)
-    }
-
-    if (acc.implements !== block.implements) {
-      throw new Error(`Error merging definitions for ${acc.name}`)
-    }
-
-    if (block.fields.some(({ name, type, derived }) =>
-        acc.fields.find(field =>
-          field.name === name && (field.type !== type || field.derived !== derived)
-        )
-      )
-    ) {
-      throw new Error(`Error merging definitions for ${acc.name}`)
-    }
-
-    return {
-      name:       acc.name,
-      implements: acc.implements,
-      fields:     unique([].concat(acc.fields, block.fields), ({ name }) => name),
-    }
+function assert(condifiton, error = 'assertion failed') {
+  if (!condifiton) {
+    throw new Error(error)
   }
 }
 
-function makeSubgraph(receipt) {
-  const header    = loadFile(path.resolve(__dirname, '../src/header.yaml'))
-  const templates = Object.fromEntries(
-    unique(receipt.datasources.map(({ module }) => module)).map(module => {
-      try {
-        return [ module, loadFile(path.resolve(__dirname, `../src/datasources/${module}.yaml`)) ]
-      } catch {
-        return undefined
-      }
-    })
-  )
-
-  const subgraph = [
-    // header
-    specialize(header, { schema: `${path.basename(receipt.output)}.schema.graphql` }),
-    // datasources
-    ...receipt.datasources.map((datasource, i, array) => specialize(
-      templates[datasource.module],
-      Object.assign(
-        {
-          id: array.findIndex(({ module }) => module === datasource.module) === i ? datasource.module : `${datasource.module}-${i}`,
-          startBlock: receipt.startBlock || 0,
-          chain: receipt.chain
-        },
-        datasource,
-      )
-    )),
-  ].join('')
-
-  const file = path.resolve(__dirname, `${receipt.output}.subgraph.yaml`)
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  fs.writeFileSync(file, subgraph, { encoding: 'utf-8' })
+function readFile(file) {
+  return fs.readFileSync(file, { encoding: 'utf8' })
 }
 
-function makeSchema(receipt) {
-  const header = loadFile(path.resolve(__dirname, '../node_modules/@amxx/graphprotocol-utils/generated/schema.graphql'))
-  const blocks = [].concat(...unique(receipt.datasources, ({ module }) => module)
-      .map(({ module }) => JSON.parse(loadFile(path.resolve(__dirname, `../src/datasources/${module}.gql.json`))))
-  )
+function writeFile(file, data) {
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, data, { encoding: 'utf-8' })
+}
 
-  const types = unique(blocks, ({ name }) => name)
-    .map(({ name }) => merge(...blocks.filter(block => block.name === name)))
-    .map(block => [
-      block.implements
-        ? `type ${block.name} implements ${block.implements} @entity {\n`
-        : `type ${block.name} @entity {\n`,
+/*********************************************************************************************************************
+ *                                                 Schema generation                                                 *
+ *********************************************************************************************************************/
+class Schema extends Array {
+  static load(name, dir = path.resolve(__dirname, '../src/datasources/')) {
+    return JSON.parse(readFile(path.resolve(dir, `${name}.gql.json`))).map(e => new SchemaEntry(e));
+  }
+
+  toString() {
+    return this.join('');
+  }
+
+  sanitize() {
+    return Schema.from(
+      this
+        .map(({ name }) => name)
+        .unique()
+        .map(entry => SchemaEntry.merge(...this.filter(({ name }) => name === entry)))
+    );
+  }
+}
+
+class SchemaEntry {
+  constructor({ name, fields = [], parent = null }) {
+    this.name   = name;
+    this.fields = fields;
+    this.parent = parent;
+  }
+
+  toString() {
+    return [
+      this.parent
+        ? `type ${this.name} implements ${this.parent} @entity {\n`
+        : `type ${this.name} @entity {\n`,
       `  id: ID!\n`,
-      ...block.fields.map(field =>
+      ...this.fields.map(field =>
           field.derived
           ? `  ${field.name}: [${field.type}]! @derivedFrom(field: "${field.derived}")\n`
           : `  ${field.name}: ${field.type}\n`
       ),
       `}\n`,
-    ].join(''))
+    ].join('');
+  }
 
-  const schema = [
-    header,
-    ...types
-  ].join('')
+  static fieldConflict(f1, f2) {
+    return f1.name === f2.name && (f1.type !== f2.type || f1.derived !== f2.derived);
+  }
 
+  static merge(entry, ...others) {
+    if (others.length == 0) { return entry; }
 
-  const file = path.resolve(__dirname, `${receipt.output}.schema.graphql`)
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  fs.writeFileSync(file, schema, { encoding: 'utf-8' })
+    const acc = SchemaEntry.merge(...others);
+    assert(
+      entry.name === acc.name,
+      `Error merging schema entries: name do not match (${entry.name} / ${acc.name})`,
+    );
+    assert(
+      entry.implements === acc.implements,
+      `Error merging schema entries: inheritance do not match for ${entry.name}`,
+    );
+    assert(
+      entry.fields.every(f1 => acc.fields.every(f2 => !SchemaEntry.fieldConflict(f1, f2))),
+      `Error merging schema entries: incompatible fields found for ${entry.name}`,
+    );
+
+    return new SchemaEntry({
+      name:       entry.name,
+      implements: entry.implements,
+      fields:     [].concat(entry.fields, acc.fields).unique(({ name }) => name),
+    });
+  }
 }
 
+/*********************************************************************************************************************
+ *                                                Subgraph generation                                                *
+ *********************************************************************************************************************/
+class Subgraph {
+  constructor(schema, config) {
+    this.schema = schema;
+    this.config = config;
+  }
+
+  toString() {
+    assert(this.config.receipt.datasources.every(({ address }) => address), 'Error writting subgraph: datasource is missing address');
+    const header    = readFile(path.resolve(__dirname, '../src/header.yaml'));
+    const templates = Object.fromEntries(
+      this.config.modules().map(module => {
+        try {
+          return [ module, readFile(path.resolve(__dirname, `../src/datasources/${module}.yaml`)) ]
+        } catch {
+          return undefined
+        }
+      })
+    );
+    return [].concat(
+      header
+        .replace(/\{(\w+)\}/g, (_, varname) => ({ schema: this.schema })[varname]),
+      this.config.receipt.datasources
+        .flatMap(datasource => [].concat(datasource.module).map(module => Object.assign(datasource, { module })))
+        .map((datasource, i, array) => Object.assign(
+          {
+            id:         array.findIndex(({ module }) => module === datasource.module) === i ? datasource.module : `${datasource.module}-${i}`,
+            startBlock: this.config.receipt.startBlock || 0,
+            chain:      this.config.receipt.chain      || 'mainnet',
+          },
+          datasource,
+        ))
+        .map(datasource => templates[datasource.module].replace(/\{(\w+)\}/g, (_, varname) => datasource[varname]))
+    ).join('');
+  }
+}
+
+/*********************************************************************************************************************
+ *                                                      Config                                                       *
+ *********************************************************************************************************************/
+class Config {
+  constructor(file) {
+    this.receipt = JSON.parse(readFile(file));
+  }
+
+  modules() {
+    return this.receipt.datasources.flatMap(({ module }) => module).unique();
+  }
+
+  schema() {
+    return Schema.from(this.modules().flatMap(module => Schema.load(module))).sanitize();
+  }
+
+  subgraph(schema = `${path.basename(this.receipt.output)}.schema.graphql`) {
+    return new Subgraph(schema, this)
+  }
+}
 
 (async () => {
-  const receipt = JSON.parse(loadFile(argv.path))
-  makeSchema(receipt)
-  makeSubgraph(receipt)
+  const config = new Config(argv.path);
+
+  argv.exportSchema && writeFile(
+    path.resolve(__dirname, `${config.receipt.output}.schema.graphql`),
+    config.schema().toString(),
+  );
+
+  argv.exportSubgraph && writeFile(
+    path.resolve(__dirname, `${config.receipt.output}.subgraph.yaml`),
+    config.subgraph().toString(),
+  );
+
 })().catch(console.error)

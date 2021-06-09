@@ -14,11 +14,11 @@
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
-    "generate": "node scripts/generator.js --path example/iexec.json",
+    "prepare": "bash scripts/prepare.sh",
     "build": "yarn build:codegen && yarn build:compile",
-    "build:codegen": "graph codegen ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
-    "build:compile": "graph build ${SUBGRAPH:-generated/iexec.subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/iexec.subgraph.yaml}"
+    "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
+    "build:compile": "graph build ${SUBGRAPH:-generated/subgraph.yaml}",
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/subgraph.yaml}"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.0.0"

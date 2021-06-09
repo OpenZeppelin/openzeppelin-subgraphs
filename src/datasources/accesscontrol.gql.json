@@ -1,6 +1,5 @@
 [{
   "name": "Account",
-  "implements": null,
   "fields": [
     { "name": "asAccessControl",     "type": "AccessControl"                                             },
     { "name": "membership",          "type": "AccessControlRoleMember!",  "derived": "account"           },
@@ -11,20 +10,17 @@
   ]
 },{
   "name": "AccessControl",
-  "implements": null,
   "fields": [
     { "name": "roles",               "type": "AccessControlRole!",        "derived": "contract"          }
   ]
 },{
   "name": "Role",
-  "implements": null,
   "fields": [
     { "name": "roleOf",              "type": "AccessControlRole!",        "derived": "role"              },
     { "name": "adminOf",             "type": "AccessControlRole!",        "derived": "admin"             }
   ]
 },{
   "name": "AccessControlRole",
-  "implements": null,
   "fields": [
     { "name": "contract",             "type": "AccessControl!"                                           },
     { "name": "role",                 "type": "Role!"                                                    },
@@ -36,14 +32,13 @@
   ]
 },{
   "name": "AccessControlRoleMember",
-  "implements": null,
   "fields": [
     { "name": "accesscontrolrole",    "type": "AccessControlRole!" },
     { "name": "account",              "type": "Account!"           }
   ]
 },{
   "name": "RoleAdminChanged",
-  "implements": "Event",
+  "parent": "Event",
   "fields": [
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
@@ -53,7 +48,7 @@
   ]
 },{
   "name": "RoleGranted",
-  "implements": "Event",
+  "parent": "Event",
   "fields": [
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
@@ -63,7 +58,7 @@
   ]
 },{
   "name": "RoleRevoked",
-  "implements": "Event",
+  "parent": "Event",
   "fields": [
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },

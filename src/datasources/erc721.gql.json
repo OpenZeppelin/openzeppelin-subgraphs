@@ -1,6 +1,5 @@
 [{
   "name": "Account",
-  "implements": null,
   "fields": [
     { "name": "asERC20",                 "type": "ERC20Contract"                          },
     { "name": "asERC721",                "type": "ERC20Contract"                          },
@@ -12,7 +11,6 @@
   ]
 },{
   "name": "ERC721Contract",
-  "implements": null,
   "fields": [
     { "name": "supportsMetadata",        "type": "Boolean"                                },
     { "name": "name",                    "type": "String"                                 },
@@ -23,7 +21,6 @@
   ]
 },{
   "name": "ERC721Token",
-  "implements": null,
   "fields": [
     { "name": "contract",                "type": "ERC721Contract!"                     },
     { "name": "identifier",              "type": "BigInt!"                             },
@@ -34,7 +31,6 @@
   ]
 },{
   "name": "ERC721Operator",
-  "implements": null,
   "fields": [
     { "name": "contract",                "type": "ERC721Contract!" },
     { "name": "owner",                   "type": "Account!"        },
@@ -43,7 +39,7 @@
   ]
 },{
   "name": "ERC721Transfer",
-  "implements": "Event",
+  "parent": "Event",
   "fields": [
     { "name": "transaction",             "type": "Transaction!"    },
     { "name": "timestamp",               "type": "BigInt!"         },

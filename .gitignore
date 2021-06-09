@@ -3,4 +3,9 @@ node_modules
 artifacts
 build
 cache
-generated
+
+generated/*
+!generated/all.schema.graphql
+!generated/accesscontrol.schema.graphql
+!generated/erc20.schema.graphql
+!generated/erc721.schema.graphql

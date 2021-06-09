@@ -1,0 +1,44 @@
+type Account @entity {
+  id: ID!
+  asERC20: ERC20Contract
+  asERC721: ERC20Contract
+  ERC721tokens: [ERC721Token]! @derivedFrom(field: "owner")
+  ERC721operatorOwner: [ERC721Operator]! @derivedFrom(field: "owner")
+  ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
+  ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
+  ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
+}
+type ERC721Contract @entity {
+  id: ID!
+  supportsMetadata: Boolean
+  name: String
+  symbol: String
+  tokens: [ERC721Token!]! @derivedFrom(field: "contract")
+  operators: [ERC721Operator!]! @derivedFrom(field: "contract")
+  transfers: [ERC721Transfer!]! @derivedFrom(field: "contract")
+}
+type ERC721Token @entity {
+  id: ID!
+  contract: ERC721Contract!
+  identifier: BigInt!
+  owner: Account!
+  approval: Account!
+  uri: String
+  transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
+}
+type ERC721Operator @entity {
+  id: ID!
+  contract: ERC721Contract!
+  owner: Account!
+  operator: Account!
+  approved: Boolean!
+}
+type ERC721Transfer implements Event @entity {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  contract: ERC721Contract!
+  token: ERC721Token!
+  from: Account!
+  to: Account!
+}
