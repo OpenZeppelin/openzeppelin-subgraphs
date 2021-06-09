@@ -139,3 +139,32 @@ type ERC721Transfer implements Event @entity {
   from: Account!
   to: Account!
 }
+type DecimalValue @entity {
+	id:                           ID!
+	value:                        BigDecimal!
+	exact:                        BigInt!
+	decimals:                     Int!
+}
+
+interface Event {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type Transaction @entity {
+	id:                           ID!
+	timestamp:                    BigInt!
+	blockNumber:                  BigInt!
+	events:                       [Event!]! @derivedFrom(field: "transaction")
+}
+
+type PersistentStringArray @entity {
+	id:                           ID!
+	values:                       [String!]!
+}
+
+type PersistentString @entity {
+	id:                           ID!
+	value:                        String!
+}

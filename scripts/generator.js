@@ -29,8 +29,8 @@ function writeFile(file, data) {
  *                                                 Schema generation                                                 *
  *********************************************************************************************************************/
 class Schema extends Array {
-  static load(name, dir = path.resolve(__dirname, '../src/datasources/')) {
-    return JSON.parse(readFile(path.resolve(dir, `${name}.gql.json`))).map(e => new SchemaEntry(e));
+  static load(file) {
+    return JSON.parse(readFile(file)).map(e => new SchemaEntry(e));
   }
 
   toString() {
@@ -150,7 +150,7 @@ class Config {
   }
 
   schema() {
-    return Schema.from(this.modules().flatMap(module => Schema.load(module))).sanitize();
+    return Schema.from(this.modules().flatMap(module => Schema.load(path.resolve(__dirname, `../src/datasources/${module}.gql.json`)))).sanitize();
   }
 
   subgraph(schema = `${path.basename(this.receipt.output)}.schema.graphql`) {
@@ -163,7 +163,10 @@ class Config {
 
   argv.exportSchema && writeFile(
     path.resolve(__dirname, `${config.receipt.output}.schema.graphql`),
-    config.schema().toString(),
+    [
+      config.schema().toString(),
+      readFile(path.resolve(__dirname, '../node_modules/@amxx/graphprotocol-utils/generated/schema.graphql')),
+    ].join('')
   );
 
   argv.exportSubgraph && writeFile(
