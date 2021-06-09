@@ -10,7 +10,7 @@
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - IERC721
+        - ERC721Contract
       abis:
         - name: IERC721
           file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC721Metadata.json

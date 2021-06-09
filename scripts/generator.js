@@ -161,17 +161,19 @@ class Config {
 (async () => {
   const config = new Config(argv.path);
 
-  argv.exportSchema && writeFile(
-    path.resolve(__dirname, `${config.receipt.output}.schema.graphql`),
-    [
+  if (argv.exportSchema) {
+    const file = path.resolve(__dirname, `${config.receipt.output}.schema.graphql`);
+    writeFile(file, [
       config.schema().toString(),
       readFile(path.resolve(__dirname, '../node_modules/@amxx/graphprotocol-utils/generated/schema.graphql')),
-    ].join('')
-  );
+    ].join(''));
+    console.log(`- Schema exported to ${file}`)
+  }
 
-  argv.exportSubgraph && writeFile(
-    path.resolve(__dirname, `${config.receipt.output}.subgraph.yaml`),
-    config.subgraph().toString(),
-  );
+  if (argv.exportSubgraph) {
+    const file = path.resolve(__dirname, `${config.receipt.output}.subgraph.yaml`);
+    writeFile(file, config.subgraph().toString());
+    console.log(`- Manifest exported to ${file}`)
+  }
 
 })().catch(console.error)

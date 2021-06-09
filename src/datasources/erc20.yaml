@@ -10,7 +10,7 @@
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - ERC20
+        - ERC20Contract
       abis:
         - name: IERC20
           file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
