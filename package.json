@@ -15,10 +15,7 @@
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
     "prepare": "bash scripts/prepare.sh",
-    "build": "yarn build:codegen && yarn build:compile",
-    "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
-    "build:compile": "graph build ${SUBGRAPH:-generated/subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/subgraph.yaml}"
+    "test": "bash scripts/test.sh"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.0.0"
