@@ -21,6 +21,7 @@ This repo contains subgraph schema and templates to index the activity of Openze
 - AccessControl
 - ERC20
 - ERC721
+- ERC1155
 
 ## How to build my app's subgraph
 
