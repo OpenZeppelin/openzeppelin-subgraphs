@@ -123,7 +123,7 @@ class Subgraph {
       header
         .replace(/\{(\w+)\}/g, (_, varname) => ({ schema: this.schema })[varname]),
       this.config.receipt.datasources
-        .flatMap(datasource => [].concat(datasource.module).map(module => Object.assign(datasource, { module })))
+        .flatMap(datasource => [].concat(datasource.module).map(module => ({ ...datasource, module })))
         .map((datasource, i, array) => Object.assign(
           {
             id:         array.findIndex(({ module }) => module === datasource.module) === i ? datasource.module : `${datasource.module}-${i}`,
