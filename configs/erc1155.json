@@ -1,4 +1,10 @@
 {
   "output": "../generated/erc1155",
-  "datasources": [{ "module": "erc1155" }]
+  "datasources": [
+    {
+      "module": [
+        "erc1155"
+      ]
+    }
+  ]
 }

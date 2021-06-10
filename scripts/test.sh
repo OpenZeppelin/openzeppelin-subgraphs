@@ -9,14 +9,18 @@ function test() {
   {
     printf '{'
     printf '"output": "%s",' "../$tmp"
-    printf '"chain": "%s",' "mainnet"
     printf '"datasources": ['
+    printf '{'
+    printf '"address": "0x0000000000000000000000000000000000000000",'
+    printf '"module": ['
     {
       for module in "${modules[@]}";
       do
-        printf '{"address": "0x0000000000000000000000000000000000000000", "module": "%s"},' "`basename $module .yaml`"
+        printf '"%s",' "`basename $module .yaml`"
       done
     } | sed '$s/,$//'
+    printf ']'
+    printf '}'
     printf ']'
     printf '}'
   } | jq > $tmp

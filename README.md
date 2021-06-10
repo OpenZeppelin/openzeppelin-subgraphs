@@ -27,7 +27,7 @@ This repo contains subgraph schema and templates to index the activity of Openze
 
 In order to build your subgraph, the first step is to create a JSON file listing the modules you want to index. Examples of such config can be found in the `config` folder.
 
-For example, `cconfig/examples/sample.json` describes an app with 4 contracts, the first one is an `ERC20` with `AccessControl`, while the 3 others are `ERC721` registries.
+For example, `configs/sample.json` describes an app with 4 contracts, the first one is an `ERC20` with `AccessControl`, while the 3 others are `ERC721` registries.
 
 ```
 {
@@ -45,7 +45,7 @@ For example, `cconfig/examples/sample.json` describes an app with 4 contracts, t
 It can be compiled by doing
 
 ```
-node scripts/generator.js --path configs/examples/sample.json --export-subgraph --export-schema
+node scripts/generator.js --path configs/sample.json --export-subgraph --export-schema
 ```
 
 This will create two files, `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.

@@ -1,4 +1,10 @@
 {
   "output": "../generated/accesscontrol",
-  "datasources": [{ "module": "accesscontrol" }]
+  "datasources": [
+    {
+      "module": [
+        "accesscontrol"
+      ]
+    }
+  ]
 }
