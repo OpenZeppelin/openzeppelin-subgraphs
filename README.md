@@ -22,6 +22,7 @@ This repo contains subgraph schema and templates to index the activity of Openze
 - ERC20
 - ERC721
 - ERC1155
+- Timelock
 
 ## How to build my app's subgraph
 
