@@ -1,8 +1,8 @@
 import {
-	TimelockControllerOperationScheduled,
-	TimelockControllerOperationExecuted,
-	TimelockControllerOperationCancelled,
-	TimelockControllerMinDelayChange,
+	TimelockOperationScheduled,
+	TimelockOperationExecuted,
+	TimelockOperationCancelled,
+	TimelockMinDelayChange,
 } from '../../generated/schema'
 //
 import {
@@ -10,7 +10,7 @@ import {
 	CallScheduled  as CallScheduledEvent,
 	Cancelled      as CancelledEvent,
 	MinDelayChange as MinDelayChangeEvent,
-} from '../../generated/timelockcontroller/TimelockController'
+} from '../../generated/timelock/Timelock'
 
 import {
 // 	constants,
@@ -24,17 +24,17 @@ import {
 } from '../fetch/account'
 
 import {
-	fetchTimelockController,
-	fetchTimelockControllerOperation,
-	fetchTimelockControllerCall,
-} from '../fetch/timelockcontroller'
+	fetchTimelock,
+	fetchTimelockOperation,
+	fetchTimelockCall,
+} from '../fetch/timelock'
 
 
 export function handleCallScheduled(event: CallScheduledEvent): void
 {
-	let contract          = fetchTimelockController(event.address)
-	let operation         = fetchTimelockControllerOperation(contract, event.params.id)
-	let call              = fetchTimelockControllerCall(operation, event.params.index)
+	let contract          = fetchTimelock(event.address)
+	let operation         = fetchTimelockOperation(contract, event.params.id)
+	let call              = fetchTimelockCall(operation, event.params.index)
 	let target            = fetchAccount(event.params.target)
 
 	operation.status      = "SCHEDULED"
@@ -50,7 +50,7 @@ export function handleCallScheduled(event: CallScheduledEvent): void
 	call.data             = event.params.data
 	call.save()
 
-	let ev                = new TimelockControllerOperationScheduled(events.id(event))
+	let ev                = new TimelockOperationScheduled(events.id(event))
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -60,13 +60,13 @@ export function handleCallScheduled(event: CallScheduledEvent): void
 }
 
 export function handleCallExecuted(event: CallExecutedEvent): void {
-	let contract          = fetchTimelockController(event.address)
-	let operation         = fetchTimelockControllerOperation(contract, event.params.id)
-	let call              = fetchTimelockControllerCall(operation, event.params.index)
+	let contract          = fetchTimelock(event.address)
+	let operation         = fetchTimelockOperation(contract, event.params.id)
+	let call              = fetchTimelockCall(operation, event.params.index)
 	operation.status      = "EXECUTED"
 	operation.save()
 
-	let ev                = new TimelockControllerOperationExecuted(events.id(event))
+	let ev                = new TimelockOperationExecuted(events.id(event))
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -76,12 +76,12 @@ export function handleCallExecuted(event: CallExecutedEvent): void {
 }
 
 export function handleCancelled(event: CancelledEvent): void {
-	let contract          = fetchTimelockController(event.address)
-	let operation         = fetchTimelockControllerOperation(contract, event.params.id)
+	let contract          = fetchTimelock(event.address)
+	let operation         = fetchTimelockOperation(contract, event.params.id)
 	operation.status      = "CANCELED"
 	operation.save()
 
-	let ev                = new TimelockControllerOperationCancelled(events.id(event))
+	let ev                = new TimelockOperationCancelled(events.id(event))
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -90,9 +90,9 @@ export function handleCancelled(event: CancelledEvent): void {
 }
 
 export function handleMinDelayChange(event: MinDelayChangeEvent): void {
-	let contract          = fetchTimelockController(event.address)
+	let contract          = fetchTimelock(event.address)
 
-	let ev                = new TimelockControllerMinDelayChange(events.id(event))
+	let ev                = new TimelockMinDelayChange(events.id(event))
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id

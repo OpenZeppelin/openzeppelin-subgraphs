@@ -3,16 +3,16 @@
     network: {chain}
     source:
       address: "{address}"
-      abi: TimelockController
+      abi: Timelock
       startBlock: {startBlock}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - TimelockController
+        - Timelock
       abis:
-        - name: TimelockController
+        - name: Timelock
           file: ../node_modules/@openzeppelin/contracts/build/contracts/TimelockController.json
       eventHandlers:
         - event: CallScheduled(indexed bytes32,indexed uint256,address,uint256,bytes,bytes32,uint256)
@@ -23,4 +23,4 @@
           handler: handleCancelled
         - event: MinDelayChange(uint256,uint256)
           handler: handleMinDelayChange
-      file: ../src/datasources/timelockcontroller.ts
+      file: ../src/datasources/timelock.ts

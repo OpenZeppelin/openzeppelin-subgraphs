@@ -1,4 +1,5 @@
 type Account @entity {
+  id: ID!
 	asERC20: ERC20Contract
 	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
 	ERC20approvalsOwner: [ERC20Approval!]! @derivedFrom(field: "owner")
@@ -7,6 +8,7 @@ type Account @entity {
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
 }
 type ERC20Contract @entity {
+  id: ID!
 	asAccount: Account!
 	name: String
 	symbol: String
@@ -16,6 +18,7 @@ type ERC20Contract @entity {
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC20Balance @entity {
+  id: ID!
 	contract: ERC20Contract!
 	account: Account!
 	value: DecimalValue!
@@ -24,6 +27,7 @@ type ERC20Balance @entity {
 	transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC20Approval @entity {
+  id: ID!
 	contract: ERC20Contract!
 	owner: Account!
 	spender: Account!
@@ -31,6 +35,7 @@ type ERC20Approval @entity {
 	valueExact: BigInt!
 }
 type ERC20Transfer implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!

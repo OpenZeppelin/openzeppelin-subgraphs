@@ -1,4 +1,5 @@
 type Account @entity {
+  id: ID!
 	asERC1155: ERC1155Contract
 	ERC1155balances: [ERC1155Balance!]! @derivedFrom(field: "account")
 	ERC1155operatorOwner: [ERC1155Operator!]! @derivedFrom(field: "owner")
@@ -8,6 +9,7 @@ type Account @entity {
 	ERC1155transferOperatorEvent: [ERC1155Transfer!]! @derivedFrom(field: "operator")
 }
 type ERC1155Contract @entity {
+  id: ID!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
@@ -15,6 +17,7 @@ type ERC1155Contract @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC1155Token @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	identifier: BigInt!
 	uri: String
@@ -24,6 +27,7 @@ type ERC1155Token @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
 }
 type ERC1155Balance @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	account: Account!
@@ -33,12 +37,14 @@ type ERC1155Balance @entity {
 	transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC1155Operator @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC1155Transfer implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC1155Contract!

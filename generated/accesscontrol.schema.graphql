@@ -1,4 +1,5 @@
 type Account @entity {
+  id: ID!
 	asAccessControl: AccessControl
 	membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
 	roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
@@ -7,14 +8,17 @@ type Account @entity {
 	roleRevokedSender: [RoleRevoked!]! @derivedFrom(field: "sender")
 }
 type AccessControl @entity {
+  id: ID!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
+  id: ID!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 	adminOf: [AccessControlRole!]! @derivedFrom(field: "admin")
 }
 type AccessControlRole @entity {
+  id: ID!
 	contract: AccessControl!
 	role: Role!
 	admin: Role
@@ -24,10 +28,12 @@ type AccessControlRole @entity {
 	roleAdminChanged: [RoleAdminChanged!]! @derivedFrom(field: "role")
 }
 type AccessControlRoleMember @entity {
+  id: ID!
 	accesscontrolrole: AccessControlRole!
 	account: Account!
 }
 type RoleAdminChanged implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -35,6 +41,7 @@ type RoleAdminChanged implements Event @entity {
 	previousAdminRole: Role!
 }
 type RoleGranted implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -42,6 +49,7 @@ type RoleGranted implements Event @entity {
 	sender: Account!
 }
 type RoleRevoked implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!

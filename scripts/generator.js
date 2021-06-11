@@ -69,7 +69,7 @@ class SchemaEntry {
       : `type ${this.name} @entity {\n`
       : `enum ${this.name} {\n`,
       // id
-      !isType && `  id: ID!\n`,
+      isType && `  id: ID!\n`,
       // entities
       isType
       ? this.fields.map(field =>

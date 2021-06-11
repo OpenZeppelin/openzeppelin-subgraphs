@@ -1,4 +1,5 @@
 type Account @entity {
+  id: ID!
 	asAccessControl: AccessControl
 	membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
 	roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
@@ -24,18 +25,21 @@ type Account @entity {
 	ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
 	ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
 	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
-	asTimelockController: TimelockController
-	timelockedCalls: [TimelockControllerCall!]! @derivedFrom(field: "target")
+	asTimelock: Timelock
+	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 }
 type AccessControl @entity {
+  id: ID!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
+  id: ID!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 	adminOf: [AccessControlRole!]! @derivedFrom(field: "admin")
 }
 type AccessControlRole @entity {
+  id: ID!
 	contract: AccessControl!
 	role: Role!
 	admin: Role
@@ -45,10 +49,12 @@ type AccessControlRole @entity {
 	roleAdminChanged: [RoleAdminChanged!]! @derivedFrom(field: "role")
 }
 type AccessControlRoleMember @entity {
+  id: ID!
 	accesscontrolrole: AccessControlRole!
 	account: Account!
 }
 type RoleAdminChanged implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -56,6 +62,7 @@ type RoleAdminChanged implements Event @entity {
 	previousAdminRole: Role!
 }
 type RoleGranted implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -63,6 +70,7 @@ type RoleGranted implements Event @entity {
 	sender: Account!
 }
 type RoleRevoked implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -70,6 +78,7 @@ type RoleRevoked implements Event @entity {
 	sender: Account!
 }
 type ERC1155Contract @entity {
+  id: ID!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
@@ -77,6 +86,7 @@ type ERC1155Contract @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC1155Token @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	identifier: BigInt!
 	uri: String
@@ -86,6 +96,7 @@ type ERC1155Token @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
 }
 type ERC1155Balance @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	account: Account!
@@ -95,12 +106,14 @@ type ERC1155Balance @entity {
 	transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC1155Operator @entity {
+  id: ID!
 	contract: ERC1155Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC1155Transfer implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC1155Contract!
@@ -114,6 +127,7 @@ type ERC1155Transfer implements Event @entity {
 	valueExact: BigInt!
 }
 type ERC20Contract @entity {
+  id: ID!
 	asAccount: Account!
 	name: String
 	symbol: String
@@ -123,6 +137,7 @@ type ERC20Contract @entity {
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC20Balance @entity {
+  id: ID!
 	contract: ERC20Contract!
 	account: Account!
 	value: DecimalValue!
@@ -131,6 +146,7 @@ type ERC20Balance @entity {
 	transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC20Approval @entity {
+  id: ID!
 	contract: ERC20Contract!
 	owner: Account!
 	spender: Account!
@@ -138,6 +154,7 @@ type ERC20Approval @entity {
 	valueExact: BigInt!
 }
 type ERC20Transfer implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!
@@ -149,6 +166,7 @@ type ERC20Transfer implements Event @entity {
 	valueExact: BigInt!
 }
 type ERC721Contract @entity {
+  id: ID!
 	asAccount: Account!
 	supportsMetadata: Boolean
 	name: String
@@ -158,6 +176,7 @@ type ERC721Contract @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC721Token @entity {
+  id: ID!
 	contract: ERC721Contract!
 	identifier: BigInt!
 	owner: Account!
@@ -166,12 +185,14 @@ type ERC721Token @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
 }
 type ERC721Operator @entity {
+  id: ID!
 	contract: ERC721Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC721Transfer implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC721Contract!
@@ -179,64 +200,70 @@ type ERC721Transfer implements Event @entity {
 	from: Account!
 	to: Account!
 }
-type TimelockController @entity {
-	asAccount: Account
-	operations: [TimelockControllerOperation!]! @derivedFrom(field: "contract")
-	scheduled: [TimelockControllerOperationScheduled!]! @derivedFrom(field: "contract")
-	executed: [TimelockControllerOperationExecuted!]! @derivedFrom(field: "contract")
-	cancelled: [TimelockControllerOperationCancelled!]! @derivedFrom(field: "contract")
-	mindelaychange: [TimelockControllerMinDelayChange!]! @derivedFrom(field: "contract")
-}
-enum TimelockControllerStatus {
+type Timelock @entity {
   id: ID!
+	asAccount: Account
+	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
+	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
+	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "contract")
+	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "contract")
+	mindelaychange: [TimelockMinDelayChange!]! @derivedFrom(field: "contract")
+}
+enum TimelockStatus {
 	SCHEDULED
 	EXECUTED
 	CANCELED
 }
-type TimelockControllerOperation @entity {
-	contract: TimelockController!
-	status: TimelockControllerStatus!
+type TimelockOperation @entity {
+  id: ID!
+	contract: Timelock!
+	status: TimelockStatus!
 	delay: BigInt!
 	timestamp: BigInt!
-	predecessor: TimelockControllerOperation
-	calls: [TimelockControllerCall!]! @derivedFrom(field: "operation")
-	scheduled: [TimelockControllerOperationScheduled!]! @derivedFrom(field: "operation")
-	executed: [TimelockControllerOperationExecuted!]! @derivedFrom(field: "operation")
-	cancelled: [TimelockControllerOperationCancelled!]! @derivedFrom(field: "operation")
+	predecessor: TimelockOperation
+	calls: [TimelockCall!]! @derivedFrom(field: "operation")
+	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "operation")
+	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "operation")
+	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "operation")
 }
-type TimelockControllerCall @entity {
-	operation: TimelockControllerOperation!
+type TimelockCall @entity {
+  id: ID!
+	operation: TimelockOperation!
 	index: BigInt!
 	target: Account!
 	value: BigDecimal!
 	data: Bytes!
-	scheduled: [TimelockControllerOperationScheduled!]! @derivedFrom(field: "call")
-	executed: [TimelockControllerOperationExecuted!]! @derivedFrom(field: "call")
+	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "call")
+	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "call")
 }
-type TimelockControllerOperationScheduled implements Event @entity {
+type TimelockOperationScheduled implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: TimelockController!
-	operation: TimelockControllerOperation!
-	call: TimelockControllerCall!
+	contract: Timelock!
+	operation: TimelockOperation!
+	call: TimelockCall!
 }
-type TimelockControllerOperationExecuted implements Event @entity {
+type TimelockOperationExecuted implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: TimelockController!
-	operation: TimelockControllerOperation!
-	call: TimelockControllerCall!
+	contract: Timelock!
+	operation: TimelockOperation!
+	call: TimelockCall!
 }
-type TimelockControllerOperationCancelled implements Event @entity {
+type TimelockOperationCancelled implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: TimelockController!
-	operation: TimelockControllerOperation!
+	contract: Timelock!
+	operation: TimelockOperation!
 }
-type TimelockControllerMinDelayChange implements Event @entity {
+type TimelockMinDelayChange implements Event @entity {
+  id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: TimelockController!
+	contract: Timelock!
 	delay: BigInt!
 }
 type DecimalValue @entity {
