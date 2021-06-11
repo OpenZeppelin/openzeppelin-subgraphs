@@ -6,7 +6,8 @@
         "accesscontrol",
         "erc1155",
         "erc20",
-        "erc721"
+        "erc721",
+        "timelockcontroller"
       ]
     }
   ]

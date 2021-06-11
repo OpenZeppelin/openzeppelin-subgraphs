@@ -1,0 +1,10 @@
+{
+  "output": "../generated/timelockcontroller",
+  "datasources": [
+    {
+      "module": [
+        "timelockcontroller"
+      ]
+    }
+  ]
+}

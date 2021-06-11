@@ -48,25 +48,38 @@ class Schema extends Array {
 }
 
 class SchemaEntry {
-  constructor({ name, fields = [], parent = null }) {
+  constructor({ name, fields = [], enums = [],   parent = null }) {
+    assert(
+      enums.length == 0 || fields.length == 0,
+      `Error loading schema entry ${name}: Entry contains both enums and fields`,
+    );
     this.name   = name;
     this.fields = fields;
+    this.enums  = enums
     this.parent = parent;
   }
 
   toString() {
-    return [
-      this.parent
-        ? `type ${this.name} implements ${this.parent} @entity {\n`
-        : `type ${this.name} @entity {\n`,
-      `  id: ID!\n`,
-      ...this.fields.map(field =>
+    const isType = this.enums.length == 0;
+    return [].concat(
+      // entity header
+      isType
+      ? this.parent
+      ? `type ${this.name} implements ${this.parent} @entity {\n`
+      : `type ${this.name} @entity {\n`
+      : `enum ${this.name} {\n`,
+      // id
+      !isType && `  id: ID!\n`,
+      // entities
+      isType
+      ? this.fields.map(field =>
           field.derived
-          ? `  ${field.name}: [${field.type}]! @derivedFrom(field: "${field.derived}")\n`
-          : `  ${field.name}: ${field.type}\n`
-      ),
+          ? `\t${field.name}: [${field.type}]! @derivedFrom(field: "${field.derived}")\n`
+          : `\t${field.name}: ${field.type}\n`
+        )
+      : this.enums.map(name => `\t${name}\n`),
       `}\n`,
-    ].join('');
+    ).filter(Boolean).join('')
   }
 
   static fieldConflict(f1, f2) {
@@ -86,6 +99,10 @@ class SchemaEntry {
       `Error merging schema entries: inheritance do not match for ${entry.name}`,
     );
     assert(
+      !!entry.enums === !!acc.enums,
+      `Error merging schema entries: enum/type clash`,
+    );
+    assert(
       entry.fields.every(f1 => acc.fields.every(f2 => !SchemaEntry.fieldConflict(f1, f2))),
       `Error merging schema entries: incompatible fields found for ${entry.name}`,
     );
@@ -94,6 +111,7 @@ class SchemaEntry {
       name:       entry.name,
       implements: entry.implements,
       fields:     [].concat(entry.fields, acc.fields).unique(({ name }) => name),
+      enums:      [].concat(entry.enums,  acc.enums).unique(),
     });
   }
 }

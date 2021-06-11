@@ -34,16 +34,19 @@ function test() {
 
 
 
-
-
 shopt -s nullglob
 modules=(src/datasources/*.yaml)
 
-for module in "${modules[@]}";
-do
-  echo "Test module `basename $module .yaml`"
-  test $module
-done;
+if [ $# -eq 0 ];
+then
+  for module in ${modules[@]};
+  do
+      echo "Test module `basename $module .yaml`"
+      test $module
+    done;
 
-echo "Test all modules"
-test "${modules[@]}"
+    echo "Test all modules"
+    test ${modules[@]}
+else
+  test $@
+fi

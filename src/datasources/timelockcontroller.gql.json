@@ -1,0 +1,86 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asTimelockController", "type": "TimelockController"                                            },
+    { "name": "timelockedCalls",      "type": "TimelockControllerCall!",               "derived": "target"    }
+  ]
+},{
+  "name": "TimelockController",
+  "fields": [
+    { "name": "asAccount" ,           "type": "Account"                                                       },
+    { "name": "operations",           "type": "TimelockControllerOperation!",          "derived": "contract"  },
+    { "name": "scheduled",            "type": "TimelockControllerOperationScheduled!", "derived": "contract"  },
+    { "name": "executed",             "type": "TimelockControllerOperationExecuted!",  "derived": "contract"  },
+    { "name": "cancelled",            "type": "TimelockControllerOperationCancelled!", "derived": "contract"  },
+    { "name": "mindelaychange",       "type": "TimelockControllerMinDelayChange!",     "derived": "contract"  }
+  ]
+},{
+  "name": "TimelockControllerStatus",
+  "enums": [
+    "SCHEDULED",
+    "EXECUTED",
+    "CANCELED"
+  ]
+},{
+  "name": "TimelockControllerOperation",
+  "fields": [
+    { "name": "contract",             "type": "TimelockController!"                                           },
+    { "name": "status",               "type": "TimelockControllerStatus!"                                     },
+    { "name": "delay",                "type": "BigInt!"                                                       },
+    { "name": "timestamp",            "type": "BigInt!"                                                       },
+    { "name": "predecessor",          "type": "TimelockControllerOperation"                                   },
+    { "name": "calls",                "type": "TimelockControllerCall!",               "derived": "operation" },
+    { "name": "scheduled",            "type": "TimelockControllerOperationScheduled!", "derived": "operation" },
+    { "name": "executed",             "type": "TimelockControllerOperationExecuted!",  "derived": "operation" },
+    { "name": "cancelled",            "type": "TimelockControllerOperationCancelled!", "derived": "operation" }
+  ]
+},{
+  "name": "TimelockControllerCall",
+  "fields": [
+    { "name": "operation",            "type": "TimelockControllerOperation!"                                  },
+    { "name": "index",                "type": "BigInt!"                                                       },
+    { "name": "target",               "type": "Account!"                                                      },
+    { "name": "value",                "type": "BigDecimal!"                                                   },
+    { "name": "data",                 "type": "Bytes!"                                                        },
+    { "name": "scheduled",            "type": "TimelockControllerOperationScheduled!", "derived": "call"      },
+    { "name": "executed",             "type": "TimelockControllerOperationExecuted!",  "derived": "call"      }
+  ]
+},{
+  "name": "TimelockControllerOperationScheduled",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                 },
+    { "name": "timestamp",            "type": "BigInt!"                      },
+    { "name": "contract",             "type": "TimelockController!"          },
+    { "name": "operation",            "type": "TimelockControllerOperation!" },
+    { "name": "call",                 "type": "TimelockControllerCall!"      }
+  ]
+},{
+  "name": "TimelockControllerOperationExecuted",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                 },
+    { "name": "timestamp",            "type": "BigInt!"                      },
+    { "name": "contract",             "type": "TimelockController!"          },
+    { "name": "operation",            "type": "TimelockControllerOperation!" },
+    { "name": "call",                 "type": "TimelockControllerCall!"      }
+  ]
+},{
+  "name": "TimelockControllerOperationCancelled",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                 },
+    { "name": "timestamp",            "type": "BigInt!"                      },
+    { "name": "contract",             "type": "TimelockController!"          },
+    { "name": "operation",            "type": "TimelockControllerOperation!" }
+  ]
+},{
+  "name": "TimelockControllerMinDelayChange",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                 },
+    { "name": "timestamp",            "type": "BigInt!"                      },
+    { "name": "contract",             "type": "TimelockController!"          },
+    { "name": "delay",                "type": "BigInt!"                      }
+  ]
+}]
