@@ -1,5 +1,5 @@
 type Account @entity {
-  id: ID!
+	id: ID!
 	asERC721: ERC721Contract
 	ERC721tokens: [ERC721Token]! @derivedFrom(field: "owner")
 	ERC721operatorOwner: [ERC721Operator]! @derivedFrom(field: "owner")
@@ -8,7 +8,7 @@ type Account @entity {
 	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
 }
 type ERC721Contract @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account!
 	supportsMetadata: Boolean
 	name: String
@@ -18,7 +18,7 @@ type ERC721Contract @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC721Token @entity {
-  id: ID!
+	id: ID!
 	contract: ERC721Contract!
 	identifier: BigInt!
 	owner: Account!
@@ -27,14 +27,14 @@ type ERC721Token @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
 }
 type ERC721Operator @entity {
-  id: ID!
+	id: ID!
 	contract: ERC721Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC721Transfer implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC721Contract!

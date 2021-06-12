@@ -1,5 +1,5 @@
 type Account @entity {
-  id: ID!
+	id: ID!
 	asAccessControl: AccessControl
 	membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
 	roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
@@ -29,17 +29,17 @@ type Account @entity {
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 }
 type AccessControl @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
-  id: ID!
+	id: ID!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 	adminOf: [AccessControlRole!]! @derivedFrom(field: "admin")
 }
 type AccessControlRole @entity {
-  id: ID!
+	id: ID!
 	contract: AccessControl!
 	role: Role!
 	admin: Role
@@ -49,12 +49,12 @@ type AccessControlRole @entity {
 	roleAdminChanged: [RoleAdminChanged!]! @derivedFrom(field: "role")
 }
 type AccessControlRoleMember @entity {
-  id: ID!
+	id: ID!
 	accesscontrolrole: AccessControlRole!
 	account: Account!
 }
 type RoleAdminChanged implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -62,7 +62,7 @@ type RoleAdminChanged implements Event @entity {
 	previousAdminRole: Role!
 }
 type RoleGranted implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -70,7 +70,7 @@ type RoleGranted implements Event @entity {
 	sender: Account!
 }
 type RoleRevoked implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -78,7 +78,7 @@ type RoleRevoked implements Event @entity {
 	sender: Account!
 }
 type ERC1155Contract @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
@@ -86,7 +86,7 @@ type ERC1155Contract @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC1155Token @entity {
-  id: ID!
+	id: ID!
 	contract: ERC1155Contract!
 	identifier: BigInt!
 	uri: String
@@ -96,7 +96,7 @@ type ERC1155Token @entity {
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
 }
 type ERC1155Balance @entity {
-  id: ID!
+	id: ID!
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	account: Account!
@@ -106,14 +106,14 @@ type ERC1155Balance @entity {
 	transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC1155Operator @entity {
-  id: ID!
+	id: ID!
 	contract: ERC1155Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC1155Transfer implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC1155Contract!
@@ -127,7 +127,7 @@ type ERC1155Transfer implements Event @entity {
 	valueExact: BigInt!
 }
 type ERC20Contract @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account!
 	name: String
 	symbol: String
@@ -137,7 +137,7 @@ type ERC20Contract @entity {
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC20Balance @entity {
-  id: ID!
+	id: ID!
 	contract: ERC20Contract!
 	account: Account!
 	value: DecimalValue!
@@ -146,7 +146,7 @@ type ERC20Balance @entity {
 	transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "toBalance")
 }
 type ERC20Approval @entity {
-  id: ID!
+	id: ID!
 	contract: ERC20Contract!
 	owner: Account!
 	spender: Account!
@@ -154,7 +154,7 @@ type ERC20Approval @entity {
 	valueExact: BigInt!
 }
 type ERC20Transfer implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!
@@ -166,7 +166,7 @@ type ERC20Transfer implements Event @entity {
 	valueExact: BigInt!
 }
 type ERC721Contract @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account!
 	supportsMetadata: Boolean
 	name: String
@@ -176,7 +176,7 @@ type ERC721Contract @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC721Token @entity {
-  id: ID!
+	id: ID!
 	contract: ERC721Contract!
 	identifier: BigInt!
 	owner: Account!
@@ -185,14 +185,14 @@ type ERC721Token @entity {
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
 }
 type ERC721Operator @entity {
-  id: ID!
+	id: ID!
 	contract: ERC721Contract!
 	owner: Account!
 	operator: Account!
 	approved: Boolean!
 }
 type ERC721Transfer implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC721Contract!
@@ -201,7 +201,7 @@ type ERC721Transfer implements Event @entity {
 	to: Account!
 }
 type Timelock @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
@@ -215,7 +215,7 @@ enum TimelockStatus {
 	CANCELED
 }
 type TimelockOperation @entity {
-  id: ID!
+	id: ID!
 	contract: Timelock!
 	status: TimelockStatus!
 	delay: BigInt!
@@ -227,7 +227,7 @@ type TimelockOperation @entity {
 	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "operation")
 }
 type TimelockCall @entity {
-  id: ID!
+	id: ID!
 	operation: TimelockOperation!
 	index: BigInt!
 	target: Account!
@@ -237,7 +237,7 @@ type TimelockCall @entity {
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "call")
 }
 type TimelockOperationScheduled implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -245,7 +245,7 @@ type TimelockOperationScheduled implements Event @entity {
 	call: TimelockCall!
 }
 type TimelockOperationExecuted implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -253,14 +253,14 @@ type TimelockOperationExecuted implements Event @entity {
 	call: TimelockCall!
 }
 type TimelockOperationCancelled implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
 	operation: TimelockOperation!
 }
 type TimelockMinDelayChange implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!

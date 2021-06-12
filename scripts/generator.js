@@ -30,7 +30,7 @@ function writeFile(file, data) {
  *********************************************************************************************************************/
 class Schema extends Array {
   static load(file) {
-    return JSON.parse(readFile(file)).map(e => new SchemaEntry(e));
+    return JSON.parse(readFile(file)).map(SchemaEntry.from);
   }
 
   toString() {
@@ -48,42 +48,43 @@ class Schema extends Array {
 }
 
 class SchemaEntry {
-  constructor({ name, fields = [], enums = [],   parent = null }) {
+  constructor({ name, fields = [], enums = [], parent = null }) {
     assert(
       enums.length == 0 || fields.length == 0,
       `Error loading schema entry ${name}: Entry contains both enums and fields`,
     );
     this.name   = name;
-    this.fields = fields;
-    this.enums  = enums
+    this.fields = fields.map(SchemaEntryField.from);
+    this.enums  = enums;
     this.parent = parent;
+
+    // add id field
+    if (this.enums.length == 0 && !this.fields.find(({ name, type }) => name === 'id' && type === 'ID!')) {
+      this.fields.unshift(new SchemaEntryField());
+    }
   }
 
   toString() {
-    const isType = this.enums.length == 0;
     return [].concat(
       // entity header
-      isType
+      this.enums.length == 0
       ? this.parent
       ? `type ${this.name} implements ${this.parent} @entity {\n`
       : `type ${this.name} @entity {\n`
       : `enum ${this.name} {\n`,
-      // id
-      isType && `  id: ID!\n`,
       // entities
-      isType
-      ? this.fields.map(field =>
-          field.derived
-          ? `\t${field.name}: [${field.type}]! @derivedFrom(field: "${field.derived}")\n`
-          : `\t${field.name}: ${field.type}\n`
-        )
-      : this.enums.map(name => `\t${name}\n`),
+      (
+        this.enums.length == 0
+        ? this.fields
+        : this.enums
+      ).map(e => `\t${e}\n`),
+
       `}\n`,
     ).filter(Boolean).join('')
   }
 
-  static fieldConflict(f1, f2) {
-    return f1.name === f2.name && (f1.type !== f2.type || f1.derived !== f2.derived);
+  static from(obj) {
+    return new SchemaEntry(obj);
   }
 
   static merge(entry, ...others) {
@@ -103,16 +104,38 @@ class SchemaEntry {
       `Error merging schema entries: enum/type clash`,
     );
     assert(
-      entry.fields.every(f1 => acc.fields.every(f2 => !SchemaEntry.fieldConflict(f1, f2))),
+      entry.fields.every(f1 => acc.fields.every(f2 => !SchemaEntryField.conflict(f1, f2))),
       `Error merging schema entries: incompatible fields found for ${entry.name}`,
     );
 
-    return new SchemaEntry({
+    return SchemaEntry.from({
       name:       entry.name,
       implements: entry.implements,
       fields:     [].concat(entry.fields, acc.fields).unique(({ name }) => name),
       enums:      [].concat(entry.enums,  acc.enums).unique(),
     });
+  }
+}
+
+class SchemaEntryField {
+  constructor({ name = 'id', type = 'ID!', derived = null } = {}) {
+    this.name    = name;
+    this.type    = type;
+    this.derived = derived;
+  }
+
+  toString() {
+    return this.derived
+    ? `${this.name}: [${this.type}]! @derivedFrom(field: "${this.derived}")`
+    : `${this.name}: ${this.type}`;
+  }
+
+  static from(obj) {
+    return new SchemaEntryField(obj);
+  }
+
+  static conflict(f1, f2) {
+    return f1.name === f2.name && (f1.type !== f2.type || f1.derived !== f2.derived);
   }
 }
 

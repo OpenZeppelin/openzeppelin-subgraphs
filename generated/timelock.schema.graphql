@@ -1,10 +1,10 @@
 type Account @entity {
-  id: ID!
+	id: ID!
 	asTimelock: Timelock
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 }
 type Timelock @entity {
-  id: ID!
+	id: ID!
 	asAccount: Account
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
@@ -18,7 +18,7 @@ enum TimelockStatus {
 	CANCELED
 }
 type TimelockOperation @entity {
-  id: ID!
+	id: ID!
 	contract: Timelock!
 	status: TimelockStatus!
 	delay: BigInt!
@@ -30,7 +30,7 @@ type TimelockOperation @entity {
 	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "operation")
 }
 type TimelockCall @entity {
-  id: ID!
+	id: ID!
 	operation: TimelockOperation!
 	index: BigInt!
 	target: Account!
@@ -40,7 +40,7 @@ type TimelockCall @entity {
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "call")
 }
 type TimelockOperationScheduled implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -48,7 +48,7 @@ type TimelockOperationScheduled implements Event @entity {
 	call: TimelockCall!
 }
 type TimelockOperationExecuted implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -56,14 +56,14 @@ type TimelockOperationExecuted implements Event @entity {
 	call: TimelockCall!
 }
 type TimelockOperationCancelled implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
 	operation: TimelockOperation!
 }
 type TimelockMinDelayChange implements Event @entity {
-  id: ID!
+	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
