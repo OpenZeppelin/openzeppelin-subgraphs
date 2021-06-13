@@ -10,6 +10,10 @@ Array.prototype.unique = function(op = x => x) {
   return this.filter((obj, i) => this.findIndex(entry => op(obj) === op(entry)) === i);
 }
 
+Object.prototype.isEmpty = function(obj) {
+  return Object.keys(obj).length === 0;
+}
+
 function assert(condifiton, error = 'assertion failed') {
   if (!condifiton) {
     throw new Error(error);
@@ -87,9 +91,9 @@ class SchemaEntry {
   }
 
   static merge(e1, e2) {
-    if (e1.name === undefined) {
+    if (Object.isEmpty(e1)) {
       return e2;
-    } else if (e2.name === undefined) {
+    } else if (Object.isEmpty(e2)) {
       return e1;
     } else {
       assert(
