@@ -14,8 +14,6 @@ export function fetchOwnable(address: Address) : Ownable {
 	let account        = fetchAccount(address)
 	let contract       = new Ownable(account.id)
 	contract.asAccount = account.id
-	contract.save()
-
 	account.asOwnable  = account.id
 	account.save()
 

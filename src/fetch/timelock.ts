@@ -19,16 +19,15 @@ export function fetchTimelock(address: Address): Timelock {
 	let contract = Timelock.load(account.id)
 
 	if (contract == null) {
-		contract                     = new Timelock(account.id)
-		contract.asAccount           = account.id
-		contract.save()
+		contract           = new Timelock(account.id)
+		contract.asAccount = account.id
 		account.asTimelock = account.id
+		contract.save()
 		account.save()
 	}
 
 	return contract as Timelock
 }
-
 
 export function fetchTimelockOperation(contract: Timelock, opid: Bytes): TimelockOperation {
 	let id        = contract.id.concat('/').concat(opid.toHex())
@@ -40,7 +39,6 @@ export function fetchTimelockOperation(contract: Timelock, opid: Bytes): Timeloc
 	}
 	return operation as TimelockOperation
 }
-
 
 export function fetchTimelockCall(operation: TimelockOperation, index: BigInt): TimelockCall {
 	let id   = operation.id.concat('/').concat(index.toString())
