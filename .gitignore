@@ -10,4 +10,5 @@ generated/*
 !generated/erc20.schema.graphql
 !generated/erc721.schema.graphql
 !generated/erc1155.schema.graphql
+!generated/ownable.schema.graphql
 !generated/timelock.schema.graphql

@@ -25,6 +25,9 @@ type Account @entity {
 	ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
 	ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
 	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
+	asOwnable: Ownable
+	ownerOf: [Ownable!]! @derivedFrom(field: "owner")
+	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "owner")
 	asTimelock: Timelock
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 }
@@ -200,9 +203,22 @@ type ERC721Transfer implements Event @entity {
 	from: Account!
 	to: Account!
 }
+type Ownable @entity {
+	id: ID!
+	asAccount: Account!
+	owner: Account!
+	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "contract")
+}
+type OwnershipTransferred implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	contract: Ownable!
+	owner: Account!
+}
 type Timelock @entity {
 	id: ID!
-	asAccount: Account
+	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "contract")

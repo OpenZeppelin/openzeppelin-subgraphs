@@ -30,8 +30,7 @@ import {
 } from '../fetch/timelock'
 
 
-export function handleCallScheduled(event: CallScheduledEvent): void
-{
+export function handleCallScheduled(event: CallScheduledEvent): void {
 	let contract          = fetchTimelock(event.address)
 	let operation         = fetchTimelockOperation(contract, event.params.id)
 	let call              = fetchTimelockCall(operation, event.params.index)

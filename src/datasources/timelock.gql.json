@@ -7,7 +7,7 @@
 },{
   "name": "Timelock",
   "fields": [
-    { "name": "asAccount" ,           "type": "Account"                                             },
+    { "name": "asAccount" ,           "type": "Account!"                                            },
     { "name": "operations",           "type": "TimelockOperation!",          "derived": "contract"  },
     { "name": "scheduled",            "type": "TimelockOperationScheduled!", "derived": "contract"  },
     { "name": "executed",             "type": "TimelockOperationExecuted!",  "derived": "contract"  },

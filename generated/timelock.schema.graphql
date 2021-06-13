@@ -5,7 +5,7 @@ type Account @entity {
 }
 type Timelock @entity {
 	id: ID!
-	asAccount: Account
+	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "contract")

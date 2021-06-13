@@ -78,7 +78,6 @@ class SchemaEntry {
         ? this.fields
         : this.enums
       ).map(e => `\t${e}\n`),
-
       `}\n`,
     ).filter(Boolean).join('')
   }

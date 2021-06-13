@@ -7,6 +7,7 @@
         "erc1155",
         "erc20",
         "erc721",
+        "ownable",
         "timelock"
       ]
     }
