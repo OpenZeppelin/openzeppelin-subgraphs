@@ -3,18 +3,18 @@ import {
 } from '@graphprotocol/graph-ts'
 
 import {
-	Ownable,
+	Pausable,
 } from '../../generated/schema'
 
 import {
 	fetchAccount,
 } from './account'
 
-export function fetchOwnable(address: Address): Ownable {
+export function fetchPausable(address: Address): Pausable {
 	let account        = fetchAccount(address)
-	let contract       = new Ownable(account.id)
+	let contract       = new Pausable(account.id)
 	contract.asAccount = account.id
-	account.asOwnable  = account.id
+	account.asPausable = account.id
 	account.save()
 
 	return contract

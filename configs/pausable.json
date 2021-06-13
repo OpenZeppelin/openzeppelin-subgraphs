@@ -1,0 +1,10 @@
+{
+  "output": "../generated/pausable",
+  "datasources": [
+    {
+      "module": [
+        "pausable"
+      ]
+    }
+  ]
+}

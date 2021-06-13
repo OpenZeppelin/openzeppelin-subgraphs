@@ -19,7 +19,7 @@ import {
 	fetchAccount,
 } from '../fetch/account'
 
-export function fetchERC1155(address: Address) : ERC1155Contract {
+export function fetchERC1155(address: Address): ERC1155Contract {
 	let account        = fetchAccount(address)
 	let contract       = new ERC1155Contract(account.id)
 	contract.asAccount = account.id

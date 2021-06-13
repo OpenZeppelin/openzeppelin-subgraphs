@@ -28,6 +28,7 @@ type Account @entity {
 	asOwnable: Ownable
 	ownerOf: [Ownable!]! @derivedFrom(field: "owner")
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "owner")
+	asPausable: Pausable
 	asTimelock: Timelock
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 }
@@ -215,6 +216,19 @@ type OwnershipTransferred implements Event @entity {
 	timestamp: BigInt!
 	contract: Ownable!
 	owner: Account!
+}
+type Pausable @entity {
+	id: ID!
+	asAccount: Account!
+	isPaused: Boolean!
+	paused: [Paused!]! @derivedFrom(field: "contract")
+}
+type Paused implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	contract: Pausable!
+	isPaused: Boolean!
 }
 type Timelock @entity {
 	id: ID!

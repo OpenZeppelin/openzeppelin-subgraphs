@@ -23,10 +23,10 @@ This repo contains subgraph schema and templates to index the activity of Openze
 - ERC721
 - ERC1155
 - Ownable
+- Pausable
 - Timelock
 
 <!--
-Pausable
 ERC1967Upgrade
 PaymentSplitter
 ERC20Snapshot

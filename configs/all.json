@@ -8,6 +8,7 @@
         "erc20",
         "erc721",
         "ownable",
+        "pausable",
         "timelock"
       ]
     }

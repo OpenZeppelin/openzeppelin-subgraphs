@@ -12,7 +12,7 @@ import {
 	fetchAccount,
 } from './account'
 
-export function fetchAccessControl(address: Address) : AccessControl {
+export function fetchAccessControl(address: Address): AccessControl {
 	let account             = fetchAccount(address)
 	let contract            = new AccessControl(account.id)
 	contract.asAccount      = account.id
@@ -23,7 +23,7 @@ export function fetchAccessControl(address: Address) : AccessControl {
 	return contract
 }
 
-export function fetchRole(id: Bytes) : Role {
+export function fetchRole(id: Bytes): Role {
 	let role = new Role(id.toHex())
 	role.save()
 	return role

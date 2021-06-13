@@ -1,0 +1,22 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asPausable",           "type": "Pausable"                            }
+  ]
+},{
+  "name": "Pausable",
+  "fields": [
+    { "name": "asAccount" ,           "type": "Account!"                            },
+    { "name": "isPaused",             "type": "Boolean!"                            },
+    { "name": "paused",               "type": "Paused!",     "derived": "contract"  }
+  ]
+},{
+  "name": "Paused",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                        },
+    { "name": "timestamp",            "type": "BigInt!"                             },
+    { "name": "contract",             "type": "Pausable!"                           },
+    { "name": "isPaused",             "type": "Boolean!"                            }
+  ]
+}]
