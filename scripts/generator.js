@@ -7,22 +7,22 @@ const argv = require('yargs/yargs')(require('yargs/helpers').hideBin(process.arg
 
 
 Array.prototype.unique = function(op = x => x) {
-  return this.filter((obj, i) => this.findIndex(entry => op(obj) === op(entry)) === i)
+  return this.filter((obj, i) => this.findIndex(entry => op(obj) === op(entry)) === i);
 }
 
 function assert(condifiton, error = 'assertion failed') {
   if (!condifiton) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 
 function readFile(file) {
-  return fs.readFileSync(file, { encoding: 'utf8' })
+  return fs.readFileSync(file, { encoding: 'utf8' });
 }
 
 function writeFile(file, data) {
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  fs.writeFileSync(file, data, { encoding: 'utf-8' })
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, data, { encoding: 'utf-8' });
 }
 
 /*********************************************************************************************************************
@@ -42,7 +42,7 @@ class Schema extends Array {
       this
         .map(({ name }) => name)
         .unique()
-        .map(entry => SchemaEntry.merge(...this.filter(({ name }) => name === entry)))
+        .map(entry => this.filter(({ name }) => name == entry).reduce(SchemaEntry.merge, {}))
     );
   }
 }
@@ -86,33 +86,36 @@ class SchemaEntry {
     return new SchemaEntry(obj);
   }
 
-  static merge(entry, ...others) {
-    if (others.length == 0) { return entry; }
+  static merge(e1, e2) {
+    if (e1.name === undefined) {
+      return e2;
+    } else if (e2.name === undefined) {
+      return e1;
+    } else {
+      assert(
+        e1.name === e2.name,
+        `Error merging schema entries: name do not match (${e1.name} / ${e2.name})`,
+      );
+      assert(
+        e1.implements === e2.implements,
+        `Error merging schema entries: inheritance do not match for ${e1.name}`,
+      );
+      assert(
+        !!e1.enums === !!e2.enums,
+        `Error merging schema entries: enum/type clash for ${e1.name}`,
+      );
+      assert(
+        e1.fields.every(f1 => e2.fields.every(f2 => !SchemaEntryField.conflict(f1, f2))),
+        `Error merging schema entries: incompatible fields found for ${e1.name}`,
+      );
 
-    const acc = SchemaEntry.merge(...others);
-    assert(
-      entry.name === acc.name,
-      `Error merging schema entries: name do not match (${entry.name} / ${acc.name})`,
-    );
-    assert(
-      entry.implements === acc.implements,
-      `Error merging schema entries: inheritance do not match for ${entry.name}`,
-    );
-    assert(
-      !!entry.enums === !!acc.enums,
-      `Error merging schema entries: enum/type clash`,
-    );
-    assert(
-      entry.fields.every(f1 => acc.fields.every(f2 => !SchemaEntryField.conflict(f1, f2))),
-      `Error merging schema entries: incompatible fields found for ${entry.name}`,
-    );
-
-    return SchemaEntry.from({
-      name:       entry.name,
-      implements: entry.implements,
-      fields:     [].concat(entry.fields, acc.fields).unique(({ name }) => name),
-      enums:      [].concat(entry.enums,  acc.enums).unique(),
-    });
+      return SchemaEntry.from({
+        name:       e1.name,
+        implements: e1.implements,
+        fields:     [].concat(e1.fields, e2.fields).unique(({ name }) => name),
+        enums:      [].concat(e1.enums,  e2.enums).unique(),
+      });
+    }
   }
 }
 
@@ -163,7 +166,7 @@ class Subgraph {
       header
         .replace(/\{(\w+)\}/g, (_, varname) => ({ schema: this.schema })[varname]),
       this.config.receipt.datasources
-        .flatMap(datasource => [].concat(datasource.module).map(module => ({ ...datasource, module })))
+        .flatMap(datasource => [].concat(datasource.module).map(module => Object.assign({}, datasource, { module })))
         .map((datasource, i, array) => Object.assign(
           {
             id:         array.findIndex(({ module }) => module === datasource.module) === i ? datasource.module : `${datasource.module}-${i}`,
