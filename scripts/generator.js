@@ -3,7 +3,8 @@
 
 const fs   = require('fs');
 const path = require('path');
-const argv = require('yargs/yargs')(require('yargs/helpers').hideBin(process.argv)).argv;
+const argv = require('yargs').argv;
+// const argv = require('yargs/yargs')(require('yargs/helpers').hideBin(process.argv)).argv;
 
 
 Array.prototype.unique = function(op = x => x) {
@@ -155,8 +156,7 @@ class Subgraph {
   }
 
   toString() {
-    const header    = readFile(path.resolve(__dirname, '../src/header.yaml'));
-    const templates = Object.fromEntries(
+    const datasources = Object.fromEntries(
       this.config.modules().map(module => {
         try {
           return [ module, readFile(path.resolve(__dirname, `../src/datasources/${module}.yaml`)) ]
@@ -165,10 +165,24 @@ class Subgraph {
         }
       })
     );
+
+    const templates = Object.fromEntries(
+      this.config.templates().map(template => {
+        try {
+          return [ template, readFile(path.resolve(__dirname, `../src/templates/${template}.yaml`)) ]
+        } catch {
+          return undefined
+        }
+      })
+    );
+
     return [].concat(
-      header
-        .replace(/\{(\w+)\}/g, (_, varname) => ({ schema: this.schema })[varname]),
-      this.config.receipt.datasources.filter(({ address, disabled }) => address && !disabled)
+      `specVersion: 0.0.2\n`,
+      `schema:\n`,
+      `  file: ${this.schema}\n`,
+      // datasources
+      this.config.datasources().length && `dataSources:\n`,
+      this.config.datasources()
         .flatMap(datasource => [].concat(datasource.module).map(module => Object.assign({}, datasource, { module })))
         .map((datasource, i, array) => Object.assign(
           {
@@ -178,8 +192,16 @@ class Subgraph {
           },
           datasource,
         ))
-        .map(datasource => templates[datasource.module].replace(/\{(\w+)\}/g, (_, varname) => datasource[varname]))
-    ).join('');
+        .map(datasource => datasources[datasource.module].replace(/\{(\w+)\}/g, (_, varname) => datasource[varname])),
+      // templates
+      Object.keys(templates).length && `templates:\n`,
+      Object.keys(templates)
+        .map((id) => Object.assign({
+          id,
+          chain: this.config.receipt.chain || 'mainnet',
+        }))
+        .map(template => templates[template.id].replace(/\{(\w+)\}/g, (_, varname) => template[varname])),
+    ).filter(Boolean).join('');
   }
 }
 
@@ -192,11 +214,22 @@ class Config {
   }
 
   modules() {
-    return this.receipt.datasources.filter(({ disabled }) => !disabled).flatMap(({ module }) => module).unique();
+    return this.receipt.datasources.flatMap(({ module }) => module).unique();
+  }
+
+  datasources() {
+    return this.receipt.datasources.filter(({ address, module }) => address && (module || []).length)
+  }
+
+  templates() {
+    return this.receipt.datasources.flatMap(({ templates }) => templates || []).unique()
   }
 
   schema() {
-    return Schema.from(this.modules().flatMap(module => Schema.load(path.resolve(__dirname, `../src/datasources/${module}.gql.json`)))).sanitize();
+    return Schema.from([].concat(
+      this.modules().flatMap(module => Schema.load(path.resolve(__dirname, `../src/datasources/${module}.gql.json`))),
+      this.templates().flatMap(template => Schema.load(path.resolve(__dirname, `../src/templates/${template}.gql.json`))),
+    )).sanitize();
   }
 
   subgraph(schema = `${path.basename(this.receipt.output)}.schema.graphql`) {
