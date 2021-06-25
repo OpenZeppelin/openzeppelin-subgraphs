@@ -27,30 +27,36 @@ import {
 } from './erc165'
 
 export function fetchERC721(address: Address): ERC721Contract {
-	let erc721  = IERC721.bind(address)
-	let account = Account.load(address.toHex())
+	let erc721           = IERC721.bind(address)
 
-	if (account == null) {
-		account = fetchAccount(address)
+	let account          = fetchAccount(address)
+	let detectionId      = account.id.concat('/erc721detection')
+	let detectionAccount = Account.load(detectionId)
+
+	if (detectionAccount == null) {
+		detectionAccount = new Account(detectionId)
 		let introspection_01ffc9a7 = supportsInterface(erc721, '01ffc9a7') // ERC165
 		let introspection_80ac58cd = supportsInterface(erc721, '80ac58cd') // ERC721
 		let introspection_00000000 = supportsInterface(erc721, '00000000', false)
 		let isERC721               = introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000
-		account.asERC721           = isERC721 ? account.id : null
-		account.save()
+		detectionAccount.asERC721  = isERC721 ? account.id : null
+		detectionAccount.save()
 	}
 
-	if (account.asERC721 != null) {
+	if (detectionAccount.asERC721 != null) {
 		let contract = ERC721Contract.load(account.id)
 
 		if (contract == null) {
-			contract = new ERC721Contract(account.id)
+			let contract              = new ERC721Contract(account.id)
 			let try_name              = erc721.try_name()
 			let try_symbol            = erc721.try_symbol()
 			contract.name             = try_name.reverted   ? '' : try_name.value
 			contract.symbol           = try_symbol.reverted ? '' : try_symbol.value
 			contract.supportsMetadata = supportsInterface(erc721, '5b5e139f') // ERC721Metadata
 			contract.asAccount        = account.id
+			account.asERC721          = account.id
+			contract.save()
+			account.save()
 		}
 		return contract as ERC721Contract
 	}
