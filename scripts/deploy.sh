@@ -1,7 +1,7 @@
 # #!/usr/bin/env bash
 
-npx generator                                           \
-  --path ${CONFIG:-configs/sample.json}                 \
+npx graph-compiler                                      \
+  --config ${CONFIG:-configs/sample.json}               \
   --export-subgraph                                     \
   --export-schema                                       &
 

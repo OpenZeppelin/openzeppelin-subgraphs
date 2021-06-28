@@ -6,7 +6,7 @@ This repo contains subgraph schema and templates to index the activity of Openze
 
 - **Primitives to generate a graphql schema:** `src/datasource/x.gql.json`
 
-  In order to allow composability, the schema are not defined in the graphql format but rather in a dedicated json format which is can be assembled and compiled to graphql using the `script/generator.js` tool. Graphql version for each modules are also available in `generated/x.schema.graphql`
+  In order to allow composability, the schema are not defined in the graphql format but rather in a dedicated json format which is can be assembled and compiled to graphql using the `graph-compiler` tool from `@amxx/graphprotocol-utils`. Graphql version for each modules are also available in `generated/x.schema.graphql`
 
 - **Template to generate a subgraph manifest:** `src/datasource/x.yaml`
 
@@ -43,7 +43,7 @@ For example, `configs/sample.json` describes an app with 4 contracts, the first 
 
 ```
 {
-  "output": "../generated/sample",
+  "output": "generated/sample.",
   "chain": "mainnet",
   "datasources": [
     { "address": "0xA3B26327482312f70E077aAba62336f7643e41E1", "startBlock": 11633151, "module": [ "erc20", "accesscontrol" ] },
@@ -57,7 +57,7 @@ For example, `configs/sample.json` describes an app with 4 contracts, the first 
 It can be compiled by doing
 
 ```
-node scripts/generator.js --path configs/sample.json --export-subgraph --export-schema
+npx graph-compiler --path configs/sample.json --export-subgraph --export-schema
 ```
 
 This will create two files, `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.

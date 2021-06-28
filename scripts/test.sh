@@ -25,7 +25,7 @@ function test() {
     printf '}'
   } | jq > $tmp
 
-  npx generator --path $tmp --export-subgraph --export-schema || exit $?
+  npx graph-compiler --config $tmp --export-subgraph --export-schema || exit $?
   npx graph codegen $tmp.subgraph.yaml || exit $?
   npx graph build $tmp.subgraph.yaml || exit $?
 
