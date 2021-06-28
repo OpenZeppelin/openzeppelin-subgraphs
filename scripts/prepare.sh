@@ -12,7 +12,7 @@ function generate {
 
   {
     printf '{'
-    printf '"output": "../generated/%s",' "$name"
+    printf '"output": "generated/%s.",' "$name"
     printf '"datasources": ['
     printf '{ "module": ['
     {
@@ -27,7 +27,7 @@ function generate {
     printf '}'
   } | jq > ./configs/$name.json
 
-  node ./scripts/generator.js --path ./configs/$name.json --export-schema
+  npx generator --path ./configs/$name.json --export-schema
 }
 
 
@@ -42,4 +42,4 @@ generate "all" "${modules[@]}"
 
 # generate top-erc20.js
 node ./scripts/top-erc20.js > ./configs/top-erc20.js
-node ./scripts/generator.js --path ./configs/top-erc20.js --export-schema --export-subgraph
+npx generator --path ./configs/top-erc20.js --export-schema --export-subgraph

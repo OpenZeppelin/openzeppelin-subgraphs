@@ -1,5 +1,5 @@
 {
-  "output": "../generated/erc721",
+  "output": "generated/erc721.",
   "datasources": [
     {
       "module": [

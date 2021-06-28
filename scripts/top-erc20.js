@@ -41,7 +41,7 @@ function getJSON(url) {
   );
 
   console.log(JSON.stringify({
-    output: "../generated/top-erc20",
+    output: "generated/top-erc20.",
     chain: "mainnet",
     datasources: addresses.map(address => ({ address, module: "erc20"}))
   }, null, null))

@@ -1,5 +1,5 @@
 {
-  "output": "../generated/erc1155",
+  "output": "generated/erc1155.",
   "datasources": [
     {
       "module": [

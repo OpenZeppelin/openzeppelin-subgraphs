@@ -1,5 +1,5 @@
 {
-  "output": "../generated/all",
+  "output": "generated/all.",
   "datasources": [
     {
       "module": [

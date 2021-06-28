@@ -21,7 +21,7 @@
     "@openzeppelin/contracts": "^4.0.0"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "^0.1.0",
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.3",
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0",
     "concat": "^1.0.3",

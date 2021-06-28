@@ -1,5 +1,5 @@
 {
-  "output": "../generated/pausable",
+  "output": "generated/pausable.",
   "datasources": [
     {
       "module": [

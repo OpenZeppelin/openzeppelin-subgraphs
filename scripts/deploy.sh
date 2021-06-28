@@ -1,6 +1,6 @@
 # #!/usr/bin/env bash
 
-node scripts/generator.js                               \
+npx generator                                           \
   --path ${CONFIG:-configs/sample.json}                 \
   --export-subgraph                                     \
   --export-schema                                       &

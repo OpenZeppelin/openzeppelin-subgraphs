@@ -1,5 +1,5 @@
 {
-  "output": "../generated/sample",
+  "output": "generated/sample.",
   "chain": "mainnet",
   "datasources": [
     { "address": "0xA3B26327482312f70E077aAba62336f7643e41E1", "startBlock": 11633151, "module": [ "erc20",    "accesscontrol" ] },

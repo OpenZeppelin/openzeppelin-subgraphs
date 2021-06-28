@@ -1,5 +1,5 @@
 {
-  "output": "../generated/timelock",
+  "output": "generated/timelock.",
   "datasources": [
     {
       "module": [

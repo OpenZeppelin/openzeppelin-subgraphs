@@ -8,7 +8,7 @@ function test() {
 
   {
     printf '{'
-    printf '"output": "%s",' "../$tmp"
+    printf '"output": "%s",' "$tmp."
     printf '"datasources": ['
     printf '{'
     printf '"address": "0x0000000000000000000000000000000000000000",'
@@ -25,9 +25,9 @@ function test() {
     printf '}'
   } | jq > $tmp
 
-  node scripts/generator.js --path $tmp --export-subgraph --export-schema
-  npx graph codegen $tmp.subgraph.yaml
-  npx graph build $tmp.subgraph.yaml
+  npx generator --path $tmp --export-subgraph --export-schema || exit $?
+  npx graph codegen $tmp.subgraph.yaml || exit $?
+  npx graph build $tmp.subgraph.yaml || exit $?
 
   rm $tmp $tmp.schema.graphql $tmp.subgraph.yaml
 }
