@@ -1,0 +1,50 @@
+= Subgraphs
+
+Modules for easily indexing OpenZeppelin contracts activity.
+
+[[usage]]
+== Usage
+
+Subgraph are described using three components:
+
+- *The graphql schema*, usually nammed `schema.graphql`, which describes the database entities and links
+- *The subgraph manifest*, usually nammed `subgraph.yaml`, which describes the activity that should be listenned to (addresses of contracts, events handlers, function handlers).
+- *The indexing logic*, written in assembly script, which will process the blockchain activity and update the database accordingly.
+
+OpenZeppelin subgraph provide schemas description, with the corresponding indexing logic and templates for building your subgraph manifest.
+
+Similarly to how OpenZeppelin contracts provide solidity code containing sets of features that one can assemble to ease building an application, OpenZeppelin subgraphs provides modules dedicated to indexing the activity corresponding to these features. These modules can be composed to index complexe onchain activity without the need to actually write the indexing logic for most of the features.
+
+[[build-manifest]]
+=== Building your manifest
+
+You can build a manifest for your application using the templates provided for each module. These templates are available in `src/datasource/<module-name>.yaml`. For each datasource, you will have to fill in the name, network, address, and startBlock of your contract. If a contract implements multiple modules, you will want to have multiple datasources listenning to the same address (one per module).
+
+*Note:* For the indexing logic to work you will have, for each module "M" used, to have name one of your datasources with the name of the module.
+
+The `@amxx/graphprotocol-utils` provides tooling to xref:generate.adoc[automate the generation of manifests.]
+
+[[build-schema]]
+=== Assembling your schema
+
+Depending on the modules you are using, your schema will have to include the corresponding entities. Assembling a schema can be difficult since graphql schema do not nativally support import and merging operations. We do provide precompiled schemas for each modules in `generated/<module-name>.schema.graphql`. We also provide a schema that includes all the entities for all the modules in `generated/all.schema.graphql`.
+
+Similarly to the manifest, `@amxx/graphprotocol-utils` provides tooling to xref:generate.adoc[automate the generation of schemas.]
+
+[[modules]]
+== Modules
+
+|===
+| Module name      | Availability
+
+| *erc20*          | ✔
+| *erc20votes*     | Planned
+| *erc721*         | ✔
+| *erc777*         | Planned
+| *erc1155*        | ✔
+| *ownable*        | ✔
+| *accesscontrol*  | ✔
+| *pausable*       | ✔
+| *timelock*       | ✔
+| *erc1967upgrade* | Planned
+|===
