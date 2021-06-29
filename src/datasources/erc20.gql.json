@@ -15,6 +15,7 @@
     { "name": "name",                   "type": "String"                                },
     { "name": "symbol",                 "type": "String"                                },
     { "name": "decimals",               "type": "Int!"                                  },
+    { "name": "totalSupply",            "type": "ERC20Balance!"                         },
     { "name": "balances",               "type": "ERC20Balance!",  "derived": "contract" },
     { "name": "approvals",              "type": "ERC20Approval!", "derived": "contract" },
     { "name": "transfers",              "type": "ERC20Transfer!", "derived": "contract" }
@@ -23,7 +24,7 @@
   "name": "ERC20Balance",
   "fields": [
     { "name": "contract",               "type": "ERC20Contract!"                           },
-    { "name": "account",                "type": "Account!"                                 },
+    { "name": "account",                "type": "Account"                                  },
     { "name": "value",                  "type": "DecimalValue!"                            },
     { "name": "valueExact",             "type": "BigInt!"                                  },
     { "name": "transferFromEvent",      "type": "ERC20Transfer!", "derived": "fromBalance" },

@@ -30,32 +30,34 @@ export function fetchERC20(address: Address): ERC20Contract {
 		let name                  = endpoint.try_name()
 		let symbol                = endpoint.try_symbol()
 		let decimals              = endpoint.try_decimals()
-		contract                  = new ERC20Contract(address.toHex())
-		// Common
-		contract.name      = name.reverted     ? null : name.value
-		contract.symbol    = symbol.reverted   ? null : symbol.value
-		contract.decimals  = decimals.reverted ? 18   : decimals.value
-		contract.asAccount = account.id
-		contract.save()
+		contract                  = new ERC20Contract(account.id)
 
-		account.asERC20    = contract.id
+		// Common
+		contract.name        = name.reverted     ? null : name.value
+		contract.symbol      = symbol.reverted   ? null : symbol.value
+		contract.decimals    = decimals.reverted ? 18   : decimals.value
+		contract.totalSupply = fetchERC20Balance(contract as ERC20Contract, null).id
+		contract.asAccount   = account.id
+		account.asERC20      = contract.id
+		contract.save()
 		account.save()
 	}
 
 	return contract as ERC20Contract
 }
 
-export function fetchERC20Balance(contract: ERC20Contract, account: Account): ERC20Balance {
-	let id      = contract.id.concat('/').concat(account.id)
+export function fetchERC20Balance(contract: ERC20Contract, account: Account | null): ERC20Balance {
+	let id      = contract.id.concat('/').concat(account ? account.id : 'totalSupply')
 	let balance = ERC20Balance.load(id)
 
 	if (balance == null) {
 		balance                 = new ERC20Balance(id)
 		let value               = new decimals.Value(id.concat('/balance'), contract.decimals)
 		balance.contract        = contract.id
-		balance.account         = account.id
+		balance.account         = account ? account.id : null
 		balance.value           = value.id
 		balance.valueExact      = value.exact
+		balance.save()
 	}
 	return balance as ERC20Balance
 }

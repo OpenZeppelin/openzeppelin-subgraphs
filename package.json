@@ -1,5 +1,5 @@
 {
-  "name": "@openzeppelin/contracts",
+  "name": "@openzeppelin/subgraphs",
   "description": "",
   "version": "1.0.0",
   "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
@@ -13,18 +13,20 @@
     "url": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git/issues"
   },
   "scripts": {
+    "docs": "oz-docs",
+    "docs:watch": "npm run docs watch",
     "prepublish": "rimraf artifacts build cache generated",
     "prepare": "bash scripts/prepare.sh",
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.4",
     "@openzeppelin/contracts": "^4.0.0"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "^1.0.0-alpha.4",
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0",
-    "concat": "^1.0.3",
+    "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script",
     "yargs": "^17.0.1"
   }
 }

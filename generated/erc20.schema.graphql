@@ -13,6 +13,7 @@ type ERC20Contract @entity {
 	name: String
 	symbol: String
 	decimals: Int!
+	totalSupply: ERC20Balance
 	balances: [ERC20Balance!]! @derivedFrom(field: "contract")
 	approvals: [ERC20Approval!]! @derivedFrom(field: "contract")
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
@@ -20,7 +21,7 @@ type ERC20Contract @entity {
 type ERC20Balance @entity {
 	id: ID!
 	contract: ERC20Contract!
-	account: Account!
+	account: Account
 	value: DecimalValue!
 	valueExact: BigInt!
 	transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "fromBalance")

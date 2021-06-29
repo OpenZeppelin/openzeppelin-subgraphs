@@ -38,7 +38,13 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.value       = decimals.toDecimals(event.params.value, contract.decimals)
 	ev.valueExact  = event.params.value
 
-	if (from.id != constants.ADDRESS_ZERO) {
+	if (from.id == constants.ADDRESS_ZERO) {
+		let totalSupply    = fetchERC20Balance(contract, null)
+		let value          = new decimals.Value(totalSupply.value)
+		value.increment(event.params.value)
+		totalSupply.valueExact = value.exact
+		totalSupply.save()
+	} else {
 		let balance        = fetchERC20Balance(contract, from)
 		let value          = new decimals.Value(balance.value)
 		value.decrement(event.params.value)
@@ -48,7 +54,13 @@ export function handleTransfer(event: TransferEvent): void {
 		ev.fromBalance = balance.id;
 	}
 
-	if (to.id != constants.ADDRESS_ZERO) {
+	if (to.id == constants.ADDRESS_ZERO) {
+		let totalSupply    = fetchERC20Balance(contract, null)
+		let value          = new decimals.Value(totalSupply.value)
+		value.decrement(event.params.value)
+		totalSupply.valueExact = value.exact
+		totalSupply.save()
+	} else {
 		let balance = fetchERC20Balance(contract, to)
 		let value = new decimals.Value(balance.value)
 		value.increment(event.params.value)
