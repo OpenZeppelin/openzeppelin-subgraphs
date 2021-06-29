@@ -13,7 +13,7 @@
         - ERC721Contract
       abis:
         - name: IERC721
-          file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC721Metadata.json
+          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/IERC721Metadata.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -21,4 +21,4 @@
           handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ../src/datasources/erc721.ts
+      file: {datasourcesPath}/erc721.ts

@@ -13,7 +13,7 @@
         - ERC1155Contract
       abis:
         - name: IERC1155
-          file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC1155.json
+          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/IERC1155.json
       eventHandlers:
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
@@ -23,4 +23,4 @@
           handler: handleTransferSingle
         - event: URI(string,indexed uint256)
           handler: handleURI
-      file: ../src/datasources/erc1155.ts
+      file: {datasourcesPath}/erc1155.ts

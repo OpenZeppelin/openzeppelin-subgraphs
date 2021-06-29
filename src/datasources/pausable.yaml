@@ -13,10 +13,10 @@
         - Pausable
       abis:
         - name: Pausable
-          file: ../node_modules/@openzeppelin/contracts/build/contracts/Pausable.json
+          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/Pausable.json
       eventHandlers:
         - event: Paused(address)
           handler: handlePaused
         - event: Unpaused(address)
           handler: handleUnpaused
-      file: ../src/datasources/pausable.ts
+      file: {datasourcesPath}/pausable.ts
