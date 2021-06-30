@@ -24,8 +24,7 @@
     { "name": "contract",                     "type": "ERC1155Contract!"                           },
     { "name": "identifier",                   "type": "BigInt!"                                    },
     { "name": "uri",                          "type": "String"                                     },
-    { "name": "totalSupply",                  "type": "DecimalValue!"                              },
-    { "name": "totalSupplyExact",             "type": "BigInt!"                                    },
+    { "name": "totalSupply",                  "type": "ERC1155Balance!"                            },
     { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "token"       },
     { "name": "transfers",                    "type": "ERC1155Transfer!", "derived": "token"       }
   ]
@@ -34,7 +33,7 @@
   "fields": [
     { "name": "contract",                     "type": "ERC1155Contract!"                           },
     { "name": "token",                        "type": "ERC1155Token!"                              },
-    { "name": "account",                      "type": "Account!"                                   },
+    { "name": "account",                      "type": "Account"                                    },
     { "name": "value",                        "type": "DecimalValue!"                              },
     { "name": "valueExact",                   "type": "BigInt!"                                    },
     { "name": "transferFromEvent",            "type": "ERC1155Transfer!", "derived": "fromBalance" },

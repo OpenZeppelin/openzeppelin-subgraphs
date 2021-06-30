@@ -36,17 +36,16 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 
 	if (token == null) {
 		token                  = new ERC1155Token(id)
-		let totalSupply        = new decimals.Value(id.concat('/totalSupply'))
 		token.contract         = contract.id
 		token.identifier       = identifier
-		token.totalSupply      = totalSupply.id
-		token.totalSupplyExact = totalSupply.exact
+		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
+		token.save()
 	}
 	return token as ERC1155Token
 }
 
-export function fetchERC1155Balance(token: ERC1155Token, account: Account): ERC1155Balance {
-	let id = token.id.concat('/').concat(account.id)
+export function fetchERC1155Balance(token: ERC1155Token, account: Account | null): ERC1155Balance {
+	let id = token.id.concat('/').concat(account ? account.id : 'totalSupply')
 	let balance = ERC1155Balance.load(id)
 
 	if (balance == null) {
@@ -54,9 +53,10 @@ export function fetchERC1155Balance(token: ERC1155Token, account: Account): ERC1
 		let value          = new decimals.Value(id.concat('/balance'))
 		balance.contract   = token.contract
 		balance.token      = token.id
-		balance.account    = account.id
+		balance.account    = account ? account.id : null
 		balance.value      = value.id
 		balance.valueExact = value.exact
+		balance.save()
 	}
 	return balance as ERC1155Balance
 }

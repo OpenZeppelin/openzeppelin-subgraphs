@@ -39,35 +39,33 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.valueExact  = event.params.value
 
 	if (from.id == constants.ADDRESS_ZERO) {
-		let totalSupply    = fetchERC20Balance(contract, null)
-		let value          = new decimals.Value(totalSupply.value)
-		value.increment(event.params.value)
-		totalSupply.valueExact = value.exact
+		let totalSupply        = fetchERC20Balance(contract, null)
+		let totalSupplyValue   = new decimals.Value(totalSupply.value)
+		totalSupplyValue.increment(event.params.value)
+		totalSupply.valueExact = totalSupplyValue.exact
 		totalSupply.save()
 	} else {
-		let balance        = fetchERC20Balance(contract, from)
-		let value          = new decimals.Value(balance.value)
-		value.decrement(event.params.value)
-		balance.valueExact = value.exact
+		let balance            = fetchERC20Balance(contract, from)
+		let balanceValue       = new decimals.Value(balance.value)
+		balanceValue.decrement(event.params.value)
+		balance.valueExact     = balanceValue.exact
 		balance.save()
-
-		ev.fromBalance = balance.id;
+		ev.fromBalance         = balance.id;
 	}
 
 	if (to.id == constants.ADDRESS_ZERO) {
-		let totalSupply    = fetchERC20Balance(contract, null)
-		let value          = new decimals.Value(totalSupply.value)
-		value.decrement(event.params.value)
-		totalSupply.valueExact = value.exact
+		let totalSupply        = fetchERC20Balance(contract, null)
+		let totalSupplyValue   = new decimals.Value(totalSupply.value)
+		totalSupplyValue.decrement(event.params.value)
+		totalSupply.valueExact = totalSupplyValue.exact
 		totalSupply.save()
 	} else {
-		let balance = fetchERC20Balance(contract, to)
-		let value = new decimals.Value(balance.value)
-		value.increment(event.params.value)
-		balance.valueExact = value.exact
+		let balance            = fetchERC20Balance(contract, from)
+		let balanceValue       = new decimals.Value(balance.value)
+		balanceValue.increment(event.params.value)
+		balance.valueExact     = balanceValue.exact
 		balance.save()
-
-		ev.toBalance = balance.id;
+		ev.toBalance           = balance.id;
 	}
 	ev.save()
 }
