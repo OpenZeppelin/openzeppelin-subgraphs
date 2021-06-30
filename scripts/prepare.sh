@@ -39,11 +39,11 @@ do
   generate `basename $module .yaml` $module
 done;
 
-# Generate complete schema and compile schema.ts
+# Generate complete schema and codegened logic
 generate "all" "${modules[@]}"
 npx graph codegen generated/all.subgraph.yaml || exit $?
 
 
 # generate top-erc20.js
-node ./scripts/top-erc20.js > configs/top-erc20.json
-npx graph-compiler --config configs/top-erc20.json --include src/datasources --export-schema --export-subgraph
+# node ./scripts/top-erc20.js > configs/top-erc20.json
+# npx graph-compiler --config configs/top-erc20.json --include src/datasources --export-schema --export-subgraph

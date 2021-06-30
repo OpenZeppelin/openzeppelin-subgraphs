@@ -21,8 +21,7 @@ type ERC1155Token @entity {
 	contract: ERC1155Contract!
 	identifier: BigInt!
 	uri: String
-	totalSupply: DecimalValue!
-	totalSupplyExact: BigInt!
+	totalSupply: ERC1155Balance!
 	balances: [ERC1155Balance!]! @derivedFrom(field: "token")
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
 }
@@ -30,7 +29,7 @@ type ERC1155Balance @entity {
 	id: ID!
 	contract: ERC1155Contract!
 	token: ERC1155Token!
-	account: Account!
+	account: Account
 	value: DecimalValue!
 	valueExact: BigInt!
 	transferFromEvent: [ERC1155Transfer!]! @derivedFrom(field: "fromBalance")
