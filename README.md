@@ -57,7 +57,11 @@ For example, `configs/sample.json` describes an app with 4 contracts, the first 
 It can be compiled by doing
 
 ```
-npx graph-compiler --config configs/sample.json --export-subgraph --export-schema
+npx graph-compiler \
+  --config configs/sample.json \
+  --include node_modules/@openzeppelin/subgraphs/src/datasources \
+  --export-schema \
+  --export-subgraph
 ```
 
 This will create two files, `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.
