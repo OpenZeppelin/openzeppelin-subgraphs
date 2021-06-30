@@ -2,6 +2,7 @@
   "output": "generated/all.",
   "datasources": [
     {
+      "address": "0x0000000000000000000000000000000000000000",
       "module": [
         "accesscontrol",
         "erc1155",

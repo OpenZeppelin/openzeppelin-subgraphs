@@ -14,7 +14,9 @@ function generate {
     printf '{'
     printf '"output": "generated/%s.",' "$name"
     printf '"datasources": ['
-    printf '{ "module": ['
+    printf '{'
+    printf '"address": "0x0000000000000000000000000000000000000000",'
+    printf '"module": ['
     {
       for module in "$@";
       do
@@ -27,7 +29,7 @@ function generate {
     printf '}'
   } | jq > ./configs/$name.json
 
-  npx graph-compiler --config configs/$name.json --include src/datasources --export-schema
+  npx graph-compiler --config configs/$name.json --include src/datasources --export-schema --export-subgraph || exit $?
 }
 
 
@@ -37,8 +39,10 @@ do
   generate `basename $module .yaml` $module
 done;
 
-# Generate complete schema
+# Generate complete schema and compile schema.ts
 generate "all" "${modules[@]}"
+npx graph codegen generated/all.subgraph.yaml || exit $?
+
 
 # generate top-erc20.js
 node ./scripts/top-erc20.js > configs/top-erc20.json
