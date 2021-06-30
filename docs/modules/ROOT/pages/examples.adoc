@@ -1,0 +1,178 @@
+= Examples
+
+== Basic application
+
+=== App description
+
+We will consider an hypothetical dapp, on the Goerli network, with that consists of:
+
+- An `ERC20` token at address `0x163AE1e077232D6C34E1BF14fA58aA74518886Cc` and deployed at block 5059780.
+
+=== Manifest
+
+The manifest for that subgraph would look someting like the following. Note that depending on you folder layout, relative paths might change:
+
+[source,yaml]
+----
+specVersion: 0.0.2
+schema:
+  file: ../node_modules/@openzeppelin/subgraphs/generated/erc20.schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: erc20
+    network: goerli
+    source:
+      address: "0x163AE1e077232D6C34E1BF14fA58aA74518886Cc"
+      abi: IERC20
+      startBlock: 5059780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ERC20Contract
+      abis:
+        - name: IERC20
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/erc20.ts
+----
+
+== Application with 2 datasources
+
+=== App description
+
+For this second example, we will extand our example to include more features:
+
+- An `ERC20` token, that has is `Ownable` and `Pausable` at address `0x163AE1e077232D6C34E1BF14fA58aA74518886Cc` and deployed at block 5059780.
+- An OpenZeppelin `TimelockController`, which internally uses the `AccessControl` pattern at address `0x9949d9507A26b9639B882E15A897A0A79DDf2c94` and deployed at block 5059781.
+
+=== Manifest
+
+For this second example, we have to support multiple modules, so for simplicity sake, we use the `all.schema.graphql`.
+
+[source,yaml]
+----
+specVersion: 0.0.2
+schema:
+  file: ../node_modules/@openzeppelin/subgraphs/generated/all.schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: erc20
+    network: goerli
+    source:
+      address: "0x163AE1e077232D6C34E1BF14fA58aA74518886Cc"
+      abi: IERC20
+      startBlock: 5059780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ERC20Contract
+      abis:
+        - name: IERC20
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/erc20.ts
+  - kind: ethereum/contract
+    name: ownable
+    network: goerli
+    source:
+      address: "0x163AE1e077232D6C34E1BF14fA58aA74518886Cc"
+      abi: Ownable
+      startBlock: 5059780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Ownable
+      abis:
+        - name: Ownable
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/Ownable.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/ownable.ts
+  - kind: ethereum/contract
+    name: pausable
+    network: goerli
+    source:
+      address: "0x163AE1e077232D6C34E1BF14fA58aA74518886Cc"
+      abi: Pausable
+      startBlock: 5059780
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Pausable
+      abis:
+        - name: Pausable
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/Pausable.json
+      eventHandlers:
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/pausable.ts
+  - kind: ethereum/contract
+    name: timelock
+    network: goerli
+    source:
+      address: "0x9949d9507A26b9639B882E15A897A0A79DDf2c94"
+      abi: Timelock
+      startBlock: 5059781
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Timelock
+      abis:
+        - name: Timelock
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/TimelockController.json
+      eventHandlers:
+        - event: CallScheduled(indexed bytes32,indexed uint256,address,uint256,bytes,bytes32,uint256)
+          handler: handleCallScheduled
+        - event: CallExecuted(indexed bytes32,indexed uint256,address,uint256,bytes)
+          handler: handleCallExecuted
+        - event: Cancelled(indexed bytes32)
+          handler: handleCancelled
+        - event: MinDelayChange(uint256,uint256)
+          handler: handleMinDelayChange
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/timelock.ts
+  - kind: ethereum/contract
+    name: accesscontrol
+    network: goerli
+    source:
+      address: "0x9949d9507A26b9639B882E15A897A0A79DDf2c94"
+      abi: AccessControl
+      startBlock: 5059781
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - AccessControl
+      abis:
+        - name: AccessControl
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/AccessControl.json
+      eventHandlers:
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ../node_modules/@openzeppelin/subgraphs/src/datasources/accesscontrol.ts
+----

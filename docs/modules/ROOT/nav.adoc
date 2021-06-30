@@ -1,2 +1,3 @@
 * xref:index.adoc[Overview]
 * xref:generate.adoc[Automatic generation]
+* xref:examples.adoc[Examples]
