@@ -13,8 +13,7 @@
         - Ownable
       abis:
         - name: Ownable
-          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/Ownable.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/Ownable.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: {datasourcesPath}/ownable.ts

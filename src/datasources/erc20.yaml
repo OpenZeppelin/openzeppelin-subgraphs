@@ -13,10 +13,9 @@
         - ERC20Contract
       abis:
         - name: IERC20
-          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: {datasourcesPath}/erc20.ts

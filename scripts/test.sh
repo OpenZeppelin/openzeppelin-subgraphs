@@ -4,7 +4,7 @@ function test() {
   modules=("$@")
 
   mkdir -p generated
-  tmp=`mktemp -p generated`
+  tmp=`mktemp -up generated tmp.XXXXXXXXXX`
 
   {
     printf '{'
@@ -23,13 +23,13 @@ function test() {
     printf '}'
     printf ']'
     printf '}'
-  } | jq > $tmp
+  } | jq > $tmp.json
 
-  npx graph-compiler --config $tmp --export-subgraph --export-schema || exit $?
+  npx graph-compiler --config $tmp --include src/datasources --export-subgraph --export-schema || exit $?
   npx graph codegen $tmp.subgraph.yaml || exit $?
   npx graph build $tmp.subgraph.yaml || exit $?
 
-  rm $tmp $tmp.schema.graphql $tmp.subgraph.yaml
+  rm $tmp.json $tmp.schema.graphql $tmp.subgraph.yaml
 }
 
 

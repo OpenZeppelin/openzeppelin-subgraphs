@@ -2,6 +2,7 @@
 
 npx graph-compiler                                      \
   --config ${CONFIG:-configs/sample.json}               \
+  --include src/datasources                             \
   --export-subgraph                                     \
   --export-schema                                       &&
 

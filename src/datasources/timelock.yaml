@@ -13,7 +13,7 @@
         - Timelock
       abis:
         - name: Timelock
-          file: {nodemodulesPath}/@openzeppelin/contracts/build/contracts/TimelockController.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/TimelockController.json
       eventHandlers:
         - event: CallScheduled(indexed bytes32,indexed uint256,address,uint256,bytes,bytes32,uint256)
           handler: handleCallScheduled
@@ -23,4 +23,3 @@
           handler: handleCancelled
         - event: MinDelayChange(uint256,uint256)
           handler: handleMinDelayChange
-      file: {datasourcesPath}/timelock.ts

@@ -27,7 +27,7 @@ function generate {
     printf '}'
   } | jq > ./configs/$name.json
 
-  npx graph-compiler --config ./configs/$name.json --export-schema
+  npx graph-compiler --config configs/$name.json --include src/datasources --export-schema
 }
 
 
@@ -41,5 +41,5 @@ done;
 generate "all" "${modules[@]}"
 
 # generate top-erc20.js
-node ./scripts/top-erc20.js > ./configs/top-erc20.js
-npx graph-compiler --config ./configs/top-erc20.js --export-schema --export-subgraph
+node ./scripts/top-erc20.js > configs/top-erc20.json
+npx graph-compiler --config configs/top-erc20.json --include src/datasources --export-schema --export-subgraph
