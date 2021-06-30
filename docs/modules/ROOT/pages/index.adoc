@@ -20,7 +20,7 @@ Similarly to how OpenZeppelin contracts provide solidity code containing sets of
 
 You can build a manifest for your application using the templates provided for each module. These templates are available in `src/datasource/<module-name>.yaml`. For each datasource, you will have to fill in the name, network, address, and startBlock of your contract. If a contract implements multiple modules, you will want to have multiple datasources listenning to the same address (one per module).
 
-*Note:* For the indexing logic to work you will have, for each module "M" used, to have name one of your datasources with the name of the module.
+*Note:* For the indexing logic to work you will have, for each module used, to name one of your datasources with the name of the module.
 
 The `@amxx/graphprotocol-utils` provides tooling to xref:generate.adoc[automate the generation of manifests.]
 

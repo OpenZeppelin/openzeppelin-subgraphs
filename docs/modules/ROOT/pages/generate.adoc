@@ -1,3 +1,62 @@
 = Automatic generation
 
-**TODO**
+The `graph-compile` tool provided as part of the `@amxx/graphprotocol-utils` package can be used to automatically generate tailor made schema and manifest for your application. Modules implemented as part of Openzeppelin subgraph are compatible with this.
+
+== Describe your application
+
+For schema and manifest to be generated, you will have to provide a description of the contract you wish to index.
+
+Here is an example of configuration file that indexed 6 contracts on mainnet:
+
+[source,json]
+----
+{
+  "output": "generated/sample.",
+  "chain": "mainnet",
+  "datasources": [
+    { "address": "0xA3B26327482312f70E077aAba62336f7643e41E1", "startBlock": 11633151, "module": [ "erc20",    "accesscontrol" ] },
+    { "address": "0xB1C52075b276f87b1834919167312221d50c9D16", "startBlock":  9917641, "module": [ "erc721",   "ownable"       ] },
+    { "address": "0x799DAa22654128d0C64d5b79eac9283008158730", "startBlock":  9917642, "module": [ "erc721",   "ownable"       ] },
+    { "address": "0xC76A18c78B7e530A165c5683CB1aB134E21938B4", "startBlock":  9917639, "module": [ "erc721",   "ownable"       ] },
+    { "address": "0x001d1cd0bcf2e9021056c6fe4428ce15d977cfe0", "startBlock": 11127634, "module": [ "erc1155",  "ownable"       ] },
+    { "address": "0x3d85004fa4723de6563909fabbcafee509ee6a52", "startBlock": 12322496, "module": [ "timelock", "accesscontrol" ] }
+  ]
+}
+----
+
+Each contract is represented as a datasource, with an address, an (optional) start block, and a list of features.
+
+== Generate schema and manifest
+
+This configuration file can compiled using the following command
+
+[source,bash]
+----
+npx graph-compiler \
+  --config sample.json \
+  --include node_modules/@openzeppelin/subgraphs/src/datasources \
+  --export-schema \
+  --export-subgraph
+----
+
+Note that in our example, the openzeppelin subgraph package was installed using NPM, which means the module descriptions are in `@openzeppelin/subgraphs/src/datasources`. This path must be added using the `--include` command so the compiler can find them.
+
+This will produce two file, following the `output` parameter provided in the configuration file:
+
+- `generated/sample.schema.graphql` contains a tailor made schema, that contains only the entity requiered by the indexed modules.
+- `generated/sample.subgraph.yaml` contains the subgraph manifest.
+
+== Deploy your subgraph
+
+In order to deploy your subgraph to the hosted service, or to any other graphnode, you will have to create it first. This operation is documented https://thegraph.com/docs/deploy-a-subgraph[here]. Once this is done, you can compile and deploy the produced subgraph using the `graph-cli` tools:
+
+[source,bash]
+----
+npx graph-cli codegen generated/sample.subgraph.yaml
+npx graph-cli build generated/sample.subgraph.yaml
+npx graph-cli deploy                      \
+  --ipfs https://api.thegraph.com/ipfs/   \
+  --node https://api.thegraph.com/deploy/ \
+  username/subgraphname                   \
+  generated/sample.subgraph.yaml
+----
