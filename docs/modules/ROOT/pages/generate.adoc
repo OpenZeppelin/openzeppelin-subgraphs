@@ -1,6 +1,6 @@
 = Automatic generation
 
-The `graph-compile` tool provided as part of the `@amxx/graphprotocol-utils` package can be used to automatically generate tailor made schema and manifest for your application. Modules implemented as part of Openzeppelin subgraph are compatible with this.
+The `graph-compile` tool provided as part of the `@amxx/graphprotocol-utils` package can be used to automatically generate tailor made schema and manifest for your application. Modules implemented as part of OpenZeppelin subgraph are compatible with this.
 
 == Describe your application
 
@@ -39,7 +39,7 @@ npx graph-compiler \
   --export-subgraph
 ----
 
-Note that in our example, the openzeppelin subgraph package was installed using NPM, which means the module descriptions are in `@openzeppelin/subgraphs/src/datasources`. This path must be added using the `--include` command so the compiler can find them.
+Note that in our example, the OpenZeppelin subgraph package was installed using NPM, which means the module descriptions are in `@openzeppelin/subgraphs/src/datasources`. This path must be added using the `--include` command so the compiler can find them.
 
 This will produce two file, following the `output` parameter provided in the configuration file:
 
