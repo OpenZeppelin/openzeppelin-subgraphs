@@ -60,7 +60,7 @@ export function handleTransfer(event: TransferEvent): void {
 		totalSupply.valueExact = totalSupplyValue.exact
 		totalSupply.save()
 	} else {
-		let balance            = fetchERC20Balance(contract, from)
+		let balance            = fetchERC20Balance(contract, to)
 		let balanceValue       = new decimals.Value(balance.value)
 		balanceValue.increment(event.params.value)
 		balance.valueExact     = balanceValue.exact
