@@ -10,7 +10,6 @@ import {
 } from '../../generated/schema'
 
 import {
-	IERC1155,
 	ApprovalForAll as ApprovalForAllEvent,
 	TransferBatch  as TransferBatchEvent,
 	TransferSingle as TransferSingleEvent,
@@ -77,7 +76,7 @@ function registerTransfer(
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
 		totalSupply.save()
 	} else {
-		let balance            = fetchERC1155Balance(token, from)
+		let balance            = fetchERC1155Balance(token, to)
 		balance.valueExact     = balance.valueExact.plus(value)
 		balance.value          = decimals.toDecimals(balance.valueExact)
 		balance.save()
