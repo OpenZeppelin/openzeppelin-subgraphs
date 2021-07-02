@@ -60,30 +60,26 @@ function registerTransfer(
 
 	if (from.id == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC1155Balance(token, null)
-		let totalSupplyValue   = new decimals.Value(totalSupply.value)
-		totalSupplyValue.increment(value)
-		totalSupply.valueExact = totalSupplyValue.exact
+		totalSupply.valueExact = totalSupply.valueExact.plus(value)
+		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
 		totalSupply.save()
 	} else {
 		let balance            = fetchERC1155Balance(token, from)
-		let balanceValue       = new decimals.Value(balance.value)
-		balanceValue.decrement(value)
-		balance.valueExact     = balanceValue.exact
+		balance.valueExact     = balance.valueExact.minus(value)
+		balance.value          = decimals.toDecimals(balance.valueExact)
 		balance.save()
 		ev.fromBalance         = balance.id
 	}
 
 	if (to.id == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC1155Balance(token, null)
-		let totalSupplyValue   = new decimals.Value(totalSupply.value)
-		totalSupplyValue.decrement(value)
-		totalSupply.valueExact = totalSupplyValue.exact
+		totalSupply.valueExact = totalSupply.valueExact.minus(value)
+		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
 		totalSupply.save()
 	} else {
-		let balance            = fetchERC1155Balance(token, to)
-		let balanceValue       = new decimals.Value(balance.value)
-		balanceValue.increment(value)
-		balance.valueExact     = balanceValue.exact
+		let balance            = fetchERC1155Balance(token, from)
+		balance.valueExact     = balance.valueExact.plus(value)
+		balance.value          = decimals.toDecimals(balance.valueExact)
 		balance.save()
 		ev.toBalance           = balance.id
 	}

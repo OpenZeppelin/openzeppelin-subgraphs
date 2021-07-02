@@ -25,7 +25,7 @@
   "fields": [
     { "name": "contract",               "type": "ERC20Contract!"                           },
     { "name": "account",                "type": "Account"                                  },
-    { "name": "value",                  "type": "DecimalValue!"                            },
+    { "name": "value",                  "type": "BigDecimal!"                              },
     { "name": "valueExact",             "type": "BigInt!"                                  },
     { "name": "transferFromEvent",      "type": "ERC20Transfer!", "derived": "fromBalance" },
     { "name": "transferToEvent",        "type": "ERC20Transfer!", "derived": "toBalance"   }
@@ -36,7 +36,7 @@
     { "name": "contract",               "type": "ERC20Contract!" },
     { "name": "owner",                  "type": "Account!"       },
     { "name": "spender",                "type": "Account!"       },
-    { "name": "value",                  "type": "DecimalValue!"  },
+    { "name": "value",                  "type": "BigDecimal!"    },
     { "name": "valueExact",             "type": "BigInt!"        }
   ]
 },{

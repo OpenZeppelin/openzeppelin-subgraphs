@@ -40,30 +40,26 @@ export function handleTransfer(event: TransferEvent): void {
 
 	if (from.id == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC20Balance(contract, null)
-		let totalSupplyValue   = new decimals.Value(totalSupply.value)
-		totalSupplyValue.increment(event.params.value)
-		totalSupply.valueExact = totalSupplyValue.exact
+		totalSupply.valueExact = totalSupply.valueExact.plus(event.params.value)
+		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 		totalSupply.save()
 	} else {
 		let balance            = fetchERC20Balance(contract, from)
-		let balanceValue       = new decimals.Value(balance.value)
-		balanceValue.decrement(event.params.value)
-		balance.valueExact     = balanceValue.exact
+		balance.valueExact     = balance.valueExact.minus(event.params.value)
+		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
 		ev.fromBalance         = balance.id;
 	}
 
 	if (to.id == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC20Balance(contract, null)
-		let totalSupplyValue   = new decimals.Value(totalSupply.value)
-		totalSupplyValue.decrement(event.params.value)
-		totalSupply.valueExact = totalSupplyValue.exact
+		totalSupply.valueExact = totalSupply.valueExact.minus(event.params.value)
+		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 		totalSupply.save()
 	} else {
 		let balance            = fetchERC20Balance(contract, to)
-		let balanceValue       = new decimals.Value(balance.value)
-		balanceValue.increment(event.params.value)
-		balance.valueExact     = balanceValue.exact
+		balance.valueExact     = balance.valueExact.plus(event.params.value)
+		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
 		ev.toBalance           = balance.id;
 	}
@@ -76,9 +72,8 @@ export function handleApproval(event: ApprovalEvent): void {
 	let owner           = fetchAccount(event.params.owner)
 	let spender         = fetchAccount(event.params.spender)
 	let approval        = fetchERC20Approval(contract, owner, spender)
-	let value           = new decimals.Value(approval.value)
-	value.set(event.params.value)
-	approval.valueExact = value.exact
+	approval.valueExact = event.params.value
+	approval.value      = decimals.toDecimals(event.params.value, contract.decimals)
 	approval.save()
 
 	// let ev         = new ERC20ApprovalEvent(events.id(event))

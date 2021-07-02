@@ -12,7 +12,7 @@ import {
 } from '../../generated/schema'
 
 import {
-	decimals,
+	constants,
 } from '@amxx/graphprotocol-utils'
 
 import {
@@ -50,12 +50,11 @@ export function fetchERC1155Balance(token: ERC1155Token, account: Account | null
 
 	if (balance == null) {
 		balance            = new ERC1155Balance(id)
-		let value          = new decimals.Value(id.concat('/balance'))
 		balance.contract   = token.contract
 		balance.token      = token.id
 		balance.account    = account ? account.id : null
-		balance.value      = value.id
-		balance.valueExact = value.exact
+		balance.value      = constants.BIGDECIMAL_ZERO
+		balance.valueExact = constants.BIGINT_ZERO
 		balance.save()
 	}
 	return balance as ERC1155Balance

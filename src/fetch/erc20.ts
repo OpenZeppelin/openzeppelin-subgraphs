@@ -14,7 +14,7 @@ import {
 } from '../../generated/erc20/IERC20'
 
 import {
-	decimals,
+	constants,
 } from '@amxx/graphprotocol-utils'
 
 import {
@@ -52,11 +52,10 @@ export function fetchERC20Balance(contract: ERC20Contract, account: Account | nu
 
 	if (balance == null) {
 		balance                 = new ERC20Balance(id)
-		let value               = new decimals.Value(id.concat('/balance'), contract.decimals)
 		balance.contract        = contract.id
 		balance.account         = account ? account.id : null
-		balance.value           = value.id
-		balance.valueExact      = value.exact
+		balance.value           = constants.BIGDECIMAL_ZERO
+		balance.valueExact      = constants.BIGINT_ZERO
 		balance.save()
 	}
 	return balance as ERC20Balance
@@ -68,12 +67,11 @@ export function fetchERC20Approval(contract: ERC20Contract, owner: Account, spen
 
 	if (approval == null) {
 		approval                = new ERC20Approval(id)
-		let value               = new decimals.Value(id.concat('/approval'), contract.decimals)
 		approval.contract       = contract.id
 		approval.owner          = owner.id
 		approval.spender        = spender.id
-		approval.value          = value.id
-		approval.valueExact     = value.exact
+		approval.value          = constants.BIGDECIMAL_ZERO
+		approval.valueExact     = constants.BIGINT_ZERO
 	}
 	return approval as ERC20Approval
 }

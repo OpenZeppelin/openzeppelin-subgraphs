@@ -34,7 +34,7 @@
     { "name": "contract",                     "type": "ERC1155Contract!"                           },
     { "name": "token",                        "type": "ERC1155Token!"                              },
     { "name": "account",                      "type": "Account"                                    },
-    { "name": "value",                        "type": "DecimalValue!"                              },
+    { "name": "value",                        "type": "BigDecimal!"                                },
     { "name": "valueExact",                   "type": "BigInt!"                                    },
     { "name": "transferFromEvent",            "type": "ERC1155Transfer!", "derived": "fromBalance" },
     { "name": "transferToEvent",              "type": "ERC1155Transfer!", "derived": "toBalance"   }

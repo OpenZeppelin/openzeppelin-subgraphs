@@ -103,7 +103,7 @@ type ERC1155Balance @entity {
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	account: Account
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 	transferFromEvent: [ERC1155Transfer!]! @derivedFrom(field: "fromBalance")
 	transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "toBalance")
@@ -144,7 +144,7 @@ type ERC20Balance @entity {
 	id: ID!
 	contract: ERC20Contract!
 	account: Account
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 	transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "fromBalance")
 	transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "toBalance")
@@ -154,7 +154,7 @@ type ERC20Approval @entity {
 	contract: ERC20Contract!
 	owner: Account!
 	spender: Account!
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 }
 type ERC20Transfer implements Event @entity {
@@ -295,12 +295,6 @@ type TimelockMinDelayChange implements Event @entity {
 	timestamp: BigInt!
 	contract: Timelock!
 	delay: BigInt!
-}
-type DecimalValue @entity {
-	id: ID!
-	value: BigDecimal!
-	exact: BigInt!
-	decimals: Int!
 }
 interface Event {
 	id: ID!

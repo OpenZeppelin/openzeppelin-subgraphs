@@ -30,7 +30,7 @@ type ERC1155Balance @entity {
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	account: Account
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 	transferFromEvent: [ERC1155Transfer!]! @derivedFrom(field: "fromBalance")
 	transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "toBalance")
@@ -55,12 +55,6 @@ type ERC1155Transfer implements Event @entity {
 	toBalance: ERC1155Balance
 	value: BigDecimal!
 	valueExact: BigInt!
-}
-type DecimalValue @entity {
-	id: ID!
-	value: BigDecimal!
-	exact: BigInt!
-	decimals: Int!
 }
 interface Event {
 	id: ID!
