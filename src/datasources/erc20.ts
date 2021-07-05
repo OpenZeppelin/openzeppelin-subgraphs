@@ -48,7 +48,7 @@ export function handleTransfer(event: TransferEvent): void {
 		balance.valueExact     = balance.valueExact.minus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
-		ev.fromBalance         = balance.id;
+		ev.fromBalance         = balance.id
 	}
 
 	if (to.id == constants.ADDRESS_ZERO) {
@@ -61,7 +61,7 @@ export function handleTransfer(event: TransferEvent): void {
 		balance.valueExact     = balance.valueExact.plus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
-		ev.toBalance           = balance.id;
+		ev.toBalance           = balance.id
 	}
 	ev.save()
 }

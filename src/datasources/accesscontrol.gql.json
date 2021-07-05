@@ -17,15 +17,15 @@
 },{
   "name": "Role",
   "fields": [
-    { "name": "roleOf",              "type": "AccessControlRole!",        "derived": "role"              },
-    { "name": "adminOf",             "type": "AccessControlRole!",        "derived": "admin"             }
+    { "name": "roleOf",              "type": "AccessControlRole!",        "derived": "role"              }
   ]
 },{
   "name": "AccessControlRole",
   "fields": [
     { "name": "contract",             "type": "AccessControl!"                                           },
     { "name": "role",                 "type": "Role!"                                                    },
-    { "name": "admin",                "type": "Role"                                                     },
+    { "name": "admin",                "type": "AccessControlRole!"                                       },
+    { "name": "adminOf",              "type": "AccessControlRole!",       "derived": "admin"             },
     { "name": "members",              "type": "AccessControlRoleMember!", "derived": "accesscontrolrole" },
     { "name": "roleGranted",          "type": "RoleGranted!",             "derived": "role"              },
     { "name": "roleRevoked",          "type": "RoleRevoked!",             "derived": "role"              },
@@ -44,8 +44,8 @@
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
     { "name": "role",                 "type": "AccessControlRole!" },
-    { "name": "newAdminRole",         "type": "Role!"              },
-    { "name": "previousAdminRole",    "type": "Role!"              }
+    { "name": "newAdminRole",         "type": "AccessControlRole!" },
+    { "name": "previousAdminRole",    "type": "AccessControlRole!" }
   ]
 },{
   "name": "RoleGranted",

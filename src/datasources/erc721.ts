@@ -77,17 +77,17 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 		let operator   = fetchAccount(event.params.operator)
 		let delegation = fetchERC721Operator(contract, owner, operator)
 
-		delegation.approved = event.params.approved;
+		delegation.approved = event.params.approved
 
-		delegation.save();
+		delegation.save()
 
-		// 	let ev = new ApprovalForAll(events.id(event));
+		// 	let ev = new ApprovalForAll(events.id(event))
 		// 	ev.transaction = transactions.log(event).id
-		// 	ev.timestamp   = event.block.timestamp;
-		// 	ev.delegation  = delegation.id;
-		// 	ev.owner       = owner.id;
-		// 	ev.operator    = operator.id;
-		// 	ev.approved    = event.params.approved;
-		// 	ev.save();
+		// 	ev.timestamp   = event.block.timestamp
+		// 	ev.delegation  = delegation.id
+		// 	ev.owner       = owner.id
+		// 	ev.operator    = operator.id
+		// 	ev.approved    = event.params.approved
+		// 	ev.save()
 	}
 }

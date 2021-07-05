@@ -149,6 +149,41 @@
 }
 ----
 
+== AccessControl
+
+=== All roles, with details and current members for an AccessControl powered contract
+
+[source,subgraph]
+----
+{
+  accessControl(id: "<accesscontrol-contract-in-lowercase>") {
+    roles {
+      role { id }
+      admin { role { id } }
+      adminOf { role { id } }
+      members { account { id } }
+    }
+  }
+}
+
+----
+
+=== All AccessControl roles held by an account
+
+[source,subgraph]
+----
+{
+  account(id: "<user-address-in-lowercase>") {
+    membership {
+      accesscontrolrole {
+        contract { id }
+        role { id }
+      }
+    }
+  }
+}
+----
+
 == Timelock
 
 === Pending operations on a timelock, with details of subcalls and deadline
