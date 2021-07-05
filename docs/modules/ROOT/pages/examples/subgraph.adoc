@@ -1,4 +1,4 @@
-= Examples
+= Subgraph examples
 
 == Basic application
 

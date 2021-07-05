@@ -1,0 +1,190 @@
+= Query examples
+
+== ERC20
+
+=== Total supply and biggest token holders
+
+[source,subgraph]
+----
+{
+  erc20Contract(id: "<token-address-in-lowercase>") {
+    totalSupply {
+      value
+    }
+    balances(orderBy: valueExact, orderDirection: desc, where: { account_not: null }) {
+      account {
+        id
+      }
+      value
+    }
+  }
+}
+----
+
+=== Most recent transfers with transaction id
+
+[source,subgraph]
+----
+{
+  erc20Contract(id: "<token-address-in-lowercase>") {
+    transfers(orderBy: timestamp, orderDirection: desc) {
+      from { id }
+      to { id }
+      value
+      transaction { id }
+    }
+  }
+}
+----
+
+=== All indexed ERC20 balances for a user
+
+[source,subgraph]
+----
+{
+  account(id: "<user-address-in-lowercase>") {
+    ERC20balances {
+      contract{ name, symbol, decimals }
+    	value
+    }
+  }
+}
+----
+
+== ERC721
+
+=== All ERC721 tokens for a user, with metadata
+
+[source,subgraph]
+----
+{
+  account(id: "<user-address-in-lowercase>") {
+    ERC721tokens {
+      contract { id }
+      identifier
+      uri
+    }
+  }
+}
+----
+
+=== All ERC721 tokens on a contract, with current owner
+
+[source,subgraph]
+----
+{
+  erc721Contract(id: "<registry-address-in-lowercase>") {
+    tokens {
+      identifier
+      owner { id }
+    }
+  }
+}
+----
+
+=== History of all transfers for a given token
+
+[source,subgraph]
+----
+{
+  erc721Tokens(where: {
+    contract: "<registry-address-in-lowercase>",
+    identifier: "<token-identifier-in-decimal>",
+  }) {
+    transfers {
+      timestamp
+      from { id }
+      to { id }
+    }
+  }
+}
+----
+
+== ERC1155
+
+=== All tokens for a registry with corresponding totalSupply and balances
+
+[source,subgraph]
+----
+{
+  erc1155Contract(id: "<registry-address-in-lowercase>") {
+    tokens {
+    identifier
+      totalSupply { value }
+      balances(where: { account_not: null }) {
+        account { id }
+        value
+      }
+  }
+  }
+}
+----
+
+== Ownable
+
+=== History of transfers for an ownable contract
+
+[source,subgraph]
+----
+{
+  ownable(id : "<ownable-address-in-lowercase>") {
+    ownershipTransferred(orderBy: timestamp, orderDirection: asc) {
+      timestamp
+      owner { id }
+    }
+  }
+}
+----
+
+=== All ownable contract help by an account
+
+[source,subgraph]
+----
+{
+  account(id: "<user-address-in-lowercase>") {
+    ownerOf {
+      id
+    }
+  }
+}
+----
+
+== Timelock
+
+=== Pending operations on a timelock, with details of subcalls and deadline
+
+[source,subgraph]
+----
+{
+  timelock(id: "<timelock-address-in-lowercase>") {
+    id
+    operations(where: { status: "SCHEDULED"}) {
+      calls {
+        target { id }
+        value
+        data
+      }
+      timestamp
+    }
+  }
+}
+----
+
+=== All timelocked operations to an address, with status and details of the call
+
+[source,subgraph]
+----
+{
+  account(id: "<address-of-the-target-in-lowercase>") {
+    timelockedCalls {
+      operation {
+        contract { id }
+        timestamp
+        status
+      }
+      value
+      data
+    }
+  }
+}
+----
