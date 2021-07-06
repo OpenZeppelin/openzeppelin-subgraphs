@@ -48,3 +48,35 @@ Similar to the manifest, `@amxx/graphprotocol-utils` provides tooling to xref:ge
 | *timelock*       | ✔
 | *erc1967upgrade* | Planned
 |===
+
+== Usage example
+
+By combining multiple modules and datasources in your subgraph, you can build query such as the following one, which
+check the details of an ERC20 token with AccessControl on top of it, and returns the balance of the administrators.
+
+[source,subgraph]
+----
+{
+  erc20Contract(id: "<erc20-with-accesscontrol-address-in-lowercase>") {
+    name
+    symbol
+    decimals
+    totalSupply { value }
+
+    asAccount {
+      asAccessControl {
+        admins: roles(where: { role: "0x0000000000000000000000000000000000000000000000000000000000000000" }) {
+          members {
+            account {
+              address: id
+              balance: ERC20balances(where: { contract: "<erc20-with-accesscontrol-address-in-lowercase>" }) {
+                value
+              }
+          	}
+        	}
+        }
+      }
+    }
+  }
+}
+----
