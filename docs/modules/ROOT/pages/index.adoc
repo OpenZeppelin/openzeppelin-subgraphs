@@ -62,7 +62,6 @@ check the details of an ERC20 token with AccessControl on top of it, and returns
     symbol
     decimals
     totalSupply { value }
-
     asAccount {
       asAccessControl {
         admins: roles(where: { role: "0x0000000000000000000000000000000000000000000000000000000000000000" }) {
@@ -72,8 +71,8 @@ check the details of an ERC20 token with AccessControl on top of it, and returns
               balance: ERC20balances(where: { contract: "<erc20-with-accesscontrol-address-in-lowercase>" }) {
                 value
               }
-          	}
-        	}
+            }
+          }
         }
       }
     }
