@@ -25,10 +25,7 @@ import {
 } from '../fetch/erc20'
 
 export function handleTransfer(event: TransferEvent): void {
-	let contract = fetchERC20(event.address)
-	let from     = fetchAccount(event.params.from)
-	let to       = fetchAccount(event.params.to)
-
+	let contract   = fetchERC20(event.address)
 	let ev         = new ERC20Transfer(events.id(event))
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
@@ -36,12 +33,13 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.value       = decimals.toDecimals(event.params.value, contract.decimals)
 	ev.valueExact  = event.params.value
 
-	if (from.id == constants.ADDRESS_ZERO) {
+	if (event.params.from.toHex() == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC20Balance(contract, null)
 		totalSupply.valueExact = totalSupply.valueExact.plus(event.params.value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 		totalSupply.save()
 	} else {
+		let from               = fetchAccount(event.params.from)
 		let balance            = fetchERC20Balance(contract, from)
 		balance.valueExact     = balance.valueExact.minus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
@@ -51,12 +49,13 @@ export function handleTransfer(event: TransferEvent): void {
 		ev.fromBalance         = balance.id
 	}
 
-	if (to.id == constants.ADDRESS_ZERO) {
+	if (event.params.to.toHex() == constants.ADDRESS_ZERO) {
 		let totalSupply        = fetchERC20Balance(contract, null)
 		totalSupply.valueExact = totalSupply.valueExact.minus(event.params.value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 		totalSupply.save()
 	} else {
+		let to                 = fetchAccount(event.params.to)
 		let balance            = fetchERC20Balance(contract, to)
 		balance.valueExact     = balance.valueExact.plus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
