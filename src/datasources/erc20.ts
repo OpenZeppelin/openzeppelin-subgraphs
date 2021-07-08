@@ -33,8 +33,6 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.contract    = contract.id
-	ev.from        = from.id
-	ev.to          = to.id
 	ev.value       = decimals.toDecimals(event.params.value, contract.decimals)
 	ev.valueExact  = event.params.value
 
@@ -48,6 +46,8 @@ export function handleTransfer(event: TransferEvent): void {
 		balance.valueExact     = balance.valueExact.minus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
+
+		ev.from                = from.id
 		ev.fromBalance         = balance.id
 	}
 
@@ -61,6 +61,8 @@ export function handleTransfer(event: TransferEvent): void {
 		balance.valueExact     = balance.valueExact.plus(event.params.value)
 		balance.value          = decimals.toDecimals(balance.valueExact, contract.decimals)
 		balance.save()
+
+		ev.to                  = to.id
 		ev.toBalance           = balance.id
 	}
 	ev.save()

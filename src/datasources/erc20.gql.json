@@ -46,9 +46,9 @@
     { "name": "transaction",            "type": "Transaction!"   },
     { "name": "timestamp",              "type": "BigInt!"        },
     { "name": "contract",               "type": "ERC20Contract!" },
-    { "name": "from",                   "type": "Account!"       },
+    { "name": "from",                   "type": "Account"        },
     { "name": "fromBalance",            "type": "ERC20Balance"   },
-    { "name": "to",                     "type": "Account!"       },
+    { "name": "to",                     "type": "Account"        },
     { "name": "toBalance",              "type": "ERC20Balance"   },
     { "name": "value",                  "type": "BigDecimal!"    },
     { "name": "valueExact",             "type": "BigInt!"        }

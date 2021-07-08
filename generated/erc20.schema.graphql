@@ -40,9 +40,9 @@ type ERC20Transfer implements Event @entity {
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!
-	from: Account!
+	from: Account
 	fromBalance: ERC20Balance
-	to: Account!
+	to: Account
 	toBalance: ERC20Balance
 	value: BigDecimal!
 	valueExact: BigInt!
