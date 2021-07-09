@@ -26,12 +26,12 @@
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
-    "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",
-    "@openzeppelin/contracts": "^4.0.0"
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.8",
+    "@openzeppelin/contracts": "^4.2.0"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.20.0",
-    "@graphprotocol/graph-ts": "^0.20.0",
+    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-ts": "^0.20.1",
     "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script"
   }
 }

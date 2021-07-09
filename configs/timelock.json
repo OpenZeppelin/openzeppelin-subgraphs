@@ -2,7 +2,6 @@
   "output": "generated/timelock.",
   "datasources": [
     {
-      "address": "0x0000000000000000000000000000000000000000",
       "module": [
         "timelock"
       ]

@@ -11,7 +11,6 @@ function test() {
     printf '"output": "%s",' "$tmp."
     printf '"datasources": ['
     printf '{'
-    printf '"address": "0x0000000000000000000000000000000000000000",'
     printf '"module": ['
     {
       for module in "${modules[@]}";

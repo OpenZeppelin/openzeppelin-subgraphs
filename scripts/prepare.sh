@@ -15,7 +15,6 @@ function generate {
     printf '"output": "generated/%s.",' "$name"
     printf '"datasources": ['
     printf '{'
-    printf '"address": "0x0000000000000000000000000000000000000000",'
     printf '"module": ['
     {
       for module in "$@";
