@@ -56,9 +56,9 @@
     { "name": "contract",                     "type": "ERC1155Contract!"                           },
     { "name": "token",                        "type": "ERC1155Token!"                              },
     { "name": "operator",                     "type": "Account!"                                   },
-    { "name": "from",                         "type": "Account!"                                   },
+    { "name": "from",                         "type": "Account"                                    },
     { "name": "fromBalance",                  "type": "ERC1155Balance"                             },
-    { "name": "to",                           "type": "Account!"                                   },
+    { "name": "to",                           "type": "Account"                                    },
     { "name": "toBalance",                    "type": "ERC1155Balance"                             },
     { "name": "value",                        "type": "BigDecimal!"                                },
     { "name": "valueExact",                   "type": "BigInt!"                                    }

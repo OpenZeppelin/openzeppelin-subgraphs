@@ -52,8 +52,6 @@ function registerTransfer(
 	ev.contract    = contract.id
 	ev.token       = token.id
 	ev.operator    = operator.id
-	ev.from        = from.id
-	ev.to          = to.id
 	ev.value       = decimals.toDecimals(value)
 	ev.valueExact  = value
 
@@ -67,6 +65,8 @@ function registerTransfer(
 		balance.valueExact     = balance.valueExact.minus(value)
 		balance.value          = decimals.toDecimals(balance.valueExact)
 		balance.save()
+
+		ev.from                = from.id
 		ev.fromBalance         = balance.id
 	}
 
@@ -80,6 +80,8 @@ function registerTransfer(
 		balance.valueExact     = balance.valueExact.plus(value)
 		balance.value          = decimals.toDecimals(balance.valueExact)
 		balance.save()
+
+		ev.to                  = to.id
 		ev.toBalance           = balance.id
 	}
 

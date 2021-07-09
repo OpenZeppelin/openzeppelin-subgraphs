@@ -49,9 +49,9 @@ type ERC1155Transfer implements Event @entity {
 	contract: ERC1155Contract!
 	token: ERC1155Token!
 	operator: Account!
-	from: Account!
+	from: Account
 	fromBalance: ERC1155Balance
-	to: Account!
+	to: Account
 	toBalance: ERC1155Balance
 	value: BigDecimal!
 	valueExact: BigInt!
