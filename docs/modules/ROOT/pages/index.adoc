@@ -42,11 +42,11 @@ Similar to the manifest, `@amxx/graphprotocol-utils` provides tooling to xref:ge
 | *erc721*         | ✔
 | *erc777*         | Planned
 | *erc1155*        | ✔
+| *erc1967upgrade* | ✔
 | *ownable*        | ✔
 | *accesscontrol*  | ✔
 | *pausable*       | ✔
 | *timelock*       | ✔
-| *erc1967upgrade* | Planned
 |===
 
 == Usage example

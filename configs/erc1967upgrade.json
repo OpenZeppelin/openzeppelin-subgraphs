@@ -1,0 +1,10 @@
+{
+  "output": "generated/erc1967upgrade.",
+  "datasources": [
+    {
+      "module": [
+        "erc1967upgrade"
+      ]
+    }
+  ]
+}

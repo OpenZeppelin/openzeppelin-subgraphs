@@ -1,0 +1,44 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "erc1967Implementation",           "type": "Account"                                                            },
+    { "name": "erc1967Beacon",                   "type": "Account"                                                            },
+    { "name": "erc1967Admin",                    "type": "Account"                                                            },
+    { "name": "erc1967ImplementationOf",         "type": "Account!",                       "derived": "erc1967Implementation" },
+    { "name": "erc1967BeaconOf",                 "type": "Account!",                       "derived": "erc1967Beacon"         },
+    { "name": "erc1967AdminOf",                  "type": "Account!",                       "derived": "erc1967Admin"          },
+    { "name": "ERC1967AdminChanged",             "type": "ERC1967AdminChanged!",           "derived": "contract"              },
+    { "name": "ERC1967AdminOfChanged",           "type": "ERC1967AdminChanged!",           "derived": "admin"                 },
+    { "name": "ERC1967BeaconUpgraded",           "type": "ERC1967BeaconUpgraded!",         "derived": "contract"              },
+    { "name": "ERC1967BeaconOfUpgraded",         "type": "ERC1967BeaconUpgraded!",         "derived": "beacon"                },
+    { "name": "ERC1967ImplementationUpgraded",   "type": "ERC1967ImplementationUpgraded!", "derived": "contract"              },
+    { "name": "ERC1967ImplementationOfUpgraded", "type": "ERC1967ImplementationUpgraded!", "derived": "implementation"        }
+  ]
+},{
+  "name": "ERC1967AdminChanged",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",                     "type": "Transaction!"                                                       },
+    { "name": "timestamp",                       "type": "BigInt!"                                                            },
+    { "name": "contract",                        "type": "Account!"                                                           },
+    { "name": "admin",                           "type": "Account!"                                                           }
+  ]
+},{
+  "name": "ERC1967BeaconUpgraded",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",                     "type": "Transaction!"                                                       },
+    { "name": "timestamp",                       "type": "BigInt!"                                                            },
+    { "name": "contract",                        "type": "Account!"                                                           },
+    { "name": "beacon",                          "type": "Account!"                                                           }
+  ]
+},{
+  "name": "ERC1967ImplementationUpgraded",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",                     "type": "Transaction!"                                                       },
+    { "name": "timestamp",                       "type": "BigInt!"                                                            },
+    { "name": "contract",                        "type": "Account!"                                                           },
+    { "name": "implementation",                  "type": "Account!"                                                           }
+  ]
+}]
