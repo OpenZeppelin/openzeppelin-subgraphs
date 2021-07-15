@@ -1,5 +1,5 @@
-name: subgraph
-title: Subgraph
-version: 0.0.x
+name: subgraphs
+title: Subgraphs
+version: 0.1.x
 nav:
   - modules/ROOT/nav.adoc
