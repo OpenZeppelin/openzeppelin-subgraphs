@@ -4,7 +4,7 @@
 
 === Total supply and biggest token holders
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc20Contract(id: "<token-address-in-lowercase>") {
@@ -23,7 +23,7 @@
 
 === Most recent transfers with transaction id
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc20Contract(id: "<token-address-in-lowercase>") {
@@ -39,7 +39,7 @@
 
 === All indexed ERC20 balances for a user
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   account(id: "<user-address-in-lowercase>") {
@@ -55,7 +55,7 @@
 
 === All ERC721 tokens for a user, with metadata
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   account(id: "<user-address-in-lowercase>") {
@@ -70,7 +70,7 @@
 
 === All ERC721 tokens on a contract, with current owner
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc721Contract(id: "<registry-address-in-lowercase>") {
@@ -84,7 +84,7 @@
 
 === History of all transfers for a given token
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc721Tokens(where: {
@@ -104,7 +104,7 @@
 
 === All tokens for a registry with corresponding totalSupply and balances
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc1155Contract(id: "<registry-address-in-lowercase>") {
@@ -124,7 +124,7 @@
 
 === History of transfers for an ownable contract
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   ownable(id : "<ownable-address-in-lowercase>") {
@@ -138,7 +138,7 @@
 
 === All ownable contract help by an account
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   account(id: "<user-address-in-lowercase>") {
@@ -153,7 +153,7 @@
 
 === All roles, with details and current members for an AccessControl powered contract
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   accessControl(id: "<accesscontrol-contract-in-lowercase>") {
@@ -170,7 +170,7 @@
 
 === All AccessControl roles held by an account
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   account(id: "<user-address-in-lowercase>") {
@@ -188,7 +188,7 @@
 
 === Pending operations on a timelock, with details of subcalls and deadline
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   timelock(id: "<timelock-address-in-lowercase>") {
@@ -207,7 +207,7 @@
 
 === All timelocked operations to an address, with status and details of the call
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   account(id: "<address-of-the-target-in-lowercase>") {

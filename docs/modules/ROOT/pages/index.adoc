@@ -11,7 +11,7 @@ Subgraph are described using three components:
 - *The subgraph manifest*, usually nammed `subgraph.yaml`, which describes the activity that should be listened to (addresses of contracts, events handlers, function handlers).
 - *The indexing logic*, written in assembly script, which will process the blockchain activity and update the database accordingly.
 
-OpenZeppelin subgraph provide schemas description, with the corresponding indexing logic and templates for building your subgraph manifest.
+OpenZeppelin Subgraphs provide schemas description, with the corresponding indexing logic and templates for building your subgraph manifest.
 
 Similarly to how OpenZeppelin contracts provide solidity code containing sets of features that one can assemble to ease building an application, OpenZeppelin subgraphs provides modules dedicated to indexing the activity corresponding to these features. These modules can be composed to index complex onchain activity without the need to actually write the indexing logic for most of the features.
 
@@ -54,7 +54,7 @@ Similar to the manifest, `@amxx/graphprotocol-utils` provides tooling to xref:ge
 By combining multiple modules and datasources in your subgraph, you can build query such as the following one, which
 check the details of an ERC20 token with AccessControl on top of it, and returns the balance of the administrators.
 
-[source,subgraph]
+[source,graphql]
 ----
 {
   erc20Contract(id: "<erc20-with-accesscontrol-address-in-lowercase>") {
