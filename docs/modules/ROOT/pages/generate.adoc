@@ -48,7 +48,7 @@ This will produce two file, following the `output` parameter provided in the con
 
 == Deploy your subgraph
 
-In order to deploy your subgraph to the hosted service, or to any other graphnode, you will have to create it first. This operation is documented https://thegraph.com/docs/deploy-a-subgraph[here]. Once this is done, you can compile and deploy the produced subgraph using the `graph-cli` tools:
+In order to deploy your subgraph to the hosted service, or to any other graphnode, you will have to create it first. This operation is documented https://thegraph.com/docs/developer/deploy-subgraph-hosted[here]. Once this is done, you can compile and deploy the produced subgraph using the `graph-cli` tools:
 
 [source,bash]
 ----
