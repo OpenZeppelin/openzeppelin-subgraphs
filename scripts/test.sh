@@ -22,7 +22,7 @@ function test() {
     printf '}'
     printf ']'
     printf '}'
-  } | jq > $tmp.json
+  } | jq . > $tmp.json
 
   npx graph-compiler --config $tmp --include src/datasources --export-subgraph --export-schema || exit $?
   npx graph codegen $tmp.subgraph.yaml || exit $?
