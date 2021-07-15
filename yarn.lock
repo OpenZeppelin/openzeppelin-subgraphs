@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@amxx/graphprotocol-utils@^1.0.0-alpha.8":
-  version "1.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@amxx/graphprotocol-utils/-/graphprotocol-utils-1.0.0-alpha.8.tgz#a89ba2da61b6b5837e0497fabce6a4fc157db6fb"
-  integrity sha512-l8yW9GTEa2Fh47ehyzSt6k/1BZYC4htL+TTk861RdxxTCInwpaS16vc43gCELxJFuIe2SN3+Q6RvNPfs8mbLew==
+"@amxx/graphprotocol-utils@^1.0.0-alpha.9":
+  version "1.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@amxx/graphprotocol-utils/-/graphprotocol-utils-1.0.0-alpha.9.tgz#06a41c391f2f8a5ec65f8c42f3d24f079a1616c7"
+  integrity sha512-Mfsl1rimQFRfJIUKPuvMl3Psfj6Ai0kkyDsJvmnXHZ6Dgp9txw281mjZdI5Rjb1wpzIx39Z3VvboRs84Hf7XdQ==
   dependencies:
     "@graphprotocol/graph-ts" "^0.20.0"
     yargs "^17.0.1"
