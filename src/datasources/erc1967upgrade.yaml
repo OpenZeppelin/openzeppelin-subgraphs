@@ -21,3 +21,4 @@
           handler: handleBeaconUpgraded
         - event: Upgraded(indexed address)
           handler: handleUpgraded
+      file: {file}

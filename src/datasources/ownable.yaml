@@ -17,3 +17,4 @@
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
+      file: {file}

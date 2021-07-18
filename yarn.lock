@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@amxx/graphprotocol-utils@^1.0.0-alpha.9":
-  version "1.0.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/@amxx/graphprotocol-utils/-/graphprotocol-utils-1.0.0-alpha.9.tgz#06a41c391f2f8a5ec65f8c42f3d24f079a1616c7"
-  integrity sha512-Mfsl1rimQFRfJIUKPuvMl3Psfj6Ai0kkyDsJvmnXHZ6Dgp9txw281mjZdI5Rjb1wpzIx39Z3VvboRs84Hf7XdQ==
+"@amxx/graphprotocol-utils@^1.0.0-alpha.11":
+  version "1.0.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/@amxx/graphprotocol-utils/-/graphprotocol-utils-1.0.0-alpha.11.tgz#be0b8abcf774a3e56b2fa81840986bf3e45604a0"
+  integrity sha512-BsR54oH0mEcH91oRDZGQtVzoMOLOsdyZd0r0V9jif9yX71e4QK1iRu6Gpb8uPcLoQ49m1+R+JyHfw7yvWEebNQ==
   dependencies:
     "@graphprotocol/graph-ts" "^0.20.0"
     yargs "^17.0.1"
@@ -110,9 +110,9 @@
   integrity sha512-7eQ2xYLLI/LsicL2nejW9Wyko3lcpN6O/z0ZLHrEQsg280zIdCv1t/0m6UtBjUHokCGBQ3gYTbHzDkZ1xOBwwg==
 
 "@types/node@*":
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.2.tgz#655432817f83b51ac869c2d51dd8305fb8342e16"
-  integrity sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==
+  version "16.3.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.3.tgz#0c30adff37bbbc7a50eb9b58fae2a504d0d88038"
+  integrity sha512-8h7k1YgQKxKXWckzFCMfsIwn0Y61UK6tlD6y2lOb3hTOIMlK3t9/QwHOhc81TwU+RMf0As5fj7NPjroERCnejQ==
 
 "@types/node@^12.12.54":
   version "12.20.16"
