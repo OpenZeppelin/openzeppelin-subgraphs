@@ -1,7 +1,7 @@
 {
   "name": "@openzeppelin/subgraphs",
   "description": "Subgraph templates for @openzeppelin/contracts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
   "license": "MIT",
   "homepage": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git#readme",
