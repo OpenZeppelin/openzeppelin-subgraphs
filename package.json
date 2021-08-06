@@ -6,10 +6,10 @@
   "license": "MIT",
   "homepage": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git#readme",
   "files": [
-    "/generated/**/*.ts",
-    "/generated/*.graphql",
-    "/scripts/*.sh",
-    "/src/**/*"
+    "generated/schema.ts",
+    "generated/*.graphql",
+    "generated/**/*.ts",
+    "src"
   ],
   "repository": {
     "type": "git",
@@ -18,12 +18,6 @@
   "bugs": {
     "url": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git/issues"
   },
-  "files": [
-    "generated/schema.ts",
-    "generated/*.graphql",
-    "generated/**/*.ts",
-    "src"
-  ],
   "scripts": {
     "docs": "oz-docs",
     "docs:watch": "npm run docs watch",
@@ -33,10 +27,10 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.0.0-alpha.11",
-    "@openzeppelin/contracts": "^4.2.0"
+    "@openzeppelin/contracts": "^4.3.0-rc.0"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-cli": "^0.21.1",
     "@graphprotocol/graph-ts": "^0.20.1",
     "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script"
   }

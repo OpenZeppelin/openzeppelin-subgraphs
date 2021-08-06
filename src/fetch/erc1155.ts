@@ -41,6 +41,7 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
 		token.save()
 	}
+
 	return token as ERC1155Token
 }
 
@@ -57,6 +58,7 @@ export function fetchERC1155Balance(token: ERC1155Token, account: Account | null
 		balance.valueExact = constants.BIGINT_ZERO
 		balance.save()
 	}
+
 	return balance as ERC1155Balance
 }
 
@@ -70,5 +72,6 @@ export function fetchERC721Operator(contract: ERC1155Contract, owner: Account, o
 		op.owner    = owner.id
 		op.operator = operator.id
 	}
+
 	return op as ERC1155Operator
 }

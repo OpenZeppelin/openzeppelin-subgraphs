@@ -80,6 +80,7 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
 		}
 	}
+
 	return token as ERC721Token
 }
 
@@ -93,5 +94,6 @@ export function fetchERC721Operator(contract: ERC721Contract, owner: Account, op
 		op.owner    = owner.id
 		op.operator = operator.id
 	}
+
 	return op as ERC721Operator
 }

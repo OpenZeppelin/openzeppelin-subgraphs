@@ -1,0 +1,118 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asGovernor",           "type": "Governor"                                           },
+    { "name": "proposed",             "type": "Proposal!",                   "derived": "proposer" },
+    { "name": "voted",                "type": "VoteReceipt!",                "derived": "voter"    },
+    { "name": "proposedCalls",        "type": "ProposalCall!",               "derived": "target"   }
+  ]
+},{
+  "name": "Governor",
+  "fields": [
+    { "name": "asAccount" ,           "type": "Account!"                                           },
+    { "name": "proposals",            "type": "Proposal!",                   "derived": "governor" },
+    { "name": "proposalCreated",      "type": "ProposalCreated!",            "derived": "governor" },
+    { "name": "proposalQueued",       "type": "ProposalQueued!",             "derived": "governor" },
+    { "name": "proposalExecuted",     "type": "ProposalExecuted!",           "derived": "governor" },
+    { "name": "proposalCanceled",     "type": "ProposalCanceled!",           "derived": "governor" },
+    { "name": "votecast",             "type": "VoteCast!",                   "derived": "governor" }
+  ]
+},{
+  "name": "Proposal",
+  "fields": [
+    { "name": "governor",             "type": "Governor!"                                          },
+    { "name": "proposalId",           "type": "BigInt!"                                            },
+    { "name": "proposer",             "type": "Account!"                                           },
+    { "name": "startBlock",           "type": "BigInt!"                                            },
+    { "name": "endBlock",             "type": "BigInt!"                                            },
+    { "name": "description",          "type": "String!"                                            },
+    { "name": "eta",                  "type": "BigInt"                                             },
+    { "name": "canceled",             "type": "Boolean!"                                           },
+    { "name": "queued",               "type": "Boolean!"                                           },
+    { "name": "executed",             "type": "Boolean!"                                           },
+    { "name": "calls",                "type": "ProposalCall!",               "derived": "proposal" },
+    { "name": "supports",             "type": "ProposalSupport!",            "derived": "proposal" },
+    { "name": "receipts",             "type": "VoteReceipt!",                "derived": "proposal" },
+    { "name": "proposalCreated",      "type": "ProposalCreated!",            "derived": "proposal" },
+    { "name": "proposalQueued",       "type": "ProposalQueued!",             "derived": "proposal" },
+    { "name": "proposalExecuted",     "type": "ProposalExecuted!",           "derived": "proposal" },
+    { "name": "proposalCanceled",     "type": "ProposalCanceled!",           "derived": "proposal" },
+    { "name": "votecast",             "type": "VoteCast!",                   "derived": "proposal" }
+  ]
+},{
+  "name": "ProposalCall",
+  "fields": [
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "index",                "type": "Int!"                                                },
+    { "name": "target",               "type": "Account!"                                            },
+    { "name": "value",                "type": "BigDecimal!"                                         },
+    { "name": "signature",            "type": "String!"                                             },
+    { "name": "calldata",             "type": "Bytes!"                                              }
+  ]
+},{
+  "name": "ProposalSupport",
+  "fields": [
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "support",              "type": "Int!"                                                },
+    { "name": "votes",                "type": "VoteReceipt!",                "derived": "support"   }
+  ]
+},{
+  "name": "VoteReceipt",
+  "fields": [
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "voter",                "type": "Account!"                                            },
+    { "name": "support",              "type": "ProposalSupport!"                                    },
+    { "name": "weight",               "type": "BigInt!"                                             },
+    { "name": "reason",               "type": "String!"                                             }
+  ]
+},{
+  "name": "ProposalCreated",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                                        },
+    { "name": "timestamp",            "type": "BigInt!"                                             },
+    { "name": "governor",             "type": "Governor!"                                           },
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "proposer",             "type": "Account!"                                            }
+  ]
+},{
+  "name": "ProposalQueued",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                                        },
+    { "name": "timestamp",            "type": "BigInt!"                                             },
+    { "name": "governor",             "type": "Governor!"                                           },
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "eta",                  "type": "BigInt!"                                             }
+  ]
+},{
+  "name": "ProposalExecuted",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                                        },
+    { "name": "timestamp",            "type": "BigInt!"                                             },
+    { "name": "governor",             "type": "Governor!"                                           },
+    { "name": "proposal",             "type": "Proposal!"                                           }
+  ]
+},{
+  "name": "ProposalCanceled",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                                        },
+    { "name": "timestamp",            "type": "BigInt!"                                             },
+    { "name": "governor",             "type": "Governor!"                                           },
+    { "name": "proposal",             "type": "Proposal!"                                           }
+  ]
+},{
+  "name": "VoteCast",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",          "type": "Transaction!"                                        },
+    { "name": "timestamp",            "type": "BigInt!"                                             },
+    { "name": "governor",             "type": "Governor!"                                           },
+    { "name": "proposal",             "type": "Proposal!"                                           },
+    { "name": "support",              "type": "ProposalSupport!"                                    },
+    { "name": "receipt",              "type": "VoteReceipt!"                                        },
+    { "name": "voter",                "type": "Account!"                                            }
+  ]
+}]

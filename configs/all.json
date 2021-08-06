@@ -8,6 +8,7 @@
         "erc1967upgrade",
         "erc20",
         "erc721",
+        "governor",
         "ownable",
         "pausable",
         "timelock"

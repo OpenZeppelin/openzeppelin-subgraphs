@@ -37,6 +37,10 @@ type Account @entity {
 	ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
 	ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
 	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
+	asGovernor: Governor
+	proposed: [Proposal!]! @derivedFrom(field: "proposer")
+	voted: [VoteReceipt!]! @derivedFrom(field: "voter")
+	proposedCalls: [ProposalCall!]! @derivedFrom(field: "target")
 	asOwnable: Ownable
 	ownerOf: [Ownable!]! @derivedFrom(field: "owner")
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "owner")
@@ -236,6 +240,100 @@ type ERC721Transfer implements Event @entity {
 	token: ERC721Token!
 	from: Account!
 	to: Account!
+}
+type Governor @entity {
+	id: ID!
+	asAccount: Account!
+	proposals: [Proposal!]! @derivedFrom(field: "governor")
+	proposalCreated: [ProposalCreated!]! @derivedFrom(field: "governor")
+	proposalQueued: [ProposalQueued!]! @derivedFrom(field: "governor")
+	proposalExecuted: [ProposalExecuted!]! @derivedFrom(field: "governor")
+	proposalCanceled: [ProposalCanceled!]! @derivedFrom(field: "governor")
+	votecast: [VoteCast!]! @derivedFrom(field: "governor")
+}
+type Proposal @entity {
+	id: ID!
+	governor: Governor!
+	proposalId: BigInt!
+	proposer: Account!
+	startBlock: BigInt!
+	endBlock: BigInt!
+	description: String!
+	eta: BigInt
+	canceled: Boolean!
+	queued: Boolean!
+	executed: Boolean!
+	calls: [ProposalCall!]! @derivedFrom(field: "proposal")
+	supports: [ProposalSupport!]! @derivedFrom(field: "proposal")
+	receipts: [VoteReceipt!]! @derivedFrom(field: "proposal")
+	proposalCreated: [ProposalCreated!]! @derivedFrom(field: "proposal")
+	proposalQueued: [ProposalQueued!]! @derivedFrom(field: "proposal")
+	proposalExecuted: [ProposalExecuted!]! @derivedFrom(field: "proposal")
+	proposalCanceled: [ProposalCanceled!]! @derivedFrom(field: "proposal")
+	votecast: [VoteCast!]! @derivedFrom(field: "proposal")
+}
+type ProposalCall @entity {
+	id: ID!
+	proposal: Proposal!
+	index: Int!
+	target: Account!
+	value: BigDecimal!
+	signature: String!
+	calldata: Bytes!
+}
+type ProposalSupport @entity {
+	id: ID!
+	proposal: Proposal!
+	support: Int!
+	votes: [VoteReceipt!]! @derivedFrom(field: "support")
+}
+type VoteReceipt @entity {
+	id: ID!
+	proposal: Proposal!
+	voter: Account!
+	support: ProposalSupport!
+	weight: BigInt!
+	reason: String!
+}
+type ProposalCreated implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	governor: Governor!
+	proposal: Proposal!
+	proposer: Account!
+}
+type ProposalQueued implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	governor: Governor!
+	proposal: Proposal!
+	eta: BigInt!
+}
+type ProposalExecuted implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	governor: Governor!
+	proposal: Proposal!
+}
+type ProposalCanceled implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	governor: Governor!
+	proposal: Proposal!
+}
+type VoteCast implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	governor: Governor!
+	proposal: Proposal!
+	support: ProposalSupport!
+	receipt: VoteReceipt!
+	voter: Account!
 }
 type Ownable @entity {
 	id: ID!

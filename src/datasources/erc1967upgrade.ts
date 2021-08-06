@@ -7,7 +7,7 @@ import {
 	AdminChanged   as AdminChangedEvent,
 	BeaconUpgraded as BeaconUpgradedEvent,
 	Upgraded       as UpgradedEvent,
-} from '../../generated/erc1967/ERC1967'
+} from '../../generated/erc1967upgrade/ERC1967'
 
 import {
 	events,

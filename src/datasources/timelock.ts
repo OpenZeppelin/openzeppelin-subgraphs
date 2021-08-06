@@ -4,7 +4,7 @@ import {
 	TimelockOperationCancelled,
 	TimelockMinDelayChange,
 } from '../../generated/schema'
-//
+
 import {
 	CallExecuted   as CallExecutedEvent,
 	CallScheduled  as CallScheduledEvent,

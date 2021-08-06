@@ -58,6 +58,7 @@ export function fetchERC20Balance(contract: ERC20Contract, account: Account | nu
 		balance.valueExact      = constants.BIGINT_ZERO
 		balance.save()
 	}
+
 	return balance as ERC20Balance
 }
 
@@ -73,5 +74,6 @@ export function fetchERC20Approval(contract: ERC20Contract, owner: Account, spen
 		approval.value          = constants.BIGDECIMAL_ZERO
 		approval.valueExact     = constants.BIGINT_ZERO
 	}
+
 	return approval as ERC20Approval
 }

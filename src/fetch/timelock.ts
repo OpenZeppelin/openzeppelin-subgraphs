@@ -37,6 +37,7 @@ export function fetchTimelockOperation(contract: Timelock, opid: Bytes): Timeloc
 		operation          = new TimelockOperation(id)
 		operation.contract = contract.id
 	}
+
 	return operation as TimelockOperation
 }
 
@@ -48,5 +49,6 @@ export function fetchTimelockCall(operation: TimelockOperation, index: BigInt): 
 		call           = new TimelockCall(id)
 		call.operation = operation.id
 	}
+
 	return call as TimelockCall
 }

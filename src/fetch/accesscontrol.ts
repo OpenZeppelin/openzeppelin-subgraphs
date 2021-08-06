@@ -47,5 +47,6 @@ export function fetchAccessControlRole(contract: AccessControl, role: Role): Acc
 			: fetchAccessControlRole(contract, fetchRole(Bytes.fromHexString(constants.BYTES32_ZERO) as Bytes)).id
 		acr.save()
 	}
+
 	return acr as AccessControlRole
 }

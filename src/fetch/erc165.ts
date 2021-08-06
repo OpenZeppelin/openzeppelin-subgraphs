@@ -8,5 +8,6 @@ export function supportsInterface(contract: ethereum.SmartContract, interfaceId:
 		'supportsInterface(bytes4):(bool)',
 		[ethereum.Value.fromFixedBytes(Bytes.fromHexString(interfaceId) as Bytes)]
 	))
+
 	return result != null && (result as Array<ethereum.Value>)[0].toBoolean() == expected
 }

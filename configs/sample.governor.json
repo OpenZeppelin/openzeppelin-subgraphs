@@ -1,0 +1,8 @@
+{
+  "output": "generated/sample.governor.",
+  "chain": "rinkeby",
+  "datasources": [
+    { "address": "0x8B1A13954ac8b847BF989aeCA73b1BF6648fFEFA", "startBlock": 8825635, "module": [ "governor" ] },
+    { "address": "0xaD1d301e5Bb662F18331EE23e4Cf54F9dE37F285", "startBlock": 8945986, "module": [ "governor" ] }
+  ]
+}
