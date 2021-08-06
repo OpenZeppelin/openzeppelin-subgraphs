@@ -13,7 +13,7 @@
         - AccessControl
       abis:
         - name: AccessControl
-          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/AccessControl.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IAccessControl.json
       eventHandlers:
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleRoleAdminChanged

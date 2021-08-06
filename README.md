@@ -23,6 +23,7 @@ This repo contains subgraph schema and templates to index the activity of Openze
 - ERC721
 - ERC1155
 - ERC1967Upgrade
+- Governor
 - Ownable
 - Pausable
 - Timelock

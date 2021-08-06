@@ -1,7 +1,7 @@
 {
   "name": "@openzeppelin/subgraphs",
   "description": "Subgraph templates for @openzeppelin/contracts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
   "license": "MIT",
   "homepage": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git#readme",
@@ -30,8 +30,8 @@
     "@openzeppelin/contracts": "^4.3.0-rc.0"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.21.1",
-    "@graphprotocol/graph-ts": "^0.20.1",
+    "@graphprotocol/graph-cli": "0.21.0",
+    "@graphprotocol/graph-ts": "0.20.1",
     "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script"
   }
 }
