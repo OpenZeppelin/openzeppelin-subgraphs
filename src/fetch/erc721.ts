@@ -47,7 +47,7 @@ export function fetchERC721(address: Address): ERC721Contract {
 		let contract = ERC721Contract.load(account.id)
 
 		if (contract == null) {
-			let contract              = new ERC721Contract(account.id)
+			contract                  = new ERC721Contract(account.id)
 			let try_name              = erc721.try_name()
 			let try_symbol            = erc721.try_symbol()
 			contract.name             = try_name.reverted   ? '' : try_name.value
