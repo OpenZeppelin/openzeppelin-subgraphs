@@ -36,6 +36,14 @@ ERC777
 Escrow
 -->
 
+## Usage
+
+To use Openzeppelin subgraph, install them in your local project directory and follow the steps outlined in __How to build my app's subgraph__:
+
+```sh
+npm install @openzeppelin/subgraphs
+```
+
 ## How to build my app's subgraph
 
 In order to build your subgraph, the first step is to create a JSON file listing the modules you want to index. Examples of such config can be found in the `config` folder.
