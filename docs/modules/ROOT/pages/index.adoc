@@ -1,6 +1,6 @@
 = Subgraphs
 
-Modules for easily indexing OpenZeppelin contracts activity.
+Modules for easily indexing OpenZeppelin Contracts activity.
 
 [[usage]]
 == Usage
@@ -13,7 +13,7 @@ Subgraph are described using three components:
 
 OpenZeppelin Subgraphs provide schemas description, with the corresponding indexing logic and templates for building your subgraph manifest.
 
-Similarly to how OpenZeppelin contracts provide solidity code containing sets of features that one can assemble to ease building an application, OpenZeppelin subgraphs provides modules dedicated to indexing the activity corresponding to these features. These modules can be composed to index complex onchain activity without the need to actually write the indexing logic for most of the features.
+Similarly to how OpenZeppelin Contracts provide solidity code containing sets of features that one can assemble to ease building an application, OpenZeppelin subgraphs provides modules dedicated to indexing the activity corresponding to these features. These modules can be composed to index complex onchain activity without the need to actually write the indexing logic for most of the features.
 
 [[build-manifest]]
 === Building your manifest

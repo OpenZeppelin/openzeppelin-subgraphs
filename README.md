@@ -1,8 +1,8 @@
-# Openzeppelin subgraph
+# OpenZeppelin Subgraphs
 
 ## Introduction
 
-This repo contains subgraph schema and templates to index the activity of Openzeppelin contracts. For each of the supported Openzeppelin modules `x`, this repo provides:
+This repo contains subgraph schema and templates to index the activity of OpenZeppelin Contracts. For each of the supported OpenZeppelin modules `x`, this repo provides:
 
 - **Primitives to generate a graphql schema:** `src/datasource/x.gql.json`
 
@@ -38,7 +38,7 @@ Escrow
 
 ## Usage
 
-To use Openzeppelin subgraph, install them in your local project directory and follow the steps outlined in __How to build my app's subgraph__:
+To use OpenZeppelin Subgraphs, install them in your local project directory and follow the steps outlined in __How to build my app's subgraph__:
 
 ```sh
 npm install @openzeppelin/subgraphs
