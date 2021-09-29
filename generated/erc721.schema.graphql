@@ -1,11 +1,11 @@
 type Account @entity {
 	id: ID!
 	asERC721: ERC721Contract
-	ERC721tokens: [ERC721Token]! @derivedFrom(field: "owner")
-	ERC721operatorOwner: [ERC721Operator]! @derivedFrom(field: "owner")
-	ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
-	ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
-	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
+	ERC721tokens: [ERC721Token!]! @derivedFrom(field: "owner")
+	ERC721operatorOwner: [ERC721Operator!]! @derivedFrom(field: "owner")
+	ERC721operatorOperator: [ERC721Operator!]! @derivedFrom(field: "operator")
+	ERC721transferFromEvent: [ERC721Transfer!]! @derivedFrom(field: "from")
+	ERC721transferToEvent: [ERC721Transfer!]! @derivedFrom(field: "to")
 }
 type ERC721Contract @entity {
 	id: ID!

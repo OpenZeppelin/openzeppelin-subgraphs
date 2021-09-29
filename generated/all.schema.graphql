@@ -32,11 +32,11 @@ type Account @entity {
 	ERC20transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "from")
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
 	asERC721: ERC721Contract
-	ERC721tokens: [ERC721Token]! @derivedFrom(field: "owner")
-	ERC721operatorOwner: [ERC721Operator]! @derivedFrom(field: "owner")
-	ERC721operatorOperator: [ERC721Operator]! @derivedFrom(field: "operator")
-	ERC721transferFromEvent: [ERC721Transfer]! @derivedFrom(field: "from")
-	ERC721transferToEvent: [ERC721Transfer]! @derivedFrom(field: "to")
+	ERC721tokens: [ERC721Token!]! @derivedFrom(field: "owner")
+	ERC721operatorOwner: [ERC721Operator!]! @derivedFrom(field: "owner")
+	ERC721operatorOperator: [ERC721Operator!]! @derivedFrom(field: "operator")
+	ERC721transferFromEvent: [ERC721Transfer!]! @derivedFrom(field: "from")
+	ERC721transferToEvent: [ERC721Transfer!]! @derivedFrom(field: "to")
 	asGovernor: Governor
 	proposed: [Proposal!]! @derivedFrom(field: "proposer")
 	voted: [VoteReceipt!]! @derivedFrom(field: "voter")
