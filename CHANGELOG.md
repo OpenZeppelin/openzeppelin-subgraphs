@@ -1,5 +1,11 @@
 # Changelog
 
+
+### 0.1.3 (2021-09-29)
+ * Update datasources to apiVersion 0.0.5
+ * Update dependency to support apiVersion 0.0.5
+ * Fix nullability conflicts introduced by version 0.22 of graphprotocol's tooling
+
 ### 0.1.2 (2021-08-06)
  * Start `CHANGELOG.md`
  * Fix ERC721 fetching issue ([#5](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/5))
