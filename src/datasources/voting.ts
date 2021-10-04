@@ -9,8 +9,6 @@ import {
 } from '../../generated/voting/Voting'
 
 import {
-// 	constants,
-	decimals,
 	events,
 	transactions,
 } from '@amxx/graphprotocol-utils'
@@ -35,7 +33,6 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 	delegation.delegatee = toDelegate.id
 
 	delegation.save()
-	contract.save()
 
 	let ev          = new DelegateChanged(events.id(event))
 	ev.transaction  = transactions.log(event).id
@@ -51,13 +48,14 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): void {
 	const delegate = fetchAccount(event.params.delegate)
 	const contract = fetchVoting(event.address)
+	const total    = fetchWeight(contract, null)
 	const weigth   = fetchWeight(contract, delegate)
 
+	total.value  = total.value.minus(event.params.previousBalance).plus(event.params.newBalance)
 	weigth.value = event.params.newBalance
 
-
+	total.save()
 	weigth.save()
-	contract.save()
 
 	let ev         = new DelegateVotesChanged(events.id(event))
 	ev.transaction = transactions.log(event).id

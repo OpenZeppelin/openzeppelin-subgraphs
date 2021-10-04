@@ -1,7 +1,7 @@
 import {
 	OwnershipTransferred,
 } from '../../generated/schema'
-//
+
 import {
 	OwnershipTransferred as OwnershipTransferredEvent,
 } from '../../generated/ownable/Ownable'

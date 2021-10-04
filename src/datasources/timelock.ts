@@ -13,7 +13,6 @@ import {
 } from '../../generated/timelock/Timelock'
 
 import {
-// 	constants,
 	decimals,
 	events,
 	transactions,
@@ -38,7 +37,7 @@ export function handleCallScheduled(event: CallScheduledEvent): void {
 
 	operation.status      = "SCHEDULED"
 	operation.delay       = event.params.delay
-	operation.timestamp   = event.block.timestamp + event.params.delay
+	operation.timestamp   = event.block.timestamp.plus(event.params.delay)
 	operation.predecessor = event.params.predecessor ? event.params.predecessor.toHex() : null
 	operation.save()
 

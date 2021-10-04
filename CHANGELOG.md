@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 0.1.4 (2021-10-04)
  * Module `Voting`
 
 ### 0.1.3 (2021-09-29)

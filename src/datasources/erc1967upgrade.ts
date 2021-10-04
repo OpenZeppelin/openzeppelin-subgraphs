@@ -3,6 +3,7 @@ import {
 	ERC1967BeaconUpgraded,
 	ERC1967ImplementationUpgraded,
 } from '../../generated/schema'
+
 import {
 	AdminChanged   as AdminChangedEvent,
 	BeaconUpgraded as BeaconUpgradedEvent,

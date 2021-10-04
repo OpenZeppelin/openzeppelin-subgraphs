@@ -438,6 +438,7 @@ type TimelockMinDelayChange implements Event @entity {
 type VotingContract @entity {
 	id: ID!
 	asAccount: Account!
+	totalWeight: VoteWeight!
 	weight: [VoteWeight!]! @derivedFrom(field: "contract")
 	delegation: [VoteDelegation!]! @derivedFrom(field: "contract")
 	delegateChangedEvent: [DelegateChanged!]! @derivedFrom(field: "contract")
@@ -453,7 +454,7 @@ type VoteDelegation @entity {
 type VoteWeight @entity {
 	id: ID!
 	contract: VotingContract!
-	account: Account!
+	account: Account
 	value: BigInt!
 	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "voteWeight")
 }

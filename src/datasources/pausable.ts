@@ -1,7 +1,7 @@
 import {
 	Paused,
 } from '../../generated/schema'
-//
+
 import {
 	Paused   as PausedEvent,
 	Unpaused as UnpausedEvent,
