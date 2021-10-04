@@ -1,5 +1,7 @@
 # Changelog
 
+### Unreleased
+ * Module `Voting`
 
 ### 0.1.3 (2021-09-29)
  * Update datasources to apiVersion 0.0.5

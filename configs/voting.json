@@ -1,0 +1,10 @@
+{
+  "output": "generated/voting.",
+  "datasources": [
+    {
+      "module": [
+        "voting"
+      ]
+    }
+  ]
+}

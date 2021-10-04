@@ -1,0 +1,62 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asVoting",                  "type": "VotingContract"                                         },
+    { "name": "delegationFrom",            "type": "VoteDelegation!",             "derived": "delegator"    },
+    { "name": "delegationTo",              "type": "VoteDelegation!",             "derived": "delegatee"    },
+    { "name": "voteWeigth",                "type": "VoteWeight!",                 "derived": "account"      },
+    { "name": "delegateChangedEvent",      "type": "DelegateChanged!",            "derived": "delegator"    },
+    { "name": "delegateChangedFromEvent",  "type": "DelegateChanged!",            "derived": "fromDelegate" },
+    { "name": "delegateChangedToEvent",    "type": "DelegateChanged!",            "derived": "toDelegate"   },
+    { "name": "delegateVotesChangedEvent", "type": "DelegateVotesChanged!",       "derived": "delegate"     }
+  ]
+},{
+  "name": "VotingContract",
+  "fields": [
+    { "name": "asAccount" ,                "type": "Account!"                                               },
+    { "name": "weight",                    "type": "VoteWeight!",                 "derived": "contract"     },
+    { "name": "delegation",                "type": "VoteDelegation!",             "derived": "contract"     },
+    { "name": "delegateChangedEvent",      "type": "DelegateChanged!",            "derived": "contract"     },
+    { "name": "delegateVotesChangedEvent", "type": "DelegateVotesChanged!",       "derived": "contract"     }
+  ]
+},{
+  "name": "VoteDelegation",
+  "fields": [
+    { "name": "contract",                  "type": "VotingContract!"                                        },
+    { "name": "delegator",                 "type": "Account!"                                               },
+    { "name": "delegatee",                 "type": "Account!"                                               },
+    { "name": "delegateChangedEvent",      "type": "DelegateChanged!",            "derived": "delegation"   }
+  ]
+},{
+  "name": "VoteWeight",
+  "fields": [
+    { "name": "contract",                  "type": "VotingContract!"                                        },
+    { "name": "account",                   "type": "Account!"                                               },
+    { "name": "value",                     "type": "BigInt!"                                                },
+    { "name": "delegateVotesChangedEvent", "type": "DelegateVotesChanged!",       "derived": "voteWeight"   }
+  ]
+},{
+  "name": "DelegateChanged",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",               "type": "Transaction!"                                           },
+    { "name": "timestamp",                 "type": "BigInt!"                                                },
+    { "name": "delegation",                "type": "VoteDelegation"                                         },
+    { "name": "contract",                  "type": "VotingContract!"                                        },
+    { "name": "delegator",                 "type": "Account!"                                               },
+    { "name": "fromDelegate",              "type": "Account!"                                               },
+    { "name": "toDelegate",                "type": "Account!"                                               }
+  ]
+},{
+  "name": "DelegateVotesChanged",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",               "type": "Transaction!"                                           },
+    { "name": "timestamp",                 "type": "BigInt!"                                                },
+    { "name": "voteWeight",                "type": "VoteWeight"                                             },
+    { "name": "contract",                  "type": "VotingContract!"                                        },
+    { "name": "delegate",                  "type": "Account!"                                               },
+    { "name": "oldValue",                  "type": "BigInt!"                                                },
+    { "name": "newValue",                  "type": "BigInt!"                                                }
+  ]
+}]

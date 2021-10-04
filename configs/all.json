@@ -11,7 +11,8 @@
         "governor",
         "ownable",
         "pausable",
-        "timelock"
+        "timelock",
+        "voting"
       ]
     }
   ]
