@@ -26,7 +26,7 @@ import {
 	supportsInterface,
 } from './erc165'
 
-export function fetchERC721(address: Address): ERC721Contract {
+export function fetchERC721(address: Address): ERC721Contract | null {
 	let erc721           = IERC721.bind(address)
 
 	let account          = fetchAccount(address)
@@ -61,7 +61,7 @@ export function fetchERC721(address: Address): ERC721Contract {
 		return contract as ERC721Contract
 	}
 
-	return null as ERC721Contract
+	return null;
 }
 
 export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): ERC721Token {

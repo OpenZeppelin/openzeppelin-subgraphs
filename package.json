@@ -30,8 +30,8 @@
     "@openzeppelin/contracts": "^4.3.2"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.22.1",
-    "@graphprotocol/graph-ts": "^0.22.1",
+    "@graphprotocol/graph-cli": "^0.23.1",
+    "@graphprotocol/graph-ts": "^0.23.1",
     "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script"
   }
 }
