@@ -2,6 +2,10 @@
 
 Modules for easily indexing OpenZeppelin Contracts activity.
 
+Install from npm as https://www.npmjs.com/package/@openzeppelin/subgraphs[`@openzeppelin/subgraphs`].
+
+Browse on GitHub at https://github.com/OpenZeppelin/openzeppelin-subgraphs[`OpenZeppelin/openzeppelin-subgraphs`].
+
 [[usage]]
 == Usage
 
