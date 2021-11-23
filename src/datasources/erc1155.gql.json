@@ -51,6 +51,7 @@
   "name": "ERC1155Transfer",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                      "type": "Account!"                                   },
     { "name": "transaction",                  "type": "Transaction!"                               },
     { "name": "timestamp",                    "type": "BigInt!"                                    },
     { "name": "contract",                     "type": "ERC1155Contract!"                           },

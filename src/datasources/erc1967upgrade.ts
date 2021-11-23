@@ -26,6 +26,7 @@ export function handleAdminChanged(event: AdminChangedEvent): void {
 	contract.save()
 
 	let ev         = new ERC1967AdminChanged(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.admin       = implementation.id
@@ -38,6 +39,7 @@ export function handleBeaconUpgraded(event: BeaconUpgradedEvent): void {
 	contract.save()
 
 	let ev         = new ERC1967BeaconUpgraded(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.beacon      = beacon.id
@@ -50,6 +52,7 @@ export function handleUpgraded(event: UpgradedEvent): void {
 	contract.save()
 
 	let ev            = new ERC1967ImplementationUpgraded(events.id(event))
+	ev.emitter        = contract.id
 	ev.transaction    = transactions.log(event).id
 	ev.timestamp      = event.block.timestamp
 	ev.implementation = admin.id

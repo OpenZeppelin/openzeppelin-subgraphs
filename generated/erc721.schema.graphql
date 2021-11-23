@@ -6,6 +6,7 @@ type Account @entity {
 	ERC721operatorOperator: [ERC721Operator!]! @derivedFrom(field: "operator")
 	ERC721transferFromEvent: [ERC721Transfer!]! @derivedFrom(field: "from")
 	ERC721transferToEvent: [ERC721Transfer!]! @derivedFrom(field: "to")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC721Contract @entity {
 	id: ID!
@@ -35,6 +36,7 @@ type ERC721Operator @entity {
 }
 type ERC721Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC721Contract!
@@ -45,6 +47,7 @@ type ERC721Transfer implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

@@ -3,6 +3,7 @@ type Account @entity {
 	asOwnable: Ownable
 	ownerOf: [Ownable!]! @derivedFrom(field: "owner")
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "owner")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type Ownable @entity {
 	id: ID!
@@ -12,6 +13,7 @@ type Ownable @entity {
 }
 type OwnershipTransferred implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Ownable!
@@ -20,6 +22,7 @@ type OwnershipTransferred implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

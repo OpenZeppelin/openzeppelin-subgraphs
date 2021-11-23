@@ -27,6 +27,7 @@ import {
 export function handleTransfer(event: TransferEvent): void {
 	let contract   = fetchERC20(event.address)
 	let ev         = new ERC20Transfer(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.contract    = contract.id
@@ -78,6 +79,7 @@ export function handleApproval(event: ApprovalEvent): void {
 	approval.save()
 
 	// let ev         = new ERC20ApprovalEvent(events.id(event))
+	// ev.emitter     = contract.id
 	// ev.transaction = transactions.log(event).id
 	// ev.timestamp   = event.block.timestamp
 	// ev.token       = token.id

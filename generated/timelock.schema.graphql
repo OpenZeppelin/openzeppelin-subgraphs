@@ -2,6 +2,7 @@ type Account @entity {
 	id: ID!
 	asTimelock: Timelock
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type Timelock @entity {
 	id: ID!
@@ -41,6 +42,7 @@ type TimelockCall @entity {
 }
 type TimelockOperationScheduled implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -49,6 +51,7 @@ type TimelockOperationScheduled implements Event @entity {
 }
 type TimelockOperationExecuted implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -57,6 +60,7 @@ type TimelockOperationExecuted implements Event @entity {
 }
 type TimelockOperationCancelled implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -64,6 +68,7 @@ type TimelockOperationCancelled implements Event @entity {
 }
 type TimelockMinDelayChange implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -72,6 +77,7 @@ type TimelockMinDelayChange implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

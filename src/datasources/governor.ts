@@ -57,6 +57,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	}
 
 	let ev         = new ProposalCreated(events.id(event))
+	ev.emitter     = governor.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = proposal.governor
@@ -76,6 +77,7 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	proposal.save()
 
 	let ev         = new ProposalQueued(events.id(event))
+	ev.emitter     = governor.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id
@@ -92,6 +94,7 @@ export function handleProposalExecuted(event: ProposalExecutedEvent): void {
 	proposal.save()
 
 	let ev         = new ProposalExecuted(events.id(event))
+	ev.emitter     = governor.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id
@@ -107,6 +110,7 @@ export function handleProposalCanceled(event: ProposalCanceledEvent): void {
 	proposal.save()
 
 	let ev         = new ProposalCanceled(events.id(event))
+	ev.emitter     = governor.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id
@@ -129,6 +133,7 @@ export function handleVoteCast(event: VoteCastEvent): void {
 	receipt.save()
 
 	let ev         = new VoteCast(events.id(event))
+	ev.emitter     = governor.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id

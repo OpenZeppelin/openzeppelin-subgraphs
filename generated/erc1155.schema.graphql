@@ -7,6 +7,7 @@ type Account @entity {
 	ERC1155transferFromEvent: [ERC1155Transfer!]! @derivedFrom(field: "from")
 	ERC1155transferToEvent: [ERC1155Transfer!]! @derivedFrom(field: "to")
 	ERC1155transferOperatorEvent: [ERC1155Transfer!]! @derivedFrom(field: "operator")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC1155Contract @entity {
 	id: ID!
@@ -44,6 +45,7 @@ type ERC1155Operator @entity {
 }
 type ERC1155Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC1155Contract!
@@ -59,6 +61,7 @@ type ERC1155Transfer implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

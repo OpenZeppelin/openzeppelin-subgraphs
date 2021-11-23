@@ -41,6 +41,7 @@
   "name": "RoleAdminChanged",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
     { "name": "role",                 "type": "AccessControlRole!" },
@@ -51,6 +52,7 @@
   "name": "RoleGranted",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
     { "name": "role",                 "type": "AccessControlRole!" },
@@ -61,6 +63,7 @@
   "name": "RoleRevoked",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
   	{ "name": "timestamp",            "type": "BigInt!"            },
     { "name": "role",                 "type": "AccessControlRole!" },

@@ -55,6 +55,7 @@ type Account @entity {
 	delegateChangedFromEvent: [DelegateChanged!]! @derivedFrom(field: "fromDelegate")
 	delegateChangedToEvent: [DelegateChanged!]! @derivedFrom(field: "toDelegate")
 	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "delegate")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type AccessControl @entity {
 	id: ID!
@@ -83,6 +84,7 @@ type AccessControlRoleMember @entity {
 }
 type RoleAdminChanged implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -91,6 +93,7 @@ type RoleAdminChanged implements Event @entity {
 }
 type RoleGranted implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -99,6 +102,7 @@ type RoleGranted implements Event @entity {
 }
 type RoleRevoked implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	role: AccessControlRole!
@@ -141,6 +145,7 @@ type ERC1155Operator @entity {
 }
 type ERC1155Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC1155Contract!
@@ -155,6 +160,7 @@ type ERC1155Transfer implements Event @entity {
 }
 type ERC1967AdminChanged implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Account!
@@ -162,6 +168,7 @@ type ERC1967AdminChanged implements Event @entity {
 }
 type ERC1967BeaconUpgraded implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Account!
@@ -169,6 +176,7 @@ type ERC1967BeaconUpgraded implements Event @entity {
 }
 type ERC1967ImplementationUpgraded implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Account!
@@ -204,6 +212,7 @@ type ERC20Approval @entity {
 }
 type ERC20Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!
@@ -242,6 +251,7 @@ type ERC721Operator @entity {
 }
 type ERC721Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC721Contract!
@@ -305,6 +315,7 @@ type VoteReceipt @entity {
 }
 type ProposalCreated implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	governor: Governor!
@@ -313,6 +324,7 @@ type ProposalCreated implements Event @entity {
 }
 type ProposalQueued implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	governor: Governor!
@@ -321,6 +333,7 @@ type ProposalQueued implements Event @entity {
 }
 type ProposalExecuted implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	governor: Governor!
@@ -328,6 +341,7 @@ type ProposalExecuted implements Event @entity {
 }
 type ProposalCanceled implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	governor: Governor!
@@ -335,6 +349,7 @@ type ProposalCanceled implements Event @entity {
 }
 type VoteCast implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	governor: Governor!
@@ -351,6 +366,7 @@ type Ownable @entity {
 }
 type OwnershipTransferred implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Ownable!
@@ -364,6 +380,7 @@ type Pausable @entity {
 }
 type Paused implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Pausable!
@@ -407,6 +424,7 @@ type TimelockCall @entity {
 }
 type TimelockOperationScheduled implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -415,6 +433,7 @@ type TimelockOperationScheduled implements Event @entity {
 }
 type TimelockOperationExecuted implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -423,6 +442,7 @@ type TimelockOperationExecuted implements Event @entity {
 }
 type TimelockOperationCancelled implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -430,6 +450,7 @@ type TimelockOperationCancelled implements Event @entity {
 }
 type TimelockMinDelayChange implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: Timelock!
@@ -460,6 +481,7 @@ type VoteWeight @entity {
 }
 type DelegateChanged implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	delegation: VoteDelegation
@@ -470,6 +492,7 @@ type DelegateChanged implements Event @entity {
 }
 type DelegateVotesChanged implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	voteWeight: VoteWeight
@@ -481,6 +504,7 @@ type DelegateVotesChanged implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

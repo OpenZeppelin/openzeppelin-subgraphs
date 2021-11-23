@@ -18,6 +18,7 @@
   "name": "ERC1967AdminChanged",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },
     { "name": "timestamp",                       "type": "BigInt!"                                                            },
     { "name": "contract",                        "type": "Account!"                                                           },
@@ -27,6 +28,7 @@
   "name": "ERC1967BeaconUpgraded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },
     { "name": "timestamp",                       "type": "BigInt!"                                                            },
     { "name": "contract",                        "type": "Account!"                                                           },
@@ -36,6 +38,7 @@
   "name": "ERC1967ImplementationUpgraded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },
     { "name": "timestamp",                       "type": "BigInt!"                                                            },
     { "name": "contract",                        "type": "Account!"                                                           },

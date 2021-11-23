@@ -49,6 +49,7 @@ export function handleCallScheduled(event: CallScheduledEvent): void {
 	call.save()
 
 	let ev                = new TimelockOperationScheduled(events.id(event))
+	ev.emitter            = contract.id
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -65,6 +66,7 @@ export function handleCallExecuted(event: CallExecutedEvent): void {
 	operation.save()
 
 	let ev                = new TimelockOperationExecuted(events.id(event))
+	ev.emitter            = contract.id
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -80,6 +82,7 @@ export function handleCancelled(event: CancelledEvent): void {
 	operation.save()
 
 	let ev                = new TimelockOperationCancelled(events.id(event))
+	ev.emitter            = contract.id
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id
@@ -91,6 +94,7 @@ export function handleMinDelayChange(event: MinDelayChangeEvent): void {
 	let contract          = fetchTimelock(event.address)
 
 	let ev                = new TimelockMinDelayChange(events.id(event))
+	ev.emitter            = contract.id
 	ev.transaction        = transactions.log(event).id
 	ev.timestamp          = event.block.timestamp
 	ev.contract           = contract.id

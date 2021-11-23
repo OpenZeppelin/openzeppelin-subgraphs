@@ -39,6 +39,7 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
 	accesscontrolrole.save()
 
 	let ev               = new RoleAdminChanged(events.id(event))
+	ev.emitter           = contract.id
 	ev.transaction       = transactions.log(event).id
 	ev.timestamp         = event.block.timestamp
 	ev.role              = accesscontrolrole.id
@@ -59,6 +60,7 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
 	accesscontrolrolemember.save()
 
 	let ev         = new RoleGranted(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.role        = accesscontrolrole.id
@@ -76,6 +78,7 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
 	store.remove('AccessControlRoleMember', accesscontrolrole.id.concat('/').concat(account.id))
 
 	let ev         = new RoleRevoked(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.role        = accesscontrolrole.id

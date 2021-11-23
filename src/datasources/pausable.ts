@@ -26,6 +26,7 @@ export function handlePaused(event: PausedEvent): void {
 	contract.save()
 
 	let ev         = new Paused(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.contract    = contract.id
@@ -39,6 +40,7 @@ export function handleUnpaused(event: UnpausedEvent): void {
 	contract.save()
 
 	let ev         = new Paused(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.contract    = contract.id

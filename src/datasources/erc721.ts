@@ -35,7 +35,8 @@ export function handleTransfer(event: TransferEvent): void {
 		contract.save()
 		token.save()
 
-		let ev = new ERC721Transfer(events.id(event))
+		let ev         = new ERC721Transfer(events.id(event))
+		ev.emitter     = contract.id
 		ev.transaction = transactions.log(event).id
 		ev.timestamp   = event.block.timestamp
 		ev.contract    = contract.id
@@ -61,6 +62,7 @@ export function handleApproval(event: ApprovalEvent): void {
 		approved.save()
 
 		// let ev = new Approval(events.id(event))
+		// ev.emitter     = contract.id
 		// ev.transaction = transactions.log(event).id
 		// ev.timestamp   = event.block.timestamp
 		// ev.token       = token.id
@@ -82,6 +84,7 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 		delegation.save()
 
 		// 	let ev = new ApprovalForAll(events.id(event))
+		// 	ev.emitter     = contract.id
 		// 	ev.transaction = transactions.log(event).id
 		// 	ev.timestamp   = event.block.timestamp
 		// 	ev.delegation  = delegation.id

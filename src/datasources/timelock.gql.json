@@ -49,6 +49,7 @@
   "name": "TimelockOperationScheduled",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
     { "name": "timestamp",            "type": "BigInt!"            },
     { "name": "contract",             "type": "Timelock!"          },
@@ -59,6 +60,7 @@
   "name": "TimelockOperationExecuted",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
     { "name": "timestamp",            "type": "BigInt!"            },
     { "name": "contract",             "type": "Timelock!"          },
@@ -69,6 +71,7 @@
   "name": "TimelockOperationCancelled",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
     { "name": "timestamp",            "type": "BigInt!"            },
     { "name": "contract",             "type": "Timelock!"          },
@@ -78,6 +81,7 @@
   "name": "TimelockMinDelayChange",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
     { "name": "timestamp",            "type": "BigInt!"            },
     { "name": "contract",             "type": "Timelock!"          },

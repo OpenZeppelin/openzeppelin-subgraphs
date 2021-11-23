@@ -16,6 +16,7 @@
   "name": "OwnershipTransferred",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },
     { "name": "timestamp",            "type": "BigInt!"                                             },
     { "name": "contract",             "type": "Ownable!"                                            },

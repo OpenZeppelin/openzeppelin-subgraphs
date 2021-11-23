@@ -6,6 +6,7 @@ type Account @entity {
 	ERC20approvalsSpender: [ERC20Approval!]! @derivedFrom(field: "spender")
 	ERC20transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "from")
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
+	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC20Contract @entity {
 	id: ID!
@@ -37,6 +38,7 @@ type ERC20Approval @entity {
 }
 type ERC20Transfer implements Event @entity {
 	id: ID!
+	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	contract: ERC20Contract!
@@ -50,6 +52,7 @@ type ERC20Transfer implements Event @entity {
 interface Event {
 	id: ID!
 	transaction: Transaction!
+	emitter: Account!
 	timestamp: BigInt!
 }
 type Transaction @entity {

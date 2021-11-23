@@ -43,6 +43,7 @@
   "name": "ERC20Transfer",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"       },
     { "name": "transaction",            "type": "Transaction!"   },
     { "name": "timestamp",              "type": "BigInt!"        },
     { "name": "contract",               "type": "ERC20Contract!" },

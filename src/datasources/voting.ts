@@ -35,6 +35,7 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 	delegation.save()
 
 	let ev          = new DelegateChanged(events.id(event))
+	ev.emitter      = contract.id
 	ev.transaction  = transactions.log(event).id
 	ev.timestamp    = event.block.timestamp
 	ev.delegation   = delegation.id
@@ -58,6 +59,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 	weigth.save()
 
 	let ev         = new DelegateVotesChanged(events.id(event))
+	ev.emitter     = contract.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.voteWeight  = weigth.id

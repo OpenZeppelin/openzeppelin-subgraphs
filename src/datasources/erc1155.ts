@@ -45,8 +45,9 @@ function registerTransfer(
 	value:    BigInt)
 : void
 {
-	let token = fetchERC1155Token(contract, id)
-	let ev = new ERC1155Transfer(events.id(event).concat(suffix))
+	let token      = fetchERC1155Token(contract, id)
+	let ev         = new ERC1155Transfer(events.id(event).concat(suffix))
+	ev.emitter     = token.id
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
 	ev.contract    = contract.id
