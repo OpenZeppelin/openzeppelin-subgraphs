@@ -36,6 +36,9 @@ ERC777
 Escrow
 -->
 
+## Prerequisites
+At least node version 14 installed (`@amxx/graphprotocol-utils` library requires Nullish Coalescing)  
+
 ## Usage
 
 To use OpenZeppelin Subgraphs, install them in your local project directory and follow the steps outlined in __How to build my app's subgraph__:
