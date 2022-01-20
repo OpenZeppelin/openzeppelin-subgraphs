@@ -1,5 +1,13 @@
 # Changelog
 
+### 0.1.6 (2021-11-23)
+ * Include emmiter address (Account) to all Event objects
+ * Update to @amxx/graphprotocol-utils version 1.1.0-alpha.1
+ * Update to @graphprotol/graph-cli and @graphprotocol/graph-ts version 0.24.x
+
+### 0.1.5 (2021-11-04)
+ * Update to @graphprotol/graph-cli and @graphprotocol/graph-ts version 0.23.x
+
 ### 0.1.4 (2021-10-04)
  * Module `Voting`
 
