@@ -13,8 +13,7 @@ npx graph build                                         \
   ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
 
 npx graph deploy                                        \
-  --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/}    \
-  --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} \
+  --product hosted-service
   ${NAME:-amxx/sandbox}                                 \
   ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
 

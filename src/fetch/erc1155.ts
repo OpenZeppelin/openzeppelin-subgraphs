@@ -12,6 +12,10 @@ import {
 } from '../../generated/schema'
 
 import {
+	IERC1155,
+} from '../../generated/erc1155/IERC1155'
+
+import {
 	constants,
 } from '@amxx/graphprotocol-utils'
 
@@ -35,10 +39,13 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 	let token = ERC1155Token.load(id)
 
 	if (token == null) {
+		let erc1155            = IERC1155.bind(Address.fromString(contract.id))
+		let try_uri            = erc1155.try_uri(identifier)
 		token                  = new ERC1155Token(id)
 		token.contract         = contract.id
 		token.identifier       = identifier
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
+		token.uri              = try_uri.reverted ? null : try_uri.value
 		token.save()
 	}
 

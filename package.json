@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.1.0-alpha.2",
-    "@openzeppelin/contracts": "^4.4.1"
+    "@openzeppelin/contracts": "^4.4.2"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.24.0",
-    "@graphprotocol/graph-ts": "^0.24.0",
+    "@graphprotocol/graph-cli": "^0.26.0",
+    "@graphprotocol/graph-ts": "^0.24.1",
     "@openzeppelin/docs-utils": "github:OpenZeppelin/docs-preview-script"
   }
 }
