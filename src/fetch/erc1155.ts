@@ -45,7 +45,7 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 		token.contract         = contract.id
 		token.identifier       = identifier
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
-		token.uri              = try_uri.reverted ? null : try_uri.value
+		token.uri              = try_uri.reverted ? null : try_uri.value.replaceAll('{id}', identifier.toString())
 		token.save()
 	}
 

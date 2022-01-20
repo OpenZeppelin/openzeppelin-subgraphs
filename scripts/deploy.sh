@@ -13,7 +13,7 @@ npx graph build                                         \
   ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
 
 npx graph deploy                                        \
-  --product hosted-service
+  --product hosted-service                              \
   ${NAME:-amxx/sandbox}                                 \
   ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
 

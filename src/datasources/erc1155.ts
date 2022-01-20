@@ -146,6 +146,6 @@ export function handleURI(event: URIEvent): void
 {
 	let contract = fetchERC1155(event.address)
 	let token    = fetchERC1155Token(contract, event.params.id)
-	token.uri    = event.params.value
+	token.uri    = event.params.value.replaceAll('{id}', event.params.id.toString());
 	token.save()
 }
