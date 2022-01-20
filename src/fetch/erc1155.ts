@@ -23,6 +23,13 @@ import {
 	fetchAccount,
 } from '../fetch/account'
 
+export function replaceURI(uri: string, identifier: BigInt): string {
+	return uri.replaceAll(
+		'{id}',
+		identifier.toHex().slice(2).padStart(64, '0'),
+	)
+}
+
 export function fetchERC1155(address: Address): ERC1155Contract {
 	let account        = fetchAccount(address)
 	let contract       = new ERC1155Contract(account.id)
@@ -45,7 +52,7 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 		token.contract         = contract.id
 		token.identifier       = identifier
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
-		token.uri              = try_uri.reverted ? null : try_uri.value.replaceAll('{id}', identifier.toString())
+		token.uri              = try_uri.reverted ? null : replaceURI(try_uri.value, identifier)
 		token.save()
 	}
 

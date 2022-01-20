@@ -32,6 +32,7 @@ import {
 	fetchERC1155Token,
 	fetchERC1155Balance,
 	fetchERC721Operator,
+	replaceURI,
 } from '../fetch/erc1155'
 
 function registerTransfer(
@@ -146,6 +147,6 @@ export function handleURI(event: URIEvent): void
 {
 	let contract = fetchERC1155(event.address)
 	let token    = fetchERC1155Token(contract, event.params.id)
-	token.uri    = event.params.value.replaceAll('{id}', event.params.id.toString());
+	token.uri    = replaceURI(event.params.value, event.params.id)
 	token.save()
 }
