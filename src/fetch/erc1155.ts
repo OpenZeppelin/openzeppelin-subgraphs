@@ -12,12 +12,23 @@ import {
 } from '../../generated/schema'
 
 import {
+	IERC1155,
+} from '../../generated/erc1155/IERC1155'
+
+import {
 	constants,
 } from '@amxx/graphprotocol-utils'
 
 import {
 	fetchAccount,
 } from '../fetch/account'
+
+export function replaceURI(uri: string, identifier: BigInt): string {
+	return uri.replaceAll(
+		'{id}',
+		identifier.toHex().slice(2).padStart(64, '0'),
+	)
+}
 
 export function fetchERC1155(address: Address): ERC1155Contract {
 	let account        = fetchAccount(address)
@@ -35,10 +46,13 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 	let token = ERC1155Token.load(id)
 
 	if (token == null) {
+		let erc1155            = IERC1155.bind(Address.fromString(contract.id))
+		let try_uri            = erc1155.try_uri(identifier)
 		token                  = new ERC1155Token(id)
 		token.contract         = contract.id
 		token.identifier       = identifier
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
+		token.uri              = try_uri.reverted ? null : replaceURI(try_uri.value, identifier)
 		token.save()
 	}
 
