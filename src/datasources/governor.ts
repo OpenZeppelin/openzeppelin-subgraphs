@@ -1,4 +1,8 @@
 import {
+	Bytes,
+} from '@graphprotocol/graph-ts'
+
+import {
 	ProposalCreated,
 	ProposalQueued,
 	ProposalExecuted,
@@ -16,6 +20,7 @@ import {
 } from '../../generated/governor/Governor'
 
 import {
+	constants,
 	decimals,
 	events,
 	transactions,
@@ -50,9 +55,9 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	for (let i = 0; i < targets.length; ++i) {
 		let call        = fetchProposalCall(proposal, i)
 		call.target     = fetchAccount(targets[i]).id
-		call.value      = decimals.toDecimals(values[i])
-		call.signature  = signatures[i]
-		call.calldata   = calldatas[i]
+		call.value      = i < values.length     ? decimals.toDecimals(values[i]) : constants.BIGDECIMAL_ZERO
+		call.signature  = i < signatures.length ? signatures[i] : ""
+		call.calldata   = i < calldatas.length  ? calldatas[i]  : Bytes.empty()
 		call.save()
 	}
 
