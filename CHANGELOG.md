@@ -1,5 +1,8 @@
 # Changelog
 
+### 0.1.7-1 (2021-01-27)
+ * `Governor`: fix vulnerability to ill-formed ProposalCreated events
+
 ### 0.1.7 (2021-01-27)
  * `ERC1155`: fetch token uri on minting.
  * `ERC1155`: fix vulnerability to ill-formed TransferBatch events
