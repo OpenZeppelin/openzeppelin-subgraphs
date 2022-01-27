@@ -119,18 +119,25 @@ export function handleTransferBatch(event: TransferBatchEvent): void
 
 	let ids    = event.params.ids
 	let values = event.params.values
-	for (let i = 0;  i < ids.length; ++i)
+
+	// If this equality doesn't hold (some devs actually don't follox the ERC specifications) then we just can't make
+	// sens of what is happening. Don't try to make something out of stupid code, and just throw the event. This
+	// contract doesn't follow the standard anyway.
+	if(ids.length == values.length)
 	{
-		registerTransfer(
-			event,
-			"/".concat(i.toString()),
-			contract,
-			operator,
-			from,
-			to,
-			ids[i],
-			values[i]
-		)
+		for (let i = 0;  i < ids.length; ++i)
+		{
+			registerTransfer(
+				event,
+				"/".concat(i.toString()),
+				contract,
+				operator,
+				from,
+				to,
+				ids[i],
+				values[i]
+			)
+		}
 	}
 }
 
