@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.1.7 (2021-01-27)
+ * `ERC1155`: fetch token uri on minting.
+ * `ERC1155`: fix vulnerability to ill-formed TransferBatch events
+
 ### 0.1.6 (2021-11-23)
  * Include emmiter address (Account) to all Event objects
  * Update to @amxx/graphprotocol-utils version 1.1.0-alpha.1
