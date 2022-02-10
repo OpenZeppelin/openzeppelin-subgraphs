@@ -73,12 +73,11 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 		token.contract   = contract.id
 		token.identifier = identifier
 		token.approval   = fetchAccount(Address.fromString(constants.ADDRESS_ZERO)).id
-
-		if (contract.supportsMetadata) {
-			let erc721       = IERC721.bind(Address.fromString(contract.id))
-			let try_tokenURI = erc721.try_tokenURI(identifier)
-			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
-		}
+	}
+	if (contract.supportsMetadata) {
+		let erc721       = IERC721.bind(Address.fromString(contract.id))
+		let try_tokenURI = erc721.try_tokenURI(identifier)
+		token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
 	}
 
 	return token as ERC721Token
