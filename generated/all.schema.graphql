@@ -19,11 +19,11 @@ type Account @entity {
 	erc1967ImplementationOf: [Account!]! @derivedFrom(field: "erc1967Implementation")
 	erc1967BeaconOf: [Account!]! @derivedFrom(field: "erc1967Beacon")
 	erc1967AdminOf: [Account!]! @derivedFrom(field: "erc1967Admin")
-	ERC1967AdminChanged: [ERC1967AdminChanged!]! @derivedFrom(field: "contract")
+	ERC1967AdminChanged: [ERC1967AdminChanged!]! @derivedFrom(field: "emitter")
 	ERC1967AdminOfChanged: [ERC1967AdminChanged!]! @derivedFrom(field: "admin")
-	ERC1967BeaconUpgraded: [ERC1967BeaconUpgraded!]! @derivedFrom(field: "contract")
+	ERC1967BeaconUpgraded: [ERC1967BeaconUpgraded!]! @derivedFrom(field: "emitter")
 	ERC1967BeaconOfUpgraded: [ERC1967BeaconUpgraded!]! @derivedFrom(field: "beacon")
-	ERC1967ImplementationUpgraded: [ERC1967ImplementationUpgraded!]! @derivedFrom(field: "contract")
+	ERC1967ImplementationUpgraded: [ERC1967ImplementationUpgraded!]! @derivedFrom(field: "emitter")
 	ERC1967ImplementationOfUpgraded: [ERC1967ImplementationUpgraded!]! @derivedFrom(field: "implementation")
 	asERC20: ERC20Contract
 	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
@@ -163,7 +163,6 @@ type ERC1967AdminChanged implements Event @entity {
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: Account!
 	admin: Account!
 }
 type ERC1967BeaconUpgraded implements Event @entity {
@@ -171,7 +170,6 @@ type ERC1967BeaconUpgraded implements Event @entity {
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: Account!
 	beacon: Account!
 }
 type ERC1967ImplementationUpgraded implements Event @entity {
@@ -179,7 +177,6 @@ type ERC1967ImplementationUpgraded implements Event @entity {
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: Account!
 	implementation: Account!
 }
 type ERC20Contract @entity {
