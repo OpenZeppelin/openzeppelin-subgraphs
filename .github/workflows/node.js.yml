@@ -26,6 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    # https://stackoverflow.com/a/63038646
+    - name: Reconfigure git to use HTTPS authentication
+      run: 'git config --global url."https://github.com".insteadOf ssh://git@github.com'
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
