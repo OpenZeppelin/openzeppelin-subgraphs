@@ -1,10 +1,13 @@
 {
-  "name": "@openzeppelin/subgraphs",
-  "description": "Subgraph templates for @openzeppelin/contracts",
+  "name": "@wanderers-nft/subgraphs",
+  "description": "Subgraph templates for @openzeppelin/contracts, extended for the Wanderverse.",
   "version": "0.1.7-1",
-  "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
+  "contributors": [
+    "OpenZeppelin Community <maintainers@openzeppelin.org>",
+    "Wanderers <hello@wanderers.ai>"
+  ],
   "license": "MIT",
-  "homepage": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git#readme",
+  "homepage": "https://github.com/wanderers-nft/openzeppelin-subgraphs.git#readme",
   "files": [
     "generated/schema.ts",
     "generated/*.graphql",
@@ -13,10 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenZeppelin/openzeppelin-subgraphs.git"
+    "url": "git+https://github.com/wanderers-nft/openzeppelin-subgraphs.git"
   },
   "bugs": {
-    "url": "https://github.com/OpenZeppelin/openzeppelin-subgraphs.git/issues"
+    "url": "https://github.com/wanderers-nft/openzeppelin-subgraphs.git/issues"
   },
   "scripts": {
     "docs": "oz-docs",
