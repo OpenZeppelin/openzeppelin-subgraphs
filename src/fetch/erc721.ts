@@ -36,7 +36,8 @@ export function fetchERC721(address: Address): ERC721Contract | null {
 	if (detectionAccount == null) {
 		detectionAccount = new Account(detectionId)
 		let introspection_01ffc9a7 = supportsInterface(erc721, '01ffc9a7') // ERC165
-		let introspection_80ac58cd = supportsInterface(erc721, '80ac58cd') // ERC721
+		// Added custom handler for Aavegotchi Contract
+		let introspection_80ac58cd = supportsInterface(erc721, "80ac58cd") || "0x86935f11c86623dec8a25696e1c19a8659cbf95d" == account.id; // ERC721
 		let introspection_00000000 = supportsInterface(erc721, '00000000', false)
 		let isERC721               = introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000
 		detectionAccount.asERC721  = isERC721 ? account.id : null
