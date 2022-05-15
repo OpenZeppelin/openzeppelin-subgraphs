@@ -1,0 +1,12 @@
+[{
+  "name": "ERC721Token",
+  "fields": [
+    { "name": "asNaut",                  "type": "Naut!" }
+  ]
+},{
+  "name": "Naut",
+  "fields": [
+    { "name": "token",                   "type": "ERC721Token!" },
+    { "name": "state",                   "type": "BigInt!"      }
+  ]
+}]

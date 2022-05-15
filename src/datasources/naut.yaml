@@ -1,0 +1,23 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: ERC721MultiMetadata
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Naut
+      abis:
+        - name: ERC721MultiMetadata
+          file: {root}/node_modules/@wanderers/subgraphs-contract-abis/src/ERC721MultiMetadata.json
+      callHandlers:
+        - function: setTokenState(uint256,uint256)
+          handler: handleSetTokenState
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleNautTransfer
+      file: {file}
