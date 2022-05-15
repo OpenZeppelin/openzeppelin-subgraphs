@@ -1,5 +1,5 @@
 {
-  "name": "@wanderers-nft/subgraphs",
+  "name": "@wanderers/subgraphs",
   "description": "Subgraph templates for @openzeppelin/contracts, extended for the Wanderverse.",
   "version": "0.1.7-1",
   "contributors": [
@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.1.0-alpha.2",
-    "@openzeppelin/contracts": "^4.5.0-rc.0"
+    "@openzeppelin/contracts": "^4.5.0-rc.0",
+    "@wanderers/subgraphs-contract-abis": "^1.0.0"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.26.0",

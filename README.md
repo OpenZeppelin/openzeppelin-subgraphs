@@ -27,6 +27,10 @@ This repo contains subgraph schema and templates to index the activity of OpenZe
 - Ownable
 - Pausable
 - Timelock
+- Naut
+
+**Note::** `Naut` is only supported on the following networks: 
+`eth, kovan, ropsten, xdai, fantom, fantom-testnet, fuse, base, moonriver, xdai` because it requires the use of call handlers (events are NOT emitted on state-change).
 
 <!--
 PaymentSplitter
@@ -41,7 +45,7 @@ Escrow
 To use OpenZeppelin Subgraphs, install them in your local project directory and follow the steps outlined in __How to build my app's subgraph__:
 
 ```sh
-npm install @openzeppelin/subgraphs
+npm install @wanderers/subgraphs
 ```
 
 ## How to build my app's subgraph
@@ -68,7 +72,7 @@ It can be compiled by doing
 ```
 npx graph-compiler \
   --config configs/sample.json \
-  --include node_modules/@openzeppelin/subgraphs/src/datasources \
+  --include node_modules/@wanderers/subgraphs/src/datasources \
   --export-schema \
   --export-subgraph
 ```
