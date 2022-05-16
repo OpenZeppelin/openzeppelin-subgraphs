@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asAccessControl: AccessControl
 	membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
 	roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
@@ -58,12 +58,12 @@ type Account @entity {
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type AccessControl @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
-	id: ID!
+	id: Bytes!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 }
 type AccessControlRole @entity {
@@ -110,7 +110,7 @@ type RoleRevoked implements Event @entity {
 	sender: Account!
 }
 type ERC1155Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
@@ -180,7 +180,7 @@ type ERC1967ImplementationUpgraded implements Event @entity {
 	implementation: Account!
 }
 type ERC20Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	name: String
 	symbol: String
@@ -221,7 +221,7 @@ type ERC20Transfer implements Event @entity {
 	valueExact: BigInt!
 }
 type ERC721Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	supportsMetadata: Boolean
 	name: String
@@ -257,8 +257,9 @@ type ERC721Transfer implements Event @entity {
 	to: Account!
 }
 type Governor @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
+	mode: String
 	proposals: [Proposal!]! @derivedFrom(field: "governor")
 	proposalCreated: [ProposalCreated!]! @derivedFrom(field: "governor")
 	proposalQueued: [ProposalQueued!]! @derivedFrom(field: "governor")
@@ -356,7 +357,7 @@ type VoteCast implements Event @entity {
 	voter: Account!
 }
 type Ownable @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	owner: Account!
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "contract")
@@ -370,7 +371,7 @@ type OwnershipTransferred implements Event @entity {
 	owner: Account!
 }
 type Pausable @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	isPaused: Boolean!
 	paused: [Paused!]! @derivedFrom(field: "contract")
@@ -384,7 +385,7 @@ type Paused implements Event @entity {
 	isPaused: Boolean!
 }
 type Timelock @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")
@@ -454,7 +455,7 @@ type TimelockMinDelayChange implements Event @entity {
 	delay: BigInt!
 }
 type VotingContract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	totalWeight: VoteWeight!
 	weight: [VoteWeight!]! @derivedFrom(field: "contract")

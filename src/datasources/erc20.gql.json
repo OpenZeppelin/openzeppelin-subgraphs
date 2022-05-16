@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                     "type": "Bytes!"                               },
     { "name": "asERC20",                "type": "ERC20Contract"                        },
     { "name": "ERC20balances",          "type": "ERC20Balance!",  "derived": "account" },
     { "name": "ERC20approvalsOwner",    "type": "ERC20Approval!", "derived": "owner"   },
@@ -11,6 +12,7 @@
 },{
   "name": "ERC20Contract",
   "fields": [
+    { "name": "id",                     "type": "Bytes!"                               },
     { "name": "asAccount",              "type": "Account!"                              },
     { "name": "name",                   "type": "String"                                },
     { "name": "symbol",                 "type": "String"                                },

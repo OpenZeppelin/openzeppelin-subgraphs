@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asERC1155: ERC1155Contract
 	ERC1155balances: [ERC1155Balance!]! @derivedFrom(field: "account")
 	ERC1155operatorOwner: [ERC1155Operator!]! @derivedFrom(field: "owner")
@@ -10,7 +10,7 @@ type Account @entity {
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC1155Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")

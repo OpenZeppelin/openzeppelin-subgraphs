@@ -54,7 +54,7 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
 	let account           = fetchAccount(event.params.account)
 	let sender            = fetchAccount(event.params.sender)
 
-	let accesscontrolrolemember               = new AccessControlRoleMember(accesscontrolrole.id.concat('/').concat(account.id))
+	let accesscontrolrolemember               = new AccessControlRoleMember(accesscontrolrole.id.concat('/').concat(account.id.toHex()))
 	accesscontrolrolemember.accesscontrolrole = accesscontrolrole.id
 	accesscontrolrolemember.account           = account.id
 	accesscontrolrolemember.save()
@@ -75,7 +75,7 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
 	let account           = fetchAccount(event.params.account)
 	let sender            = fetchAccount(event.params.sender)
 
-	store.remove('AccessControlRoleMember', accesscontrolrole.id.concat('/').concat(account.id))
+	store.remove('AccessControlRoleMember', accesscontrolrole.id.concat('/').concat(account.id.toHex()))
 
 	let ev         = new RoleRevoked(events.id(event))
 	ev.emitter     = contract.id

@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asERC20: ERC20Contract
 	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
 	ERC20approvalsOwner: [ERC20Approval!]! @derivedFrom(field: "owner")
@@ -9,7 +9,7 @@ type Account @entity {
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC20Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	name: String
 	symbol: String

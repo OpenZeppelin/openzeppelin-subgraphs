@@ -1,12 +1,14 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                              },
     { "name": "asTimelock",           "type": "Timelock"                                            },
     { "name": "timelockedCalls",      "type": "TimelockCall!",               "derived": "target"    }
   ]
 },{
   "name": "Timelock",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                              },
     { "name": "asAccount" ,           "type": "Account!"                                            },
     { "name": "operations",           "type": "TimelockOperation!",          "derived": "contract"  },
     { "name": "scheduled",            "type": "TimelockOperationScheduled!", "derived": "contract"  },

@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asERC721: ERC721Contract
 	ERC721tokens: [ERC721Token!]! @derivedFrom(field: "owner")
 	ERC721operatorOwner: [ERC721Operator!]! @derivedFrom(field: "owner")
@@ -9,7 +9,7 @@ type Account @entity {
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type ERC721Contract @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	supportsMetadata: Boolean
 	name: String

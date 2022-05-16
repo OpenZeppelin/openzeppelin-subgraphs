@@ -1,11 +1,11 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asTimelock: Timelock
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type Timelock @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "contract")

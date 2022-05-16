@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asAccessControl: AccessControl
 	membership: [AccessControlRoleMember!]! @derivedFrom(field: "account")
 	roleGranted: [RoleGranted!]! @derivedFrom(field: "account")
@@ -9,12 +9,12 @@ type Account @entity {
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type AccessControl @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
 type Role @entity {
-	id: ID!
+	id: Bytes!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 }
 type AccessControlRole @entity {

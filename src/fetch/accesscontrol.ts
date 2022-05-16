@@ -18,7 +18,7 @@ import {
 } from '@amxx/graphprotocol-utils'
 
 export function fetchRole(id: Bytes): Role {
-	let role = new Role(id.toHex())
+	let role = new Role(id)
 	role.save()
 	return role
 }
@@ -35,7 +35,7 @@ export function fetchAccessControl(address: Address): AccessControl {
 }
 
 export function fetchAccessControlRole(contract: AccessControl, role: Role): AccessControlRole {
-	let id  = contract.id.concat('/').concat(role.id)
+	let id  = contract.id.toHex().concat('/').concat(role.id.toHex())
 	let acr = AccessControlRole.load(id)
 
 	if (acr == null) {
@@ -44,7 +44,7 @@ export function fetchAccessControlRole(contract: AccessControl, role: Role): Acc
 		acr.role     = role.id;
 		acr.admin    = role.id == constants.BYTES32_ZERO
 			? acr.id
-			: fetchAccessControlRole(contract, fetchRole(Bytes.fromHexString(constants.BYTES32_ZERO) as Bytes)).id
+			: fetchAccessControlRole(contract, fetchRole(constants.BYTES32_ZERO)).id
 		acr.save()
 	}
 

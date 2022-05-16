@@ -1,10 +1,10 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asPausable: Pausable
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type Pausable @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	isPaused: Boolean!
 	paused: [Paused!]! @derivedFrom(field: "contract")

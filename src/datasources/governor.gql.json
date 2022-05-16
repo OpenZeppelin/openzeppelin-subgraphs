@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                             },
     { "name": "asGovernor",           "type": "Governor"                                           },
     { "name": "proposed",             "type": "Proposal!",                   "derived": "proposer" },
     { "name": "voted",                "type": "VoteReceipt!",                "derived": "voter"    },
@@ -9,7 +10,9 @@
 },{
   "name": "Governor",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                             },
     { "name": "asAccount" ,           "type": "Account!"                                           },
+    { "name": "mode" ,                "type": "String"                                             },
     { "name": "proposals",            "type": "Proposal!",                   "derived": "governor" },
     { "name": "proposalCreated",      "type": "ProposalCreated!",            "derived": "governor" },
     { "name": "proposalQueued",       "type": "ProposalQueued!",             "derived": "governor" },

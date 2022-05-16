@@ -11,18 +11,31 @@ import {
 	VoteReceipt,
 } from '../../generated/schema'
 
+
+import {
+	Governor,
+} from '../../generated/governor/Governor'
+
 import {
 	fetchAccount
 } from './account'
 
 export function fetchGovernor(address: Address): Governor {
+	let governor = Governor.bind(address)
+
 	let account  = fetchAccount(address)
 	let contract = Governor.load(account.id)
 
 	if (contract == null) {
-		contract           = new Governor(account.id)
-		contract.asAccount = account.id
-		account.asGovernor = account.id
+		contract            = new Governor(account.id)
+		contract.asAccount  = account.id
+		account.asGovernor  = account.id
+
+		const COUNTING_MODE = governor.try_COUNTING_MODE();
+		if (!COUNTING_MODE.reverted) {
+			contract.mode = COUNTING_MODE.value
+		}
+
 		contract.save()
 		account.save()
 	}

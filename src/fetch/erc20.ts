@@ -47,7 +47,7 @@ export function fetchERC20(address: Address): ERC20Contract {
 }
 
 export function fetchERC20Balance(contract: ERC20Contract, account: Account | null): ERC20Balance {
-	let id      = contract.id.concat('/').concat(account ? account.id : 'totalSupply')
+	let id      = contract.id.toHex().concat('/').concat(account ? account.id.toHex() : 'totalSupply')
 	let balance = ERC20Balance.load(id)
 
 	if (balance == null) {
@@ -63,7 +63,7 @@ export function fetchERC20Balance(contract: ERC20Contract, account: Account | nu
 }
 
 export function fetchERC20Approval(contract: ERC20Contract, owner: Account, spender: Account): ERC20Approval {
-	let id       = contract.id.concat('/').concat(owner.id).concat('/').concat(spender.id)
+	let id       = contract.id.toHex().concat('/').concat(owner.id.toHex()).concat('/').concat(spender.id.toHex())
 	let approval = ERC20Approval.load(id)
 
 	if (approval == null) {

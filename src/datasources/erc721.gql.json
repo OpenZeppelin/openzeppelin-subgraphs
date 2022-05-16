@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asERC721",                "type": "ERC721Contract"                         },
     { "name": "ERC721tokens",            "type": "ERC721Token!",    "derived": "owner"    },
     { "name": "ERC721operatorOwner",     "type": "ERC721Operator!", "derived": "owner"    },
@@ -11,6 +12,7 @@
 },{
   "name": "ERC721Contract",
   "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asAccount",               "type": "Account!"                               },
     { "name": "supportsMetadata",        "type": "Boolean"                                },
     { "name": "name",                    "type": "String"                                 },

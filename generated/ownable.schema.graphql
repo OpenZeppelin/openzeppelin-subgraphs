@@ -1,12 +1,12 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asOwnable: Ownable
 	ownerOf: [Ownable!]! @derivedFrom(field: "owner")
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "owner")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
 type Ownable @entity {
-	id: ID!
+	id: Bytes!
 	asAccount: Account!
 	owner: Account!
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "contract")

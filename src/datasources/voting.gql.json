@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                        "type": "Bytes!"                                                 },
     { "name": "asVoting",                  "type": "VotingContract"                                         },
     { "name": "delegationFrom",            "type": "VoteDelegation!",             "derived": "delegator"    },
     { "name": "delegationTo",              "type": "VoteDelegation!",             "derived": "delegatee"    },
@@ -13,6 +14,7 @@
 },{
   "name": "VotingContract",
   "fields": [
+    { "name": "id",                        "type": "Bytes!"                                                 },
     { "name": "asAccount" ,                "type": "Account!"                                               },
     { "name": "totalWeight",               "type": "VoteWeight!"                                            },
     { "name": "weight",                    "type": "VoteWeight!",                 "derived": "contract"     },
