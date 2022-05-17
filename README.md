@@ -76,3 +76,36 @@ npx graph-compiler \
 This will create two files, `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.
 
 Note: `startBlock` is optional but will improve your subgraph initial indexing speed.
+
+
+## Live deployments
+
+### Admin (Access Control + Ownable + ERC1967)
+
+| Network | Config                                                                 | Queries (HTTP)                                                                                                                         | Subscriptions (WS)                                                                                                                 |
+|---------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet | [configs/live/mainnet/admin.json](configs/live/mainnet/admin.json)     | [https://api.thegraph.com/subgraphs/name/amxx/access-control](https://api.thegraph.com/subgraphs/name/amxx/access-control)             | [wss://api.thegraph.com/subgraphs/name/amxx/access-control](wss://api.thegraph.com/subgraphs/name/amxx/access-control)             |
+| BSC     | [configs/live/bsc/admin.json](configs/live/bsc/admin.json)             | [https://api.thegraph.com/subgraphs/name/amxx/access-control-bsc](https://api.thegraph.com/subgraphs/name/amxx/access-control-bsc)     | [wss://api.thegraph.com/subgraphs/name/amxx/access-control-bsc](wss://api.thegraph.com/subgraphs/name/amxx/access-control-bsc)     |
+| Matic   | [configs/live/matic/admin.json](configs/live/matic/admin.json)         | [https://api.thegraph.com/subgraphs/name/amxx/access-control-matic](https://api.thegraph.com/subgraphs/name/amxx/access-control-matic) | [wss://api.thegraph.com/subgraphs/name/amxx/access-control-matic](wss://api.thegraph.com/subgraphs/name/amxx/access-control-matic) |
+| XDai    | [configs/live/xdai/admin.json](configs/live/xdai/admin.json)           | [https://api.thegraph.com/subgraphs/name/amxx/access-control-xdai](https://api.thegraph.com/subgraphs/name/amxx/access-control-xdai)   | [wss://api.thegraph.com/subgraphs/name/amxx/access-control-xdai](wss://api.thegraph.com/subgraphs/name/amxx/access-control-xdai)   |
+
+### NFTs (ERC721 + ERC1155)
+
+| Network | Config                                                                 | Queries (HTTP)                                                                                                                         | Subscriptions (WS)                                                                                                                 |
+|---------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet | [configs/live/mainnet/nfts.json](configs/live/mainnet/nfts.json)       | [https://api.thegraph.com/subgraphs/name/amxx/nft-mainnet](https://api.thegraph.com/subgraphs/name/amxx/nft-mainnet)                   | [wss://api.thegraph.com/subgraphs/name/amxx/nft-mainnet](wss://api.thegraph.com/subgraphs/name/amxx/nft-mainnet)                   |
+| BSC     | [configs/live/bsc/nfts.json](configs/live/bsc/nfts.json)               | [https://api.thegraph.com/subgraphs/name/amxx/nft-bsc](https://api.thegraph.com/subgraphs/name/amxx/nft-bsc)                           | [wss://api.thegraph.com/subgraphs/name/amxx/nft-bsc](wss://api.thegraph.com/subgraphs/name/amxx/nft-bsc)                           |
+| Matic   | [configs/live/matic/nfts.json](configs/live/matic/nfts.json)           | [https://api.thegraph.com/subgraphs/name/amxx/nft-matic](https://api.thegraph.com/subgraphs/name/amxx/nft-matic)                       | [wss://api.thegraph.com/subgraphs/name/amxx/nft-matic](wss://api.thegraph.com/subgraphs/name/amxx/nft-matic)                       |
+| XDai    | [configs/live/xdai/nfts.json](configs/live/xdai/nfts.json)             | [https://api.thegraph.com/subgraphs/name/amxx/nft-xdai](https://api.thegraph.com/subgraphs/name/amxx/nft-xdai)                         | [wss://api.thegraph.com/subgraphs/name/amxx/nft-xdai](wss://api.thegraph.com/subgraphs/name/amxx/nft-xdai)                         |
+
+### ERC721 only
+
+| Network | Config                                                                 | Queries (HTTP)                                                                                                                         | Subscriptions (WS)                                                                                                                 |
+|---------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet | [configs/live/mainnet/eip721.json](configs/live/mainnet/eip721.json)   | [https://api.thegraph.com/subgraphs/name/amxx/eip721-subgraph](https://api.thegraph.com/subgraphs/name/amxx/eip721-subgraph)           | [wss://api.thegraph.com/subgraphs/name/amxx/eip721-subgraph](wss://api.thegraph.com/subgraphs/name/amxx/eip721-subgraph)           |
+
+### ERC1155 only
+
+| Network | Config                                                                 | Queries (HTTP)                                                                                                                         | Subscriptions (WS)                                                                                                                 |
+|---------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Mainnet | [configs/live/mainnet/eip1155.json](configs/live/mainnet/eip1155.json) | [https://api.thegraph.com/subgraphs/name/amxx/eip1155-subgraph](https://api.thegraph.com/subgraphs/name/amxx/eip1155-subgraph)         | [wss://api.thegraph.com/subgraphs/name/amxx/eip1155-subgraph](wss://api.thegraph.com/subgraphs/name/amxx/eip1155-subgraph)         |

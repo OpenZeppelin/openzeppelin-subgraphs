@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 npx graph-compiler                                      \
   --config ${CONFIG:-configs/sample.json}               \
   --include src/datasources                             \

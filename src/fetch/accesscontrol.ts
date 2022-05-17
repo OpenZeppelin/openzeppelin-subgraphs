@@ -24,11 +24,12 @@ export function fetchRole(id: Bytes): Role {
 }
 
 export function fetchAccessControl(address: Address): AccessControl {
-	let account             = fetchAccount(address)
-	let contract            = new AccessControl(account.id)
-	contract.asAccount      = account.id
-	account.asAccessControl = account.id
+	let contract            = new AccessControl(address)
+	contract.asAccount      = address
 	contract.save()
+
+	let account             = fetchAccount(address)
+	account.asAccessControl = address
 	account.save()
 
 	return contract

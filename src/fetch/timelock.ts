@@ -15,14 +15,15 @@ import {
 } from './account'
 
 export function fetchTimelock(address: Address): Timelock {
-	let account  = fetchAccount(address)
-	let contract = Timelock.load(account.id)
+	let contract = Timelock.load(address)
 
 	if (contract == null) {
-		contract           = new Timelock(account.id)
-		contract.asAccount = account.id
-		account.asTimelock = account.id
+		contract           = new Timelock(address)
+		contract.asAccount = address
 		contract.save()
+
+		let account        = fetchAccount(address)
+		account.asTimelock = address
 		account.save()
 	}
 
@@ -30,7 +31,7 @@ export function fetchTimelock(address: Address): Timelock {
 }
 
 export function fetchTimelockOperation(contract: Timelock, opid: Bytes): TimelockOperation {
-	let id        = contract.id.concat('/').concat(opid.toHex())
+	let id        = contract.id.toHex().concat('/').concat(opid.toHex())
 	let operation = TimelockOperation.load(id)
 
 	if (operation == null) {

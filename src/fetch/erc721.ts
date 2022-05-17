@@ -37,7 +37,7 @@ export function fetchERC721(address: Address): ERC721Contract | null {
 	}
 
 	// Detect using ERC165
-	let detectionId      = address.concat(Bytes.fromHexString('01ffc9a7')) // Address + ERC165
+	let detectionId      = address.concat(Bytes.fromHexString('80ac58cd')) // Address + ERC721
 	let detectionAccount = Account.load(detectionId)
 
 	// On missing cache
@@ -81,7 +81,7 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 		token.approval   = fetchAccount(constants.ADDRESS_ZERO).id
 
 		if (contract.supportsMetadata) {
-			let erc721       = IERC721.bind(contract.id as Address)
+			let erc721       = IERC721.bind(Address.fromBytes(contract.id))
 			let try_tokenURI = erc721.try_tokenURI(identifier)
 			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
 		}
