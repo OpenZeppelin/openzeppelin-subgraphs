@@ -1,7 +1,54 @@
 [{
+  "name": "Account",
+  "fields": [
+    { "name": "asERC721",                "type": "ERC721Contract"                         },
+    { "name": "ERC721tokens",            "type": "ERC721Token!",    "derived": "owner"    },
+    { "name": "ERC721operatorOwner",     "type": "ERC721Operator!", "derived": "owner"    },
+    { "name": "ERC721operatorOperator",  "type": "ERC721Operator!", "derived": "operator" },
+    { "name": "ERC721transferFromEvent", "type": "ERC721Transfer!", "derived": "from"     },
+    { "name": "ERC721transferToEvent",   "type": "ERC721Transfer!", "derived": "to"       }
+  ]
+},{
+  "name": "ERC721Contract",
+  "fields": [
+    { "name": "asAccount",               "type": "Account!"                               },
+    { "name": "supportsMetadata",        "type": "Boolean"                                },
+    { "name": "name",                    "type": "String"                                 },
+    { "name": "symbol",                  "type": "String"                                 },
+    { "name": "tokens",                  "type": "ERC721Token!",    "derived": "contract" },
+    { "name": "operators",               "type": "ERC721Operator!", "derived": "contract" },
+    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "contract" }
+  ]
+},{
   "name": "ERC721Token",
   "fields": [
-    { "name": "asNaut",                  "type": "Naut!" }
+    { "name": "contract",                "type": "ERC721Contract!"                     },
+    { "name": "identifier",              "type": "BigInt!"                             },
+    { "name": "owner",                   "type": "Account!"                            },
+    { "name": "approval",                "type": "Account!"                            },
+    { "name": "uri",                     "type": "String"                              },
+    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "token" },
+    { "name": "asNaut",                  "type": "Naut!"                               }
+  ]
+},{
+  "name": "ERC721Operator",
+  "fields": [
+    { "name": "contract",                "type": "ERC721Contract!" },
+    { "name": "owner",                   "type": "Account!"        },
+    { "name": "operator",                "type": "Account!"        },
+    { "name": "approved",                "type": "Boolean!"        }
+  ]
+},{
+  "name": "ERC721Transfer",
+  "parent": "Event",
+  "fields": [
+    { "name": "emitter",                 "type": "Account!"        },
+    { "name": "transaction",             "type": "Transaction!"    },
+    { "name": "timestamp",               "type": "BigInt!"         },
+    { "name": "contract",                "type": "ERC721Contract!" },
+    { "name": "token",                   "type": "ERC721Token!"    },
+    { "name": "from",                    "type": "Account!"        },
+    { "name": "to",                      "type": "Account!"        }
   ]
 },{
   "name": "Naut",
