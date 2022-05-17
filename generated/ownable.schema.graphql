@@ -11,7 +11,7 @@ type Ownable @entity {
 	owner: Account!
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "contract")
 }
-type OwnershipTransferred implements Event @entity {
+type OwnershipTransferred implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -25,7 +25,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!

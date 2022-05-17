@@ -15,6 +15,7 @@
 },{
   "name": "Paused",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                            },
     { "name": "transaction",          "type": "Transaction!"                        },

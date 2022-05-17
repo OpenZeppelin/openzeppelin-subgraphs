@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.1.8 (Unreleased)
+ * Update to @amxx/graphprotocol-utils version 1.1.0
+ * Use Bytes for some entities ID
+ * Make events and some other entites immutable
+
 ### 0.1.7-1 (2021-01-27)
  * `Governor`: fix vulnerability to ill-formed ProposalCreated events
 

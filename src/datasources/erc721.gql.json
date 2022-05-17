@@ -11,6 +11,7 @@
   ]
 },{
   "name": "ERC721Contract",
+  "immutable": true,
   "fields": [
     { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asAccount",               "type": "Account!"                               },
@@ -42,6 +43,7 @@
 },{
   "name": "ERC721Transfer",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                 "type": "Account!"        },
     { "name": "transaction",             "type": "Transaction!"    },

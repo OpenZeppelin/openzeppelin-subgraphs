@@ -12,6 +12,7 @@
   ]
 },{
   "name": "ERC1155Contract",
+  "immutable": true,
   "fields": [
     { "name": "id",                           "type": "Bytes!"                                     },
     { "name": "asAccount",                    "type": "Account!"                                   },
@@ -52,6 +53,7 @@
 },{
   "name": "ERC1155Transfer",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                      "type": "Account!"                                   },
     { "name": "transaction",                  "type": "Transaction!"                               },

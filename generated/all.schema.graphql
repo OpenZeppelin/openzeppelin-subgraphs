@@ -57,12 +57,12 @@ type Account @entity {
 	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "delegate")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
-type AccessControl @entity {
+type AccessControl @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
-type Role @entity {
+type Role @entity(immutable: true) {
 	id: Bytes!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 }
@@ -82,7 +82,7 @@ type AccessControlRoleMember @entity {
 	accesscontrolrole: AccessControlRole!
 	account: Account!
 }
-type RoleAdminChanged implements Event @entity {
+type RoleAdminChanged implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -91,7 +91,7 @@ type RoleAdminChanged implements Event @entity {
 	newAdminRole: AccessControlRole!
 	previousAdminRole: AccessControlRole!
 }
-type RoleGranted implements Event @entity {
+type RoleGranted implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -100,7 +100,7 @@ type RoleGranted implements Event @entity {
 	account: Account!
 	sender: Account!
 }
-type RoleRevoked implements Event @entity {
+type RoleRevoked implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -109,7 +109,7 @@ type RoleRevoked implements Event @entity {
 	account: Account!
 	sender: Account!
 }
-type ERC1155Contract @entity {
+type ERC1155Contract @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
@@ -143,7 +143,7 @@ type ERC1155Operator @entity {
 	operator: Account!
 	approved: Boolean!
 }
-type ERC1155Transfer implements Event @entity {
+type ERC1155Transfer implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -158,28 +158,28 @@ type ERC1155Transfer implements Event @entity {
 	value: BigDecimal!
 	valueExact: BigInt!
 }
-type ERC1967AdminChanged implements Event @entity {
+type ERC1967AdminChanged implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	admin: Account!
 }
-type ERC1967BeaconUpgraded implements Event @entity {
+type ERC1967BeaconUpgraded implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	beacon: Account!
 }
-type ERC1967ImplementationUpgraded implements Event @entity {
+type ERC1967ImplementationUpgraded implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
 	timestamp: BigInt!
 	implementation: Account!
 }
-type ERC20Contract @entity {
+type ERC20Contract @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	name: String
@@ -207,7 +207,7 @@ type ERC20Approval @entity {
 	value: BigDecimal!
 	valueExact: BigInt!
 }
-type ERC20Transfer implements Event @entity {
+type ERC20Transfer implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -220,7 +220,7 @@ type ERC20Transfer implements Event @entity {
 	value: BigDecimal!
 	valueExact: BigInt!
 }
-type ERC721Contract @entity {
+type ERC721Contract @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	supportsMetadata: Boolean
@@ -246,7 +246,7 @@ type ERC721Operator @entity {
 	operator: Account!
 	approved: Boolean!
 }
-type ERC721Transfer implements Event @entity {
+type ERC721Transfer implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -256,7 +256,7 @@ type ERC721Transfer implements Event @entity {
 	from: Account!
 	to: Account!
 }
-type Governor @entity {
+type Governor @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	mode: String
@@ -288,7 +288,7 @@ type Proposal @entity {
 	proposalCanceled: [ProposalCanceled!]! @derivedFrom(field: "proposal")
 	votecast: [VoteCast!]! @derivedFrom(field: "proposal")
 }
-type ProposalCall @entity {
+type ProposalCall @entity(immutable: true) {
 	id: ID!
 	proposal: Proposal!
 	index: Int!
@@ -297,13 +297,13 @@ type ProposalCall @entity {
 	signature: String!
 	calldata: Bytes!
 }
-type ProposalSupport @entity {
+type ProposalSupport @entity(immutable: true) {
 	id: ID!
 	proposal: Proposal!
 	support: Int!
 	votes: [VoteReceipt!]! @derivedFrom(field: "support")
 }
-type VoteReceipt @entity {
+type VoteReceipt @entity(immutable: true) {
 	id: ID!
 	proposal: Proposal!
 	voter: Account!
@@ -311,7 +311,7 @@ type VoteReceipt @entity {
 	weight: BigInt!
 	reason: String!
 }
-type ProposalCreated implements Event @entity {
+type ProposalCreated implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -320,7 +320,7 @@ type ProposalCreated implements Event @entity {
 	proposal: Proposal!
 	proposer: Account!
 }
-type ProposalQueued implements Event @entity {
+type ProposalQueued implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -329,7 +329,7 @@ type ProposalQueued implements Event @entity {
 	proposal: Proposal!
 	eta: BigInt!
 }
-type ProposalExecuted implements Event @entity {
+type ProposalExecuted implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -337,7 +337,7 @@ type ProposalExecuted implements Event @entity {
 	governor: Governor!
 	proposal: Proposal!
 }
-type ProposalCanceled implements Event @entity {
+type ProposalCanceled implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -345,7 +345,7 @@ type ProposalCanceled implements Event @entity {
 	governor: Governor!
 	proposal: Proposal!
 }
-type VoteCast implements Event @entity {
+type VoteCast implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -362,7 +362,7 @@ type Ownable @entity {
 	owner: Account!
 	ownershipTransferred: [OwnershipTransferred!]! @derivedFrom(field: "contract")
 }
-type OwnershipTransferred implements Event @entity {
+type OwnershipTransferred implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -376,7 +376,7 @@ type Pausable @entity {
 	isPaused: Boolean!
 	paused: [Paused!]! @derivedFrom(field: "contract")
 }
-type Paused implements Event @entity {
+type Paused implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -384,7 +384,7 @@ type Paused implements Event @entity {
 	contract: Pausable!
 	isPaused: Boolean!
 }
-type Timelock @entity {
+type Timelock @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
@@ -410,7 +410,7 @@ type TimelockOperation @entity {
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "operation")
 	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "operation")
 }
-type TimelockCall @entity {
+type TimelockCall @entity(immutable: true) {
 	id: ID!
 	operation: TimelockOperation!
 	index: BigInt!
@@ -420,7 +420,7 @@ type TimelockCall @entity {
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "call")
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "call")
 }
-type TimelockOperationScheduled implements Event @entity {
+type TimelockOperationScheduled implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -429,7 +429,7 @@ type TimelockOperationScheduled implements Event @entity {
 	operation: TimelockOperation!
 	call: TimelockCall!
 }
-type TimelockOperationExecuted implements Event @entity {
+type TimelockOperationExecuted implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -438,7 +438,7 @@ type TimelockOperationExecuted implements Event @entity {
 	operation: TimelockOperation!
 	call: TimelockCall!
 }
-type TimelockOperationCancelled implements Event @entity {
+type TimelockOperationCancelled implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -446,7 +446,7 @@ type TimelockOperationCancelled implements Event @entity {
 	contract: Timelock!
 	operation: TimelockOperation!
 }
-type TimelockMinDelayChange implements Event @entity {
+type TimelockMinDelayChange implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -454,7 +454,7 @@ type TimelockMinDelayChange implements Event @entity {
 	contract: Timelock!
 	delay: BigInt!
 }
-type VotingContract @entity {
+type VotingContract @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	totalWeight: VoteWeight!
@@ -477,7 +477,7 @@ type VoteWeight @entity {
 	value: BigInt!
 	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "voteWeight")
 }
-type DelegateChanged implements Event @entity {
+type DelegateChanged implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -488,7 +488,7 @@ type DelegateChanged implements Event @entity {
 	fromDelegate: Account!
 	toDelegate: Account!
 }
-type DelegateVotesChanged implements Event @entity {
+type DelegateVotesChanged implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -505,7 +505,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!

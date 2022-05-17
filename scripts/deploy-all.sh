@@ -16,6 +16,6 @@ CONFIG=configs/live/bsc/nfts.json        SUBGRAPH=generated/live/bsc/nfts.subgra
 CONFIG=configs/live/matic/admin.json     SUBGRAPH=generated/live/matic/admin.subgraph.yaml     NAME=amxx/access-control-matic bash scripts/deploy.sh
 CONFIG=configs/live/matic/nfts.json      SUBGRAPH=generated/live/matic/nfts.subgraph.yaml      NAME=amxx/nft-matic            bash scripts/deploy.sh
 
-# XDAI
+# # XDAI
 CONFIG=configs/live/xdai/admin.json      SUBGRAPH=generated/live/xdai/admin.subgraph.yaml      NAME=amxx/access-control-xdai  bash scripts/deploy.sh
 CONFIG=configs/live/xdai/nfts.json       SUBGRAPH=generated/live/xdai/nfts.subgraph.yaml       NAME=amxx/nft-xdai             bash scripts/deploy.sh

@@ -18,6 +18,7 @@
 },{
   "name": "ERC1967AdminChanged",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },
@@ -27,6 +28,7 @@
 },{
   "name": "ERC1967BeaconUpgraded",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },
@@ -36,6 +38,7 @@
 },{
   "name": "ERC1967ImplementationUpgraded",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                         "type": "Account!"                                                           },
     { "name": "transaction",                     "type": "Transaction!"                                                       },

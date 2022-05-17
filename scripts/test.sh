@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+shopt -s nullglob
+modules=(src/datasources/*.yaml)
+
 function test() {
   modules=("$@")
 
@@ -31,10 +34,6 @@ function test() {
   rm $tmp.json $tmp.schema.graphql $tmp.subgraph.yaml ${tmp/generated/build}.schema.graphql
 }
 
-
-
-shopt -s nullglob
-modules=(src/datasources/*.yaml)
 
 if [ $# -eq 0 ];
 then

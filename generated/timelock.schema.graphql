@@ -4,7 +4,7 @@ type Account @entity {
 	timelockedCalls: [TimelockCall!]! @derivedFrom(field: "target")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
-type Timelock @entity {
+type Timelock @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	operations: [TimelockOperation!]! @derivedFrom(field: "contract")
@@ -30,7 +30,7 @@ type TimelockOperation @entity {
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "operation")
 	cancelled: [TimelockOperationCancelled!]! @derivedFrom(field: "operation")
 }
-type TimelockCall @entity {
+type TimelockCall @entity(immutable: true) {
 	id: ID!
 	operation: TimelockOperation!
 	index: BigInt!
@@ -40,7 +40,7 @@ type TimelockCall @entity {
 	scheduled: [TimelockOperationScheduled!]! @derivedFrom(field: "call")
 	executed: [TimelockOperationExecuted!]! @derivedFrom(field: "call")
 }
-type TimelockOperationScheduled implements Event @entity {
+type TimelockOperationScheduled implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -49,7 +49,7 @@ type TimelockOperationScheduled implements Event @entity {
 	operation: TimelockOperation!
 	call: TimelockCall!
 }
-type TimelockOperationExecuted implements Event @entity {
+type TimelockOperationExecuted implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -58,7 +58,7 @@ type TimelockOperationExecuted implements Event @entity {
 	operation: TimelockOperation!
 	call: TimelockCall!
 }
-type TimelockOperationCancelled implements Event @entity {
+type TimelockOperationCancelled implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -66,7 +66,7 @@ type TimelockOperationCancelled implements Event @entity {
 	contract: Timelock!
 	operation: TimelockOperation!
 }
-type TimelockMinDelayChange implements Event @entity {
+type TimelockMinDelayChange implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -80,7 +80,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!

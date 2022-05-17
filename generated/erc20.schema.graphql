@@ -8,7 +8,7 @@ type Account @entity {
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
-type ERC20Contract @entity {
+type ERC20Contract @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	name: String
@@ -36,7 +36,7 @@ type ERC20Approval @entity {
 	value: BigDecimal!
 	valueExact: BigInt!
 }
-type ERC20Transfer implements Event @entity {
+type ERC20Transfer implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -55,7 +55,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!

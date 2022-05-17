@@ -26,7 +26,7 @@
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
-    "@amxx/graphprotocol-utils": "^1.1.0-alpha.2",
+    "@amxx/graphprotocol-utils": "^1.1.0",
     "@openzeppelin/contracts": "^4.6.0"
   },
   "devDependencies": {

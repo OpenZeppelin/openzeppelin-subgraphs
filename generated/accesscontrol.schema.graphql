@@ -8,12 +8,12 @@ type Account @entity {
 	roleRevokedSender: [RoleRevoked!]! @derivedFrom(field: "sender")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
-type AccessControl @entity {
+type AccessControl @entity(immutable: true) {
 	id: Bytes!
 	asAccount: Account!
 	roles: [AccessControlRole!]! @derivedFrom(field: "contract")
 }
-type Role @entity {
+type Role @entity(immutable: true) {
 	id: Bytes!
 	roleOf: [AccessControlRole!]! @derivedFrom(field: "role")
 }
@@ -33,7 +33,7 @@ type AccessControlRoleMember @entity {
 	accesscontrolrole: AccessControlRole!
 	account: Account!
 }
-type RoleAdminChanged implements Event @entity {
+type RoleAdminChanged implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -42,7 +42,7 @@ type RoleAdminChanged implements Event @entity {
 	newAdminRole: AccessControlRole!
 	previousAdminRole: AccessControlRole!
 }
-type RoleGranted implements Event @entity {
+type RoleGranted implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -51,7 +51,7 @@ type RoleGranted implements Event @entity {
 	account: Account!
 	sender: Account!
 }
-type RoleRevoked implements Event @entity {
+type RoleRevoked implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -66,7 +66,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!
