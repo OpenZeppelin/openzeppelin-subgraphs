@@ -1,5 +1,5 @@
 type Account @entity {
-	id: ID!
+	id: Bytes!
 	asERC1155: ERC1155Contract
 	ERC1155balances: [ERC1155Balance!]! @derivedFrom(field: "account")
 	ERC1155operatorOwner: [ERC1155Operator!]! @derivedFrom(field: "owner")
@@ -9,8 +9,8 @@ type Account @entity {
 	ERC1155transferOperatorEvent: [ERC1155Transfer!]! @derivedFrom(field: "operator")
 	events: [Event!]! @derivedFrom(field: "emitter")
 }
-type ERC1155Contract @entity {
-	id: ID!
+type ERC1155Contract @entity(immutable: true) {
+	id: Bytes!
 	asAccount: Account!
 	tokens: [ERC1155Token!]! @derivedFrom(field: "contract")
 	balances: [ERC1155Balance!]! @derivedFrom(field: "contract")
@@ -43,7 +43,7 @@ type ERC1155Operator @entity {
 	operator: Account!
 	approved: Boolean!
 }
-type ERC1155Transfer implements Event @entity {
+type ERC1155Transfer implements Event @entity(immutable: true) {
 	id: ID!
 	emitter: Account!
 	transaction: Transaction!
@@ -64,7 +64,7 @@ interface Event {
 	emitter: Account!
 	timestamp: BigInt!
 }
-type Transaction @entity {
+type Transaction @entity(immutable: true) {
 	id: ID!
 	timestamp: BigInt!
 	blockNumber: BigInt!

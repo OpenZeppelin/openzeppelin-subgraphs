@@ -1,0 +1,8 @@
+{
+  "output": "generated/live/mainnet/eip721.",
+  "chain": "mainnet",
+  "datasources": [
+    { "startBlock": 5806610, "module": "erc721" }
+  ],
+  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/eip721-subgraph"
+}

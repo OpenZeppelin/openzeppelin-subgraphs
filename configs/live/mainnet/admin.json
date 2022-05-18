@@ -1,5 +1,5 @@
 {
-  "output": "generated/live/admin.mainnet.",
+  "output": "generated/live/mainnet/admin.",
   "chain": "mainnet",
   "datasources": [
     { "startBlock": 2926212, "module": "ownable"        },
