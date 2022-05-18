@@ -9,7 +9,10 @@
     "generated/schema.ts",
     "generated/*.graphql",
     "generated/**/*.ts",
-    "src"
+    "src",
+    "CHANGELOG",
+    "LICENCE",
+    "README"
   ],
   "repository": {
     "type": "git",
