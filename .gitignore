@@ -10,6 +10,9 @@ generated/*
 !generated/erc20.schema.graphql
 !generated/erc721.schema.graphql
 !generated/erc1155.schema.graphql
+!generated/erc1967upgrade.subgraph.yaml
+!generated/governor.schema.graphql
 !generated/ownable.schema.graphql
 !generated/pausable.schema.graphql
 !generated/timelock.schema.graphql
+!generated/voting.schema.graphql

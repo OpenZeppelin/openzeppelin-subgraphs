@@ -11,10 +11,11 @@ import {
 } from './account'
 
 export function fetchOwnable(address: Address): Ownable {
+	let contract       = new Ownable(address)
+	contract.asAccount = address
+
 	let account        = fetchAccount(address)
-	let contract       = new Ownable(account.id)
-	contract.asAccount = account.id
-	account.asOwnable  = account.id
+	account.asOwnable  = address
 	account.save()
 
 	return contract

@@ -7,7 +7,7 @@ import {
 } from '../../generated/schema'
 
 export function fetchAccount(address: Address): Account {
-	let account = new Account(address.toHex())
+	let account = new Account(address)
 	account.save()
 	return account
 }

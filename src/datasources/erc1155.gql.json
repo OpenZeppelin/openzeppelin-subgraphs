@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                           "type": "Bytes!"                                     },
     { "name": "asERC1155",                    "type": "ERC1155Contract"                            },
     { "name": "ERC1155balances",              "type": "ERC1155Balance!",  "derived": "account"     },
     { "name": "ERC1155operatorOwner",         "type": "ERC1155Operator!", "derived": "owner"       },
@@ -11,7 +12,9 @@
   ]
 },{
   "name": "ERC1155Contract",
+  "immutable": true,
   "fields": [
+    { "name": "id",                           "type": "Bytes!"                                     },
     { "name": "asAccount",                    "type": "Account!"                                   },
     { "name": "tokens",                       "type": "ERC1155Token!",    "derived": "contract"    },
     { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "contract"    },
@@ -50,6 +53,7 @@
 },{
   "name": "ERC1155Transfer",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                      "type": "Account!"                                   },
     { "name": "transaction",                  "type": "Transaction!"                               },
