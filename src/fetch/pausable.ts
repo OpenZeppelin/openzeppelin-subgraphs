@@ -11,10 +11,11 @@ import {
 } from './account'
 
 export function fetchPausable(address: Address): Pausable {
+	let contract       = new Pausable(address)
+	contract.asAccount = address
+
 	let account        = fetchAccount(address)
-	let contract       = new Pausable(account.id)
-	contract.asAccount = account.id
-	account.asPausable = account.id
+	account.asPausable = address
 	account.save()
 
 	return contract

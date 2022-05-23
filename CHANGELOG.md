@@ -2,6 +2,12 @@
 
 ### 0.1.7-1 (2021-01-27)
  * `Governor`: fix vulnerability to ill-formed ProposalCreated events
+ * Update dependency to @graphprotocol/graph-cli version 0.29.x
+ * Update dependency to @graphprotocol/graph-ts version 0.26.x
+ * Update dependency to @amxx/graphprotocol-utils version 1.1.0
+ * Use Bytes for some entities ID
+ * Make events and some other entites immutable
+ * `Governor`: index the "counting mode" for OZ governors
 
 ### 0.1.7 (2021-01-27)
  * `ERC1155`: fetch token uri on minting.
@@ -9,11 +15,11 @@
 
 ### 0.1.6 (2021-11-23)
  * Include emmiter address (Account) to all Event objects
- * Update to @amxx/graphprotocol-utils version 1.1.0-alpha.1
- * Update to @graphprotol/graph-cli and @graphprotocol/graph-ts version 0.24.x
+ * Update dependency to @amxx/graphprotocol-utils version 1.1.0-alpha.1
+ * Update dependency to @graphprotocol/graph-cli and @graphprotocol/graph-ts version 0.24.x
 
 ### 0.1.5 (2021-11-04)
- * Update to @graphprotol/graph-cli and @graphprotocol/graph-ts version 0.23.x
+ * Update dependency to @graphprotocol/graph-cli and @graphprotocol/graph-ts version 0.23.x
 
 ### 0.1.4 (2021-10-04)
  * Module `Voting`

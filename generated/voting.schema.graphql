@@ -1,0 +1,69 @@
+type Account @entity {
+	id: Bytes!
+	asVoting: VotingContract
+	delegationFrom: [VoteDelegation!]! @derivedFrom(field: "delegator")
+	delegationTo: [VoteDelegation!]! @derivedFrom(field: "delegatee")
+	voteWeigth: [VoteWeight!]! @derivedFrom(field: "account")
+	delegateChangedEvent: [DelegateChanged!]! @derivedFrom(field: "delegator")
+	delegateChangedFromEvent: [DelegateChanged!]! @derivedFrom(field: "fromDelegate")
+	delegateChangedToEvent: [DelegateChanged!]! @derivedFrom(field: "toDelegate")
+	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "delegate")
+	events: [Event!]! @derivedFrom(field: "emitter")
+}
+type VotingContract @entity(immutable: true) {
+	id: Bytes!
+	asAccount: Account!
+	totalWeight: VoteWeight!
+	weight: [VoteWeight!]! @derivedFrom(field: "contract")
+	delegation: [VoteDelegation!]! @derivedFrom(field: "contract")
+	delegateChangedEvent: [DelegateChanged!]! @derivedFrom(field: "contract")
+	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "contract")
+}
+type VoteDelegation @entity {
+	id: ID!
+	contract: VotingContract!
+	delegator: Account!
+	delegatee: Account!
+	delegateChangedEvent: [DelegateChanged!]! @derivedFrom(field: "delegation")
+}
+type VoteWeight @entity {
+	id: ID!
+	contract: VotingContract!
+	account: Account
+	value: BigInt!
+	delegateVotesChangedEvent: [DelegateVotesChanged!]! @derivedFrom(field: "voteWeight")
+}
+type DelegateChanged implements Event @entity(immutable: true) {
+	id: ID!
+	emitter: Account!
+	transaction: Transaction!
+	timestamp: BigInt!
+	delegation: VoteDelegation
+	contract: VotingContract!
+	delegator: Account!
+	fromDelegate: Account!
+	toDelegate: Account!
+}
+type DelegateVotesChanged implements Event @entity(immutable: true) {
+	id: ID!
+	emitter: Account!
+	transaction: Transaction!
+	timestamp: BigInt!
+	voteWeight: VoteWeight
+	contract: VotingContract!
+	delegate: Account!
+	oldValue: BigInt!
+	newValue: BigInt!
+}
+interface Event {
+	id: ID!
+	transaction: Transaction!
+	emitter: Account!
+	timestamp: BigInt!
+}
+type Transaction @entity(immutable: true) {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [Event!]! @derivedFrom(field: "transaction")
+}

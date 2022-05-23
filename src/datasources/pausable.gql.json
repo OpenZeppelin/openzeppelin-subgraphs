@@ -1,11 +1,13 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                              },
     { "name": "asPausable",           "type": "Pausable"                            }
   ]
-},{
-  "name": "Pausable",
-  "fields": [
+  },{
+    "name": "Pausable",
+    "fields": [
+    { "name": "id",                   "type": "Bytes!"                              },
     { "name": "asAccount" ,           "type": "Account!"                            },
     { "name": "isPaused",             "type": "Boolean!"                            },
     { "name": "paused",               "type": "Paused!",     "derived": "contract"  }
@@ -13,6 +15,7 @@
 },{
   "name": "Paused",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                            },
     { "name": "transaction",          "type": "Transaction!"                        },
