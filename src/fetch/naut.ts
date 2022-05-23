@@ -30,15 +30,19 @@ import {
 
 export function fetchNaut(token: ERC721Token): Naut {
     let naut = Naut.load(token.id)
-    if (naut == null) {
-        naut = new Naut(token.id)
-        naut.token = token.id
-		// Default state is 0
-		naut.state = new BigInt(0)
 
-		// Make sure inverse mapping is set too
-		token.asNaut = naut.id
-		token.save()
-    }
+	if (naut != null) {
+		return naut as Naut;
+	}
+
+	naut = new Naut(token.id)
+	naut.token = token.id
+	// Default state is 0
+	naut.state = new BigInt(0)
+
+	// Make sure inverse mapping is set too
+	token.asNaut = naut.id
+	token.save()
+	
     return naut as Naut;
 }

@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asERC721",                "type": "ERC721Contract"                         },
     { "name": "ERC721tokens",            "type": "ERC721Token!",    "derived": "owner"    },
     { "name": "ERC721operatorOwner",     "type": "ERC721Operator!", "derived": "owner"    },
@@ -10,7 +11,9 @@
   ]
 },{
   "name": "ERC721Contract",
+  "immutable": true,
   "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asAccount",               "type": "Account!"                               },
     { "name": "supportsMetadata",        "type": "Boolean"                                },
     { "name": "name",                    "type": "String"                                 },
@@ -41,6 +44,7 @@
 },{
   "name": "ERC721Transfer",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                 "type": "Account!"        },
     { "name": "transaction",             "type": "Transaction!"    },
