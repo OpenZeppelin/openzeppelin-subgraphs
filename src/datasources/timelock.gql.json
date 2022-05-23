@@ -1,12 +1,15 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                              },
     { "name": "asTimelock",           "type": "Timelock"                                            },
     { "name": "timelockedCalls",      "type": "TimelockCall!",               "derived": "target"    }
   ]
 },{
   "name": "Timelock",
+  "immutable": true,
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                              },
     { "name": "asAccount" ,           "type": "Account!"                                            },
     { "name": "operations",           "type": "TimelockOperation!",          "derived": "contract"  },
     { "name": "scheduled",            "type": "TimelockOperationScheduled!", "derived": "contract"  },
@@ -36,6 +39,7 @@
   ]
 },{
   "name": "TimelockCall",
+  "immutable": true,
   "fields": [
     { "name": "operation",            "type": "TimelockOperation!"                                  },
     { "name": "index",                "type": "BigInt!"                                             },
@@ -48,6 +52,7 @@
 },{
   "name": "TimelockOperationScheduled",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
@@ -59,6 +64,7 @@
 },{
   "name": "TimelockOperationExecuted",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
@@ -70,6 +76,7 @@
 },{
   "name": "TimelockOperationCancelled",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
@@ -80,6 +87,7 @@
 },{
   "name": "TimelockMinDelayChange",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },

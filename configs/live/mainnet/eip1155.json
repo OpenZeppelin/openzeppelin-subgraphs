@@ -1,0 +1,8 @@
+{
+  "output": "generated/live/mainnet/eip1155.",
+  "chain": "mainnet",
+  "datasources": [
+    { "startBlock": 6930510, "module": "erc1155" }
+  ],
+  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/eip1155-subgraph"
+}

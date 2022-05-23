@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                             },
     { "name": "asGovernor",           "type": "Governor"                                           },
     { "name": "proposed",             "type": "Proposal!",                   "derived": "proposer" },
     { "name": "voted",                "type": "VoteReceipt!",                "derived": "voter"    },
@@ -8,8 +9,11 @@
   ]
 },{
   "name": "Governor",
+  "immutable": true,
   "fields": [
+    { "name": "id",                   "type": "Bytes!"                                             },
     { "name": "asAccount" ,           "type": "Account!"                                           },
+    { "name": "mode" ,                "type": "String"                                             },
     { "name": "proposals",            "type": "Proposal!",                   "derived": "governor" },
     { "name": "proposalCreated",      "type": "ProposalCreated!",            "derived": "governor" },
     { "name": "proposalQueued",       "type": "ProposalQueued!",             "derived": "governor" },
@@ -41,6 +45,7 @@
   ]
 },{
   "name": "ProposalCall",
+  "immutable": true,
   "fields": [
     { "name": "proposal",             "type": "Proposal!"                                           },
     { "name": "index",                "type": "Int!"                                                },
@@ -51,6 +56,7 @@
   ]
 },{
   "name": "ProposalSupport",
+  "immutable": true,
   "fields": [
     { "name": "proposal",             "type": "Proposal!"                                           },
     { "name": "support",              "type": "Int!"                                                },
@@ -58,6 +64,7 @@
   ]
 },{
   "name": "VoteReceipt",
+  "immutable": true,
   "fields": [
     { "name": "proposal",             "type": "Proposal!"                                           },
     { "name": "voter",                "type": "Account!"                                            },
@@ -68,6 +75,7 @@
 },{
   "name": "ProposalCreated",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },
@@ -79,6 +87,7 @@
 },{
   "name": "ProposalQueued",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },
@@ -90,6 +99,7 @@
 },{
   "name": "ProposalExecuted",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },
@@ -100,6 +110,7 @@
 },{
   "name": "ProposalCanceled",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },
@@ -110,6 +121,7 @@
 },{
   "name": "VoteCast",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"                                            },
     { "name": "transaction",          "type": "Transaction!"                                        },

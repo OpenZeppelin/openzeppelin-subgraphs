@@ -31,22 +31,23 @@ export function replaceURI(uri: string, identifier: BigInt): string {
 }
 
 export function fetchERC1155(address: Address): ERC1155Contract {
-	let account        = fetchAccount(address)
-	let contract       = new ERC1155Contract(account.id)
-	contract.asAccount = account.id
-	account.asERC1155  = contract.id
+	let contract       = new ERC1155Contract(address)
+	contract.asAccount = address
 	contract.save()
+
+	let account        = fetchAccount(address)
+	account.asERC1155  = address
 	account.save()
 
 	return contract
 }
 
 export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt): ERC1155Token {
-	let id = contract.id.concat('/').concat(identifier.toHex())
+	let id = contract.id.toHex().concat('/').concat(identifier.toHex())
 	let token = ERC1155Token.load(id)
 
 	if (token == null) {
-		let erc1155            = IERC1155.bind(Address.fromString(contract.id))
+		let erc1155            = IERC1155.bind(Address.fromBytes(contract.id))
 		let try_uri            = erc1155.try_uri(identifier)
 		token                  = new ERC1155Token(id)
 		token.contract         = contract.id
@@ -60,7 +61,7 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 }
 
 export function fetchERC1155Balance(token: ERC1155Token, account: Account | null): ERC1155Balance {
-	let id = token.id.concat('/').concat(account ? account.id : 'totalSupply')
+	let id = token.id.concat('/').concat(account ? account.id.toHex() : 'totalSupply')
 	let balance = ERC1155Balance.load(id)
 
 	if (balance == null) {
@@ -77,7 +78,7 @@ export function fetchERC1155Balance(token: ERC1155Token, account: Account | null
 }
 
 export function fetchERC721Operator(contract: ERC1155Contract, owner: Account, operator: Account): ERC1155Operator {
-	let id = contract.id.concat('/').concat(owner.id).concat('/').concat(operator.id)
+	let id = contract.id.toHex().concat('/').concat(owner.id.toHex()).concat('/').concat(operator.id.toHex())
 	let op = ERC1155Operator.load(id)
 
 	if (op == null) {

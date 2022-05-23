@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                        "type": "Bytes!"                                                 },
     { "name": "asVoting",                  "type": "VotingContract"                                         },
     { "name": "delegationFrom",            "type": "VoteDelegation!",             "derived": "delegator"    },
     { "name": "delegationTo",              "type": "VoteDelegation!",             "derived": "delegatee"    },
@@ -12,7 +13,9 @@
   ]
 },{
   "name": "VotingContract",
+  "immutable": true,
   "fields": [
+    { "name": "id",                        "type": "Bytes!"                                                 },
     { "name": "asAccount" ,                "type": "Account!"                                               },
     { "name": "totalWeight",               "type": "VoteWeight!"                                            },
     { "name": "weight",                    "type": "VoteWeight!",                 "derived": "contract"     },
@@ -39,6 +42,7 @@
 },{
   "name": "DelegateChanged",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                   "type": "Account!"                                               },
     { "name": "transaction",               "type": "Transaction!"                                           },
@@ -52,6 +56,7 @@
 },{
   "name": "DelegateVotesChanged",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",                   "type": "Account!"                                               },
     { "name": "transaction",               "type": "Transaction!"                                           },

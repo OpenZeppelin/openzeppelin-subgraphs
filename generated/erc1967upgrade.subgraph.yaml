@@ -1,0 +1,25 @@
+specVersion: 0.0.2
+schema:
+  file: erc1967upgrade.schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: erc1967upgrade
+    source:
+      abi: ERC1967
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ERC1967
+      abis:
+        - name: ERC1967
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/ERC1967Upgrade.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ../src/datasources/erc1967upgrade.ts

@@ -1,6 +1,7 @@
 [{
   "name": "Account",
   "fields": [
+    { "name": "id",                  "type": "Bytes!"                                                    },
     { "name": "asAccessControl",     "type": "AccessControl"                                             },
     { "name": "membership",          "type": "AccessControlRoleMember!",  "derived": "account"           },
     { "name": "roleGranted",         "type": "RoleGranted!",              "derived": "account"           },
@@ -10,13 +11,17 @@
   ]
 },{
   "name": "AccessControl",
+  "immutable": true,
   "fields": [
+    { "name": "id",                  "type": "Bytes!"                                                    },
     { "name": "asAccount",           "type": "Account!"                                                  },
     { "name": "roles",               "type": "AccessControlRole!",        "derived": "contract"          }
   ]
 },{
   "name": "Role",
+  "immutable": true,
   "fields": [
+    { "name": "id",                  "type": "Bytes!"                                                    },
     { "name": "roleOf",              "type": "AccessControlRole!",        "derived": "role"              }
   ]
 },{
@@ -40,6 +45,7 @@
 },{
   "name": "RoleAdminChanged",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
@@ -51,6 +57,7 @@
 },{
   "name": "RoleGranted",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
@@ -62,6 +69,7 @@
 },{
   "name": "RoleRevoked",
   "parent": "Event",
+  "immutable": true,
   "fields": [
     { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",          "type": "Transaction!"       },
