@@ -28,12 +28,29 @@ import {
 } from "../../generated/naut/ERC721MultiMetadata";
 import { fetchNaut } from '../fetch/naut'
 
-import { handleTransfer } from './erc721'
+import { handleApproval, handleTransfer } from './erc721'
 
 /// Called on every transfer to make sure there is always a Naut associated with a token
 export function handleNautTransfer(event: TransferEvent): void {
 	// call erc721's handletransfer in case we fire first
 	handleTransfer(event)
+
+	let contract = fetchERC721(event.address)
+	if (contract == null) {
+		return;
+	}
+
+	let token = fetchERC721Token(contract, event.params.tokenId)
+	if (token == null) {
+		return;
+	}
+
+	let naut = fetchNaut(token)
+	naut.save()
+}
+
+export function handleNautApproval(event: ApprovalEvent): void {
+	handleApproval(event)
 
 	let contract = fetchERC721(event.address)
 	if (contract == null) {

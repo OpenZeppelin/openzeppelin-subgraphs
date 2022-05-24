@@ -20,4 +20,6 @@
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleNautTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleNautApproval
       file: {file}
