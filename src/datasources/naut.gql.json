@@ -31,7 +31,7 @@
     { "name": "approval",                "type": "Account!"                            },
     { "name": "uri",                     "type": "String"                              },
     { "name": "transfers",               "type": "ERC721Transfer!", "derived": "token" },
-    { "name": "asNaut",                  "type": "Naut!"                               }
+    { "name": "asNaut",                  "type": "Naut"                                }
   ]
 },{
   "name": "ERC721Operator",
