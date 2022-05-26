@@ -9,6 +9,7 @@
         "erc20",
         "erc721",
         "governor",
+        "naut",
         "ownable",
         "pausable",
         "timelock",

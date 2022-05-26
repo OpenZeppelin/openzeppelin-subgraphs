@@ -238,6 +238,7 @@ type ERC721Token @entity {
 	approval: Account!
 	uri: String
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
+	asNaut: Naut!
 }
 type ERC721Operator @entity {
 	id: ID!
@@ -355,6 +356,11 @@ type VoteCast implements Event @entity(immutable: true) {
 	support: ProposalSupport!
 	receipt: VoteReceipt!
 	voter: Account!
+}
+type Naut @entity {
+	id: ID!
+	token: ERC721Token!
+	state: BigInt!
 }
 type Ownable @entity {
 	id: Bytes!
