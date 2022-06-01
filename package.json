@@ -34,7 +34,7 @@
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.1.0",
     "@openzeppelin/contracts": "^4.6.0",
-    "@wanderers/subgraphs-contract-abis": "^1.0.0"
+    "@wanderers/subgraphs-contract-abis": "^1.1.0"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.29.2",
