@@ -1,0 +1,10 @@
+{
+  "output": "generated/planet.",
+  "datasources": [
+    {
+      "module": [
+        "planet"
+      ]
+    }
+  ]
+}

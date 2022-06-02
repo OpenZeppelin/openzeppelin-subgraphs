@@ -1,0 +1,32 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: Planet
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Planet
+      abis:
+        - name: Planet
+          file: {root}/node_modules/@wanderers/subgraphs-contract-abis/src/Planet.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handlePlanetTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handlePlanetApproval
+        - event: DataLock(indexed address,indexed uint256)
+          handler: handlePlanetDataLock
+        - event: DataUnlock(indexed address,indexed uint256)
+          handler: handlePlanetDataUnlock
+        - event: DefaultStateUpdate(indexed uint256)
+          handler: handlePlanetDefaultStateUpdate
+        - event: OverrideStateUpdate(indexed uint256,indexed uint256,bool)
+          handler: handlePlanetOverrideStateUpdate
+        - event: SetData(indexed address,indexed uint256,string,string)
+          handler: handlePlanetSetData
+      file: {file}

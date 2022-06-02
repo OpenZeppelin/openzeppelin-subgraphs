@@ -12,6 +12,7 @@
         "naut",
         "ownable",
         "pausable",
+        "planet",
         "timelock",
         "voting"
       ]

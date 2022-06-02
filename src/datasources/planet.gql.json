@@ -1,0 +1,67 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
+    { "name": "asERC721",                "type": "ERC721Contract"                         },
+    { "name": "ERC721tokens",            "type": "ERC721Token!",    "derived": "owner"    },
+    { "name": "ERC721operatorOwner",     "type": "ERC721Operator!", "derived": "owner"    },
+    { "name": "ERC721operatorOperator",  "type": "ERC721Operator!", "derived": "operator" },
+    { "name": "ERC721transferFromEvent", "type": "ERC721Transfer!", "derived": "from"     },
+    { "name": "ERC721transferToEvent",   "type": "ERC721Transfer!", "derived": "to"       }
+  ]
+},{
+  "name": "ERC721Contract",
+  "immutable": true,
+  "fields": [
+    { "name": "id",                      "type": "Bytes!"                                 },
+    { "name": "asAccount",               "type": "Account!"                               },
+    { "name": "supportsMetadata",        "type": "Boolean"                                },
+    { "name": "name",                    "type": "String"                                 },
+    { "name": "symbol",                  "type": "String"                                 },
+    { "name": "tokens",                  "type": "ERC721Token!",    "derived": "contract" },
+    { "name": "operators",               "type": "ERC721Operator!", "derived": "contract" },
+    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "contract" }
+  ]
+},{
+  "name": "ERC721Token",
+  "fields": [
+    { "name": "contract",                "type": "ERC721Contract!"                     },
+    { "name": "identifier",              "type": "BigInt!"                             },
+    { "name": "owner",                   "type": "Account!"                            },
+    { "name": "approval",                "type": "Account!"                            },
+    { "name": "uri",                     "type": "String"                              },
+    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "token" },
+    { "name": "asPlanet",                "type": "Planet"                              }
+  ]
+},{
+  "name": "ERC721Operator",
+  "fields": [
+    { "name": "contract",                "type": "ERC721Contract!" },
+    { "name": "owner",                   "type": "Account!"        },
+    { "name": "operator",                "type": "Account!"        },
+    { "name": "approved",                "type": "Boolean!"        }
+  ]
+},{
+  "name": "ERC721Transfer",
+  "parent": "Event",
+  "immutable": true,
+  "fields": [
+    { "name": "emitter",                 "type": "Account!"        },
+    { "name": "transaction",             "type": "Transaction!"    },
+    { "name": "timestamp",               "type": "BigInt!"         },
+    { "name": "contract",                "type": "ERC721Contract!" },
+    { "name": "token",                   "type": "ERC721Token!"    },
+    { "name": "from",                    "type": "Account!"        },
+    { "name": "to",                      "type": "Account!"        }
+  ]
+},{
+  "name": "Planet",
+  "fields": [
+    { "name": "token",                   "type": "ERC721Token!" },
+    { "name": "name",                    "type": "String!"      },
+    { "name": "description",             "type": "String!"      },
+    { "name": "locked",                  "type": "Boolean!"     },
+    { "name": "enabled",                 "type": "Boolean!"     },
+    { "name": "state",                   "type": "BigInt!"      }
+  ]
+}]
