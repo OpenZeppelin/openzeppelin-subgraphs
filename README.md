@@ -1,9 +1,5 @@
 # OpenZeppelin Subgraphs
 
-## Disclaimer
-
-:warning: Version 0.1.8 made the transition for ID to Bytes for indexing some entities. This apparently causes some query issue. You may want to postpone upgrading to 0.1.8 until the is fixed. Version 0.1.7 uses ID for all entities, we should not be affected by this issue.
-
 ## Introduction
 
 This repo contains subgraph schema and templates to index the activity of OpenZeppelin Contracts. For each of the supported OpenZeppelin modules `x`, this repo provides:
