@@ -74,11 +74,9 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	let governor = fetchGovernor(event.address)
 
-	let eta = GovernorContract.bind(event.address).proposalEta(event.params.proposalId)
-
 	let proposal    = fetchProposal(governor, event.params.proposalId)
 	proposal.queued = true
-	proposal.eta    = eta
+	proposal.eta    = event.params.eta
 	proposal.save()
 
 	let ev         = new ProposalQueued(events.id(event))
@@ -87,7 +85,7 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id
 	ev.proposal    = proposal.id
-	ev.eta         = eta
+	ev.eta         = event.params.eta
 	ev.save()
 }
 
