@@ -1,6 +1,9 @@
 # Changelog
 
-### 0.1.8 (Unreleased)
+### 0.1.8-1 (2022-07-11)
+ * `Governor`: improve indexing of proposal queeing
+
+### 0.1.8 (2022-05-18)
  * Update dependency to @graphprotocol/graph-cli version 0.29.x
  * Update dependency to @graphprotocol/graph-ts version 0.26.x
  * Update dependency to @amxx/graphprotocol-utils version 1.1.0
@@ -8,10 +11,10 @@
  * Make events and some other entites immutable
  * `Governor`: index the "counting mode" for OZ governors
 
-### 0.1.7-1 (2021-01-27)
+### 0.1.7-1 (2022-01-27)
  * `Governor`: fix vulnerability to ill-formed ProposalCreated events
 
-### 0.1.7 (2021-01-27)
+### 0.1.7 (2022-01-27)
  * `ERC1155`: fetch token uri on minting.
  * `ERC1155`: fix vulnerability to ill-formed TransferBatch events
 
