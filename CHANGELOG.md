@@ -1,13 +1,16 @@
 # Changelog
 
+### Unreleased
+ * `Governor`: add handler for `VoteCastWithParams` events ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
+
 ### 0.1.8-1 (2022-07-11)
- * `Governor`: improve indexing of proposal queeing
+ * `Governor`: improve indexing of proposal queeing ([#29](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/29))
 
 ### 0.1.8 (2022-05-18)
  * Update dependency to @graphprotocol/graph-cli version 0.29.x
  * Update dependency to @graphprotocol/graph-ts version 0.26.x
  * Update dependency to @amxx/graphprotocol-utils version 1.1.0
- * Use Bytes for some entities ID
+ * Use Bytes for some entities ID ([#25](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/25))
  * Make events and some other entites immutable
  * `Governor`: index the "counting mode" for OZ governors
 
@@ -15,8 +18,8 @@
  * `Governor`: fix vulnerability to ill-formed ProposalCreated events
 
 ### 0.1.7 (2022-01-27)
- * `ERC1155`: fetch token uri on minting.
- * `ERC1155`: fix vulnerability to ill-formed TransferBatch events
+ * `ERC1155`: fetch token uri on minting. ([#14](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/14))
+ * `ERC1155`: fix vulnerability to ill-formed TransferBatch events ([#16](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/16))
 
 ### 0.1.6 (2021-11-23)
  * Include emmiter address (Account) to all Event objects
