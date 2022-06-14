@@ -6,5 +6,7 @@
     { "startBlock": 0, "module": "erc1967upgrade" },
     { "startBlock": 0, "module": "accesscontrol"  }
   ],
-  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/access-control-matic"
+  "deploy": [
+    { "type": "hosted-service", "name": "amxx/access-control-matic" }
+  ]
 }

@@ -5,5 +5,7 @@
     { "startBlock": 5806610, "module": "erc721"  },
     { "startBlock": 6930510, "module": "erc1155" }
   ],
-  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/nft-mainnet"
+  "deploy": [
+    { "type": "hosted-service", "name": "amxx/nft-mainnet" }
+  ]
 }

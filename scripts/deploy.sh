@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
 
-set -o errexit
+set -xo errexit
 
-npx graph-compiler                                      \
-  --config ${CONFIG:-configs/sample.json}               \
-  --include src/datasources                             \
-  --export-subgraph                                     \
-  --export-schema                                       &&
+config=$1
 
-npx graph codegen                                       \
-  ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
+subgraph=$(jq -r '.output' $config)
+npx graph-compiler --config ${config} --include src/datasources --export-schema --export-subgraph
+npx graph codegen ${subgraph}subgraph.yaml
 
-npx graph build                                         \
-  ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
-
-npx graph deploy                                        \
-  --product hosted-service                              \
-  ${NAME:-amxx/sandbox}                                 \
-  ${SUBGRAPH:-generated/sample.subgraph.yaml}           &&
-
-echo 'done.'
+jq -cr '.deploy[].type+" "+.deploy[].name' $config | while read endpoint;
+do
+  npx graph deploy --product ${endpoint} ${subgraph}subgraph.yaml
+done
