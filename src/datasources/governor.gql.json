@@ -60,6 +60,7 @@
   "fields": [
     { "name": "proposal",             "type": "Proposal!"                                           },
     { "name": "support",              "type": "Int!"                                                },
+    { "name": "weight",               "type": "BigInt!"                                             },
     { "name": "votes",                "type": "VoteReceipt!",                "derived": "support"   }
   ]
 },{
@@ -70,7 +71,8 @@
     { "name": "voter",                "type": "Account!"                                            },
     { "name": "support",              "type": "ProposalSupport!"                                    },
     { "name": "weight",               "type": "BigInt!"                                             },
-    { "name": "reason",               "type": "String!"                                             }
+    { "name": "reason",               "type": "String!"                                             },
+    { "name": "params",               "type": "Bytes"                                               }
   ]
 },{
   "name": "ProposalCreated",

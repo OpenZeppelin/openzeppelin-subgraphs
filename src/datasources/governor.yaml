@@ -25,4 +25,6 @@
           handler: handleProposalQueued
         - event: VoteCast(indexed address,uint256,uint8,uint256,string)
           handler: handleVoteCast
+        - event: VoteCastWithParams(indexed address,uint256,uint8,uint256,string,bytes)
+          handler: handleVoteCastWithParams
       file: {file}

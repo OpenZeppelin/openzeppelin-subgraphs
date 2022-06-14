@@ -20,6 +20,10 @@ import {
 	fetchAccount
 } from './account'
 
+import {
+	constants,
+} from '@amxx/graphprotocol-utils'
+
 export function fetchGovernor(address: Address): Governor {
 	let contract = Governor.load(address)
 
@@ -78,6 +82,7 @@ export function fetchProposalSupport(proposal: Proposal, support: i32): Proposal
 		proposalSupport          = new ProposalSupport(id)
 		proposalSupport.proposal = proposal.id
 		proposalSupport.support  = support
+		proposalSupport.weight   = constants.BIGINT_ZERO
 	}
 
 	return proposalSupport as ProposalSupport

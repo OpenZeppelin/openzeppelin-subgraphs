@@ -51,6 +51,7 @@ type ProposalSupport @entity(immutable: true) {
 	id: ID!
 	proposal: Proposal!
 	support: Int!
+	weight: BigInt!
 	votes: [VoteReceipt!]! @derivedFrom(field: "support")
 }
 type VoteReceipt @entity(immutable: true) {
@@ -60,6 +61,7 @@ type VoteReceipt @entity(immutable: true) {
 	support: ProposalSupport!
 	weight: BigInt!
 	reason: String!
+	params: Bytes
 }
 type ProposalCreated implements Event @entity(immutable: true) {
 	id: ID!
