@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 0.1.8-2
  * `Governor`: add handler for `VoteCastWithParams` events ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
  * `Governor`: track total vote weight in `ProposalSupport` ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
 
