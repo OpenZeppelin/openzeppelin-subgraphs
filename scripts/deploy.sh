@@ -2,13 +2,18 @@
 
 set -xo errexit
 
-config=$1
+# Default is to deploy all live configs
+configs=$1
+: ${configs:=configs/live/**/*.json}
 
-subgraph=$(jq -r '.output' $config)
-npx graph-compiler --config ${config} --include src/datasources --export-schema --export-subgraph
-npx graph codegen ${subgraph}subgraph.yaml
-
-jq -cr '.deploy[].type+" "+.deploy[].name' $config | while read endpoint;
+for config in $configs;
 do
-  npx graph deploy --product ${endpoint} ${subgraph}subgraph.yaml
+  subgraph=$(jq -r '.output' $config)
+  npx graph-compiler --config ${config} --include src/datasources --export-schema --export-subgraph
+  npx graph codegen ${subgraph}subgraph.yaml
+
+  jq -cr '.deploy[].type+" "+.deploy[].name' $config | while read endpoint;
+  do
+    npx graph deploy --product ${endpoint} ${subgraph}subgraph.yaml
+  done
 done
