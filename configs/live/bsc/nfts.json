@@ -5,5 +5,7 @@
     { "startBlock": 0, "module": "erc721"  },
     { "startBlock": 0, "module": "erc1155" }
   ],
-  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/nft-bsc"
+  "deploy": [
+    { "type": "hosted-service", "name": "amxx/nft-bsc" }
+  ]
 }

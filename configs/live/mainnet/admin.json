@@ -6,5 +6,7 @@
     { "startBlock": 5375569, "module": "erc1967upgrade" },
     { "startBlock": 9857098, "module": "accesscontrol"  }
   ],
-  "__endpoint": "https://api.thegraph.com/subgraphs/name/amxx/access-control"
+  "deploy": [
+    { "type": "hosted-service", "name": "amxx/access-control" }
+  ]
 }
