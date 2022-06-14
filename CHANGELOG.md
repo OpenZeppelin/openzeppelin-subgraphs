@@ -1,5 +1,8 @@
 # Changelog
 
+### Unreleased
+ * `Governor`: add handler for `VoteCastWithParams` events
+
 ### 0.1.8-1 (2022-07-11)
  * `Governor`: improve indexing of proposal queeing
 
