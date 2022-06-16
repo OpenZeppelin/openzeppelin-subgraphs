@@ -1,8 +1,8 @@
 # Changelog
 
 ### 0.1.8-2
- * `Governor`: add handler for `VoteCastWithParams` events ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
- * `Governor`: track total vote weight in `ProposalSupport` ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
+ * `Governor`: add handler for `VoteCastWithParams` events ([#31](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/31))
+ * `Governor`: track total vote weight in `ProposalSupport` ([#31](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/31))
 
 ### 0.1.8-1 (2022-07-11)
  * `Governor`: improve indexing of proposal queeing ([#29](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/29))
