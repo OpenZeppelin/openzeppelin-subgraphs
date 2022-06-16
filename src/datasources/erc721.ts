@@ -1,4 +1,8 @@
 import {
+	Address,
+} from '@graphprotocol/graph-ts'
+
+import {
 	ERC721Transfer,
 } from '../../generated/schema'
 
@@ -30,7 +34,8 @@ export function handleTransfer(event: TransferEvent): void {
 		let from  = fetchAccount(event.params.from)
 		let to    = fetchAccount(event.params.to)
 
-		token.owner = to.id
+		token.owner    = to.id
+		token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
 
 		contract.save()
 		token.save()
@@ -54,7 +59,7 @@ export function handleApproval(event: ApprovalEvent): void {
 		let owner    = fetchAccount(event.params.owner)
 		let approved = fetchAccount(event.params.approved)
 
-		token.owner    = owner.id
+		token.owner    = owner.id // this should not be necessary, owner changed is signaled by a transfer event
 		token.approval = approved.id
 
 		token.save()

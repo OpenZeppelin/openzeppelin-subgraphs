@@ -1,5 +1,6 @@
 import {
 	ethereum,
+	Address,
 	BigInt,
 } from '@graphprotocol/graph-ts'
 
@@ -17,7 +18,6 @@ import {
 } from '../../generated/erc1155/IERC1155'
 
 import {
-	constants,
 	decimals,
 	events,
 	transactions,
@@ -57,7 +57,7 @@ function registerTransfer(
 	ev.value       = decimals.toDecimals(value)
 	ev.valueExact  = value
 
-	if (from.id == constants.ADDRESS_ZERO) {
+	if (from.id == Address.zero()) {
 		let totalSupply        = fetchERC1155Balance(token, null)
 		totalSupply.valueExact = totalSupply.valueExact.plus(value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
@@ -72,7 +72,7 @@ function registerTransfer(
 		ev.fromBalance         = balance.id
 	}
 
-	if (to.id == constants.ADDRESS_ZERO) {
+	if (to.id == Address.zero()) {
 		let totalSupply        = fetchERC1155Balance(token, null)
 		totalSupply.valueExact = totalSupply.valueExact.minus(value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
