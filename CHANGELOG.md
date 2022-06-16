@@ -1,7 +1,7 @@
 # Changelog
 
 ### Unreleased
- * `ERC721`: reset approval on `Transfer`
+ * `ERC721`: reset approval on `Transfer` ([#33](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/33))
  
 ### 0.1.8-2
  * `Governor`: add handler for `VoteCastWithParams` events ([#30](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/30))
