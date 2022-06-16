@@ -1,4 +1,8 @@
 import {
+	Address,
+} from '@graphprotocol/graph-ts'
+
+import {
 	ERC20Transfer,
 } from '../../generated/schema'
 
@@ -8,7 +12,6 @@ import {
 } from '../../generated/erc20/IERC20'
 
 import {
-	constants,
 	decimals,
 	events,
 	transactions,
@@ -34,7 +37,7 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.value       = decimals.toDecimals(event.params.value, contract.decimals)
 	ev.valueExact  = event.params.value
 
-	if (event.params.from == constants.ADDRESS_ZERO) {
+	if (event.params.from == Address.zero()) {
 		let totalSupply        = fetchERC20Balance(contract, null)
 		totalSupply.valueExact = totalSupply.valueExact.plus(event.params.value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
@@ -50,7 +53,7 @@ export function handleTransfer(event: TransferEvent): void {
 		ev.fromBalance         = balance.id
 	}
 
-	if (event.params.to == constants.ADDRESS_ZERO) {
+	if (event.params.to == Address.zero()) {
 		let totalSupply        = fetchERC20Balance(contract, null)
 		totalSupply.valueExact = totalSupply.valueExact.minus(event.params.value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact, contract.decimals)

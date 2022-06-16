@@ -16,10 +16,6 @@ import {
 } from '../../generated/erc721/IERC721'
 
 import {
-	constants,
-} from '@amxx/graphprotocol-utils'
-
-import {
 	fetchAccount
 } from './account'
 
@@ -78,7 +74,7 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 		token            = new ERC721Token(id)
 		token.contract   = contract.id
 		token.identifier = identifier
-		token.approval   = fetchAccount(constants.ADDRESS_ZERO).id
+		token.approval   = fetchAccount(Address.zero()).id
 
 		if (contract.supportsMetadata) {
 			let erc721       = IERC721.bind(Address.fromBytes(contract.id))
