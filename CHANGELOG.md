@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 0.1.8-3 (2022-07-16)
  * `ERC721`: reset approval on `Transfer` ([#33](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/33))
  
 ### 0.1.8-2
