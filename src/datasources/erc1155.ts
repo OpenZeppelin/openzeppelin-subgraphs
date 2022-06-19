@@ -46,16 +46,19 @@ function registerTransfer(
 	value:    BigInt)
 : void
 {
-	let token      = fetchERC1155Token(contract, id)
-	let ev         = new ERC1155Transfer(events.id(event).concat(suffix))
-	ev.emitter     = token.contract
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.contract    = contract.id
-	ev.token       = token.id
-	ev.operator    = operator.id
-	ev.value       = decimals.toDecimals(value)
-	ev.valueExact  = value
+	let token             = fetchERC1155Token(contract, id)
+	let ERC1155TransferId = events.id(event).concat(suffix)
+	let ev                = ERC1155Transfer.load(ERC1155TransferId)
+	if (ev !== null)      return
+	ev                    = new ERC1155Transfer(ERC1155TransferId)
+	ev.emitter            = token.contract
+	ev.transaction        = transactions.log(event).id
+	ev.timestamp          = event.block.timestamp
+	ev.contract           = contract.id
+	ev.token              = token.id
+	ev.operator           = operator.id
+	ev.value              = decimals.toDecimals(value)
+	ev.valueExact         = value
 
 	if (from.id == Address.zero()) {
 		let totalSupply        = fetchERC1155Balance(token, null)
@@ -123,7 +126,7 @@ export function handleTransferBatch(event: TransferBatchEvent): void
 	// If this equality doesn't hold (some devs actually don't follox the ERC specifications) then we just can't make
 	// sens of what is happening. Don't try to make something out of stupid code, and just throw the event. This
 	// contract doesn't follow the standard anyway.
-	if(ids.length == values.length)
+	if (ids.length == values.length)
 	{
 		for (let i = 0;  i < ids.length; ++i)
 		{

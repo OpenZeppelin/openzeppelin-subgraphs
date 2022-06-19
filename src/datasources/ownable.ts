@@ -25,12 +25,15 @@ export function handleOwnershipTransferred(event: OwnershipTransferredEvent): vo
 
 	contract.owner = owner.id
 	contract.save()
-
-	let ev         = new OwnershipTransferred(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.contract    = contract.id
-	ev.owner       = owner.id
+ 
+	let ownershipTransferredId = events.id(event)
+	let ev                     = OwnershipTransferred.load(ownershipTransferredId) 
+	if (ev !== null)           return
+	ev                         = new OwnershipTransferred(ownershipTransferredId)
+	ev.emitter                 = contract.id
+	ev.transaction             = transactions.log(event).id
+	ev.timestamp               = event.block.timestamp
+	ev.contract                = contract.id
+	ev.owner                   = owner.id
 	ev.save()
 }

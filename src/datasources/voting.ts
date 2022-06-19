@@ -34,15 +34,18 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 
 	delegation.save()
 
-	let ev          = new DelegateChanged(events.id(event))
-	ev.emitter      = contract.id
-	ev.transaction  = transactions.log(event).id
-	ev.timestamp    = event.block.timestamp
-	ev.delegation   = delegation.id
-	ev.contract     = contract.id
-	ev.delegator    = delegator.id
-	ev.fromDelegate = fromDelegate.id
-	ev.toDelegate   = toDelegate.id
+	let delegateChangedId = events.id(event)
+	let ev                = DelegateChanged.load(delegateChangedId)
+	if (ev !== null)      return
+	ev                    = new DelegateChanged(delegateChangedId)
+	ev.emitter            = contract.id
+	ev.transaction        = transactions.log(event).id
+	ev.timestamp          = event.block.timestamp
+	ev.delegation         = delegation.id
+	ev.contract           = contract.id
+	ev.delegator          = delegator.id
+	ev.fromDelegate       = fromDelegate.id
+	ev.toDelegate         = toDelegate.id
 	ev.save()
 }
 
@@ -58,14 +61,17 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 	total.save()
 	weigth.save()
 
-	let ev         = new DelegateVotesChanged(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.voteWeight  = weigth.id
-	ev.contract    = contract.id
-	ev.delegate    = delegate.id
-	ev.oldValue    = event.params.previousBalance
-	ev.newValue    = event.params.newBalance
+	let delegateVotesChangedId = events.id(event)
+	let ev                     = DelegateVotesChanged.load(delegateVotesChangedId)
+	if (ev !== null)           return
+	ev                         = new DelegateVotesChanged(delegateVotesChangedId)
+	ev.emitter                 = contract.id
+	ev.transaction             = transactions.log(event).id
+	ev.timestamp               = event.block.timestamp
+	ev.voteWeight              = weigth.id
+	ev.contract                = contract.id
+	ev.delegate                = delegate.id
+	ev.oldValue                = event.params.previousBalance
+	ev.newValue                = event.params.newBalance
 	ev.save()
 }

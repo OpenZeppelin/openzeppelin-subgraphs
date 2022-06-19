@@ -13,10 +13,6 @@ import {
 } from '@amxx/graphprotocol-utils'
 
 import {
-	fetchAccount,
-} from '../fetch/account'
-
-import {
 	fetchPausable,
 } from '../fetch/pausable'
 
@@ -25,12 +21,15 @@ export function handlePaused(event: PausedEvent): void {
 	contract.isPaused = true
 	contract.save()
 
-	let ev         = new Paused(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.contract    = contract.id
-	ev.isPaused    = true
+	let pausedId     = events.id(event)
+	let ev           = Paused.load(pausedId)
+	if (ev !== null) return
+	ev               = new Paused(pausedId)
+	ev.emitter       = contract.id
+	ev.transaction   = transactions.log(event).id
+	ev.timestamp     = event.block.timestamp
+	ev.contract      = contract.id
+	ev.isPaused      = true
 	ev.save()
 }
 
@@ -39,11 +38,14 @@ export function handleUnpaused(event: UnpausedEvent): void {
 	contract.isPaused = false
 	contract.save()
 
-	let ev         = new Paused(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.contract    = contract.id
-	ev.isPaused    = false
+	let pausedId      = events.id(event)
+	let ev            = Paused.load(pausedId)
+	if (ev !== null)  return
+	ev                = new Paused(pausedId)
+	ev.emitter        = contract.id
+	ev.transaction    = transactions.log(event).id
+	ev.timestamp      = event.block.timestamp
+	ev.contract       = contract.id
+	ev.isPaused       = false
 	ev.save()
 }

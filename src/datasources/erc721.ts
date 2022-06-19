@@ -40,14 +40,17 @@ export function handleTransfer(event: TransferEvent): void {
 		contract.save()
 		token.save()
 
-		let ev         = new ERC721Transfer(events.id(event))
-		ev.emitter     = contract.id
-		ev.transaction = transactions.log(event).id
-		ev.timestamp   = event.block.timestamp
-		ev.contract    = contract.id
-		ev.token       = token.id
-		ev.from        = from.id
-		ev.to          = to.id
+		let ERC721TransferId = events.id(event)
+		let ev               = ERC721Transfer.load(ERC721TransferId)
+		if (ev !== null)     return
+		ev                   = new ERC721Transfer(ERC721TransferId)
+		ev.emitter           = contract.id
+		ev.transaction       = transactions.log(event).id
+		ev.timestamp         = event.block.timestamp
+		ev.contract          = contract.id
+		ev.token             = token.id
+		ev.from              = from.id
+		ev.to                = to.id
 		ev.save()
 	}
 }

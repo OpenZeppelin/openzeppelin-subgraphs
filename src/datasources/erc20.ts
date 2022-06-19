@@ -28,14 +28,17 @@ import {
 } from '../fetch/erc20'
 
 export function handleTransfer(event: TransferEvent): void {
-	let contract   = fetchERC20(event.address)
-	let ev         = new ERC20Transfer(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.contract    = contract.id
-	ev.value       = decimals.toDecimals(event.params.value, contract.decimals)
-	ev.valueExact  = event.params.value
+	let ERC20TransferId  = events.id(event)
+	let ev               = ERC20Transfer.load(ERC20TransferId)
+	if (ev !== null)     return
+	let contract         = fetchERC20(event.address)
+	ev                   = new ERC20Transfer(ERC20TransferId)
+	ev.emitter           = contract.id
+	ev.transaction       = transactions.log(event).id
+	ev.timestamp         = event.block.timestamp
+	ev.contract          = contract.id
+	ev.value             = decimals.toDecimals(event.params.value, contract.decimals)
+	ev.valueExact        = event.params.value
 
 	if (event.params.from == Address.zero()) {
 		let totalSupply        = fetchERC20Balance(contract, null)

@@ -62,13 +62,16 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 		call.save()
 	}
 
-	let ev         = new ProposalCreated(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = proposal.governor
-	ev.proposal    = proposal.id
-	ev.proposer    = proposal.proposer
+	let proposalCreatedId = events.id(event)
+	let ev                = ProposalCreated.load(proposalCreatedId)
+	if (ev !== null)      return
+	ev                    = new ProposalCreated(proposalCreatedId)
+	ev.emitter            = governor.id
+	ev.transaction        = transactions.log(event).id
+	ev.timestamp          = event.block.timestamp
+	ev.governor           = proposal.governor
+	ev.proposal           = proposal.id
+	ev.proposer           = proposal.proposer
 	ev.save()
 }
 
@@ -80,13 +83,16 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	proposal.eta    = event.params.eta
 	proposal.save()
 
-	let ev         = new ProposalQueued(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = governor.id
-	ev.proposal    = proposal.id
-	ev.eta         = event.params.eta
+	let proposalQueuedId = events.id(event)
+	let ev               = ProposalQueued.load(proposalQueuedId)
+	if (ev !== null)     return
+	ev                   = new ProposalQueued(proposalQueuedId)
+	ev.emitter           = governor.id
+	ev.transaction       = transactions.log(event).id
+	ev.timestamp         = event.block.timestamp
+	ev.governor          = governor.id
+	ev.proposal          = proposal.id
+	ev.eta               = event.params.eta
 	ev.save()
 }
 
@@ -97,12 +103,15 @@ export function handleProposalExecuted(event: ProposalExecutedEvent): void {
 	proposal.executed = true
 	proposal.save()
 
-	let ev         = new ProposalExecuted(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = governor.id
-	ev.proposal    = proposal.id
+	let proposalExecutedId = events.id(event)
+	let ev                 = ProposalExecuted.load(proposalExecutedId)
+	if (ev !== null)       return
+	ev                     = new ProposalExecuted(proposalExecutedId)
+	ev.emitter             = governor.id
+	ev.transaction         = transactions.log(event).id
+	ev.timestamp           = event.block.timestamp
+	ev.governor            = governor.id
+	ev.proposal            = proposal.id
 	ev.save()
 }
 
@@ -113,12 +122,15 @@ export function handleProposalCanceled(event: ProposalCanceledEvent): void {
 	proposal.canceled = true
 	proposal.save()
 
-	let ev         = new ProposalCanceled(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = governor.id
-	ev.proposal    = proposal.id
+	let proposalCanceledId = events.id(event)
+	let ev                 = ProposalCanceled.load(proposalCanceledId)
+	if (ev !== null)       return
+	ev                     = new ProposalCanceled(proposalCanceledId)
+	ev.emitter             = governor.id
+	ev.transaction         = transactions.log(event).id
+	ev.timestamp           = event.block.timestamp
+	ev.governor            = governor.id
+	ev.proposal            = proposal.id
 	ev.save()
 }
 
@@ -136,15 +148,18 @@ export function handleVoteCast(event: VoteCastEvent): void {
 	receipt.reason  = event.params.reason
 	receipt.save()
 
-	let ev         = new VoteCast(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = governor.id
-	ev.proposal    = receipt.proposal
-	ev.support     = receipt.support
-	ev.receipt     = receipt.id
-	ev.voter       = receipt.voter
+	let voteCastId   = events.id(event)
+	let ev           = VoteCast.load(voteCastId)
+	if (ev !== null) return
+	ev               = new VoteCast(voteCastId)
+	ev.emitter       = governor.id
+	ev.transaction   = transactions.log(event).id
+	ev.timestamp     = event.block.timestamp
+	ev.governor      = governor.id
+	ev.proposal      = receipt.proposal
+	ev.support       = receipt.support
+	ev.receipt       = receipt.id
+	ev.voter         = receipt.voter
 	ev.save()
 }
 
@@ -164,14 +179,17 @@ export function handleVoteCastWithParams(event: VoteCastWithParamsEvent): void {
 	receipt.params  = event.params.params
 	receipt.save()
 
-	let ev         = new VoteCast(events.id(event))
-	ev.emitter     = governor.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.governor    = governor.id
-	ev.proposal    = receipt.proposal
-	ev.support     = receipt.support
-	ev.receipt     = receipt.id
-	ev.voter       = receipt.voter
+	let voteCastId   = events.id(event)
+	let ev           = VoteCast.load(voteCastId)
+	if (ev !== null) return
+	ev               = new VoteCast(voteCastId)
+	ev.emitter       = governor.id
+	ev.transaction   = transactions.log(event).id
+	ev.timestamp     = event.block.timestamp
+	ev.governor      = governor.id
+	ev.proposal      = receipt.proposal
+	ev.support       = receipt.support
+	ev.receipt       = receipt.id
+	ev.voter         = receipt.voter
 	ev.save()
 }
