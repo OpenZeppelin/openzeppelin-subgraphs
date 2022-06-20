@@ -25,11 +25,14 @@ export function handleAdminChanged(event: AdminChangedEvent): void {
 	contract.erc1967Admin = implementation.id
 	contract.save()
 
-	let ev         = new ERC1967AdminChanged(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.admin       = implementation.id
+	let ERC1967AdminChangedId = events.id(event)
+	let ev                    = ERC1967AdminChanged.load(ERC1967AdminChangedId)
+	if (ev !== null)          return
+	ev                        = new ERC1967AdminChanged(ERC1967AdminChangedId)
+	ev.emitter                = contract.id
+	ev.transaction            = transactions.log(event).id
+	ev.timestamp              = event.block.timestamp
+	ev.admin                  = implementation.id
 	ev.save()
 }
 export function handleBeaconUpgraded(event: BeaconUpgradedEvent): void {
@@ -38,11 +41,14 @@ export function handleBeaconUpgraded(event: BeaconUpgradedEvent): void {
 	contract.erc1967Beacon = beacon.id
 	contract.save()
 
-	let ev         = new ERC1967BeaconUpgraded(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.beacon      = beacon.id
+	let ERC1967BeaconUpgradedId = events.id(event)
+	let ev                      = ERC1967BeaconUpgraded.load(ERC1967BeaconUpgradedId)
+	if (ev !== null)            return
+	ev                          = new ERC1967BeaconUpgraded(ERC1967BeaconUpgradedId)
+	ev.emitter                  = contract.id
+	ev.transaction              = transactions.log(event).id
+	ev.timestamp                = event.block.timestamp
+	ev.beacon                   = beacon.id
 	ev.save()
 }
 export function handleUpgraded(event: UpgradedEvent): void {
@@ -51,10 +57,13 @@ export function handleUpgraded(event: UpgradedEvent): void {
 	contract.erc1967Implementation = admin.id
 	contract.save()
 
-	let ev            = new ERC1967ImplementationUpgraded(events.id(event))
-	ev.emitter        = contract.id
-	ev.transaction    = transactions.log(event).id
-	ev.timestamp      = event.block.timestamp
-	ev.implementation = admin.id
+	let ERC1967ImplementationUpgradedId = events.id(event)
+	let ev                              = ERC1967ImplementationUpgraded.load(ERC1967ImplementationUpgradedId)
+	if (ev !== null)                    return
+	ev                                  = new ERC1967ImplementationUpgraded(ERC1967ImplementationUpgradedId)
+	ev.emitter                          = contract.id
+	ev.transaction                      = transactions.log(event).id
+	ev.timestamp                        = event.block.timestamp
+	ev.implementation                   = admin.id
 	ev.save()
 }

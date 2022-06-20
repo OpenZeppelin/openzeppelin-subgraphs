@@ -48,13 +48,16 @@ export function handleCallScheduled(event: CallScheduledEvent): void {
 	call.data             = event.params.data
 	call.save()
 
-	let ev                = new TimelockOperationScheduled(events.id(event))
-	ev.emitter            = contract.id
-	ev.transaction        = transactions.log(event).id
-	ev.timestamp          = event.block.timestamp
-	ev.contract           = contract.id
-	ev.operation          = operation.id
-	ev.call               = call.id
+	let timelockOperationScheduledId = events.id(event)
+	let ev                           = TimelockOperationScheduled.load(timelockOperationScheduledId)
+	if (ev !== null)                 return
+	ev                               = new TimelockOperationScheduled(timelockOperationScheduledId)
+	ev.emitter                       = contract.id
+	ev.transaction                   = transactions.log(event).id
+	ev.timestamp                     = event.block.timestamp
+	ev.contract                      = contract.id
+	ev.operation                     = operation.id
+	ev.call                          = call.id
 	ev.save()
 }
 
@@ -65,13 +68,16 @@ export function handleCallExecuted(event: CallExecutedEvent): void {
 	operation.status      = "EXECUTED"
 	operation.save()
 
-	let ev                = new TimelockOperationExecuted(events.id(event))
-	ev.emitter            = contract.id
-	ev.transaction        = transactions.log(event).id
-	ev.timestamp          = event.block.timestamp
-	ev.contract           = contract.id
-	ev.operation          = operation.id
-	ev.call               = call.id
+	let timelockOperationExecutedId = events.id(event)
+	let ev                          = TimelockOperationExecuted.load(timelockOperationExecutedId)
+	if (ev !== null)                return
+	ev                              = new TimelockOperationExecuted(timelockOperationExecutedId)
+	ev.emitter                      = contract.id
+	ev.transaction                  = transactions.log(event).id
+	ev.timestamp                    = event.block.timestamp
+	ev.contract                     = contract.id
+	ev.operation                    = operation.id
+	ev.call                         = call.id
 	ev.save()
 }
 
@@ -81,23 +87,29 @@ export function handleCancelled(event: CancelledEvent): void {
 	operation.status      = "CANCELED"
 	operation.save()
 
-	let ev                = new TimelockOperationCancelled(events.id(event))
-	ev.emitter            = contract.id
-	ev.transaction        = transactions.log(event).id
-	ev.timestamp          = event.block.timestamp
-	ev.contract           = contract.id
-	ev.operation          = operation.id
+	let timelockOperationCancelledId = events.id(event)
+	let ev                           = TimelockOperationCancelled.load(timelockOperationCancelledId)
+	if (ev !== null)                 return
+	ev                               = new TimelockOperationCancelled(timelockOperationCancelledId)
+	ev.emitter                       = contract.id
+	ev.transaction                   = transactions.log(event).id
+	ev.timestamp                     = event.block.timestamp
+	ev.contract                      = contract.id
+	ev.operation                     = operation.id
 	ev.save()
 }
 
 export function handleMinDelayChange(event: MinDelayChangeEvent): void {
 	let contract          = fetchTimelock(event.address)
 
-	let ev                = new TimelockMinDelayChange(events.id(event))
-	ev.emitter            = contract.id
-	ev.transaction        = transactions.log(event).id
-	ev.timestamp          = event.block.timestamp
-	ev.contract           = contract.id
-	ev.delay              = event.params.newDuration
+	let timelockMinDelayChangeId = events.id(event)
+	let ev                       = TimelockMinDelayChange.load(timelockMinDelayChangeId)
+	if (ev !== null)             return
+	ev                           = new TimelockMinDelayChange(timelockMinDelayChangeId)
+	ev.emitter                   = contract.id
+	ev.transaction               = transactions.log(event).id
+	ev.timestamp                 = event.block.timestamp
+	ev.contract                  = contract.id
+	ev.delay                     = event.params.newDuration
 	ev.save()
 }

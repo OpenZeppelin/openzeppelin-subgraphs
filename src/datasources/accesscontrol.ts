@@ -1,7 +1,6 @@
 import { store } from '@graphprotocol/graph-ts'
 
 import {
-	AccessControlRole,
 	AccessControlRoleMember,
 	RoleAdminChanged,
 	RoleGranted,
@@ -38,7 +37,10 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
 	accesscontrolrole.admin = admin.id
 	accesscontrolrole.save()
 
-	let ev               = new RoleAdminChanged(events.id(event))
+	let roleAdminId      = events.id(event)
+	let ev               = RoleAdminChanged.load(roleAdminId)
+	if (ev !== null)     return
+	ev                   = new RoleAdminChanged(roleAdminId)
 	ev.emitter           = contract.id
 	ev.transaction       = transactions.log(event).id
 	ev.timestamp         = event.block.timestamp
@@ -59,13 +61,16 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
 	accesscontrolrolemember.account           = account.id
 	accesscontrolrolemember.save()
 
-	let ev         = new RoleGranted(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.role        = accesscontrolrole.id
-	ev.account     = account.id
-	ev.sender      = sender.id
+	let roleGrantedId = events.id(event)
+	let ev            = RoleGranted.load(roleGrantedId)
+	if (ev !== null)  return
+	ev                = new RoleGranted(roleGrantedId)
+	ev.emitter     	  = contract.id
+	ev.transaction 	  = transactions.log(event).id
+	ev.timestamp   	  = event.block.timestamp
+	ev.role        	  = accesscontrolrole.id
+	ev.account     	  = account.id
+	ev.sender      	  = sender.id
 	ev.save()
 }
 
@@ -77,12 +82,15 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
 
 	store.remove('AccessControlRoleMember', accesscontrolrole.id.concat('/').concat(account.id.toHex()))
 
-	let ev         = new RoleRevoked(events.id(event))
-	ev.emitter     = contract.id
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.role        = accesscontrolrole.id
-	ev.account     = account.id
-	ev.sender      = sender.id
+	let roleRevokedId = events.id(event)
+	let ev            = RoleRevoked.load(roleRevokedId)
+	if (ev !== null)  return 
+	ev                = new RoleRevoked(roleRevokedId)
+	ev.emitter     	  = contract.id
+	ev.transaction 	  = transactions.log(event).id
+	ev.timestamp   	  = event.block.timestamp
+	ev.role        	  = accesscontrolrole.id
+	ev.account     	  = account.id
+	ev.sender      	  = sender.id
 	ev.save()
 }
