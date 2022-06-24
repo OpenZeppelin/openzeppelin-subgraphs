@@ -1,8 +1,12 @@
 # Changelog
 
+### 0.1.8-4 (2022-07-24)
+ * `AccessControl`: fix bug caused by duplicate write of immutable entity `Role` ([#36](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/36))
+ * `ERC1155`: fix bug caused by duplicate write of immutable entity `ERC1155` ([#36](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/36))
+
 ### 0.1.8-3 (2022-07-16)
  * `ERC721`: reset approval on `Transfer` ([#33](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/33))
- 
+
 ### 0.1.8-2
  * `Governor`: add handler for `VoteCastWithParams` events ([#31](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/31))
  * `Governor`: track total vote weight in `ProposalSupport` ([#31](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/31))
