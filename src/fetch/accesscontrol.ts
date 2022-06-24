@@ -18,9 +18,14 @@ import {
 } from '@amxx/graphprotocol-utils'
 
 export function fetchRole(id: Bytes): Role {
-	let role = new Role(id)
-	role.save()
-	return role
+	let role = Role.load(id)
+
+	if (role == null) {
+		role = new Role(id)
+		role.save()
+	}
+
+	return role as Role
 }
 
 export function fetchAccessControl(address: Address): AccessControl {

@@ -31,15 +31,19 @@ export function replaceURI(uri: string, identifier: BigInt): string {
 }
 
 export function fetchERC1155(address: Address): ERC1155Contract {
-	let contract       = new ERC1155Contract(address)
-	contract.asAccount = address
-	contract.save()
+	let contract = ERC1155Contract.load(address)
 
-	let account        = fetchAccount(address)
-	account.asERC1155  = address
-	account.save()
+	if (contract == null) {
+		contract       = new ERC1155Contract(address)
+		contract.asAccount = address
+		contract.save()
 
-	return contract
+		let account        = fetchAccount(address)
+		account.asERC1155  = address
+		account.save()
+	}
+
+	return contract as ERC1155Contract
 }
 
 export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt): ERC1155Token {
