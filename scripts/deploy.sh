@@ -3,7 +3,7 @@
 set -xo errexit
 
 # Default is to deploy all live configs
-configs=$1
+configs=$@
 : ${configs:=configs/live/**/*.json}
 
 for config in $configs;
