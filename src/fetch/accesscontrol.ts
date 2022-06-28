@@ -29,9 +29,13 @@ export function fetchRole(id: Bytes): Role {
 }
 
 export function fetchAccessControl(address: Address): AccessControl {
-	let contract            = new AccessControl(address)
-	contract.asAccount      = address
-	contract.save()
+	let contract            = AccessControl.load(address)
+
+	if (contract === null) {
+		contract              = new AccessControl(address)
+		contract.asAccount    = address
+		contract.save()
+	}
 
 	let account             = fetchAccount(address)
 	account.asAccessControl = address
