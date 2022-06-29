@@ -1,5 +1,8 @@
 # Changelog
 
+### 0.1.8-5 (2022-07-29)
+ * `AccessControl`: fix bug caused by duplicate write of immutable entity `AccessControl` ([#38](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/38))
+
 ### 0.1.8-4 (2022-07-24)
  * `AccessControl`: fix bug caused by duplicate write of immutable entity `Role` ([#36](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/36))
  * `ERC1155`: fix bug caused by duplicate write of immutable entity `ERC1155` ([#36](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/36))
