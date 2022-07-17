@@ -11,8 +11,8 @@ Browse on GitHub at https://github.com/OpenZeppelin/openzeppelin-subgraphs[`Open
 
 Subgraph are described using three components:
 
-- *The graphql schema*, usually nammed `schema.graphql`, which describes the database entities and links.
-- *The subgraph manifest*, usually nammed `subgraph.yaml`, which describes the activity that should be listened to (addresses of contracts, events handlers, function handlers).
+- *The graphql schema*, usually named `schema.graphql`, which describes the database entities and links.
+- *The subgraph manifest*, usually named `subgraph.yaml`, which describes the activity that should be listened to (addresses of contracts, events handlers, function handlers).
 - *The indexing logic*, written in assembly script, which will process the blockchain activity and update the database accordingly.
 
 OpenZeppelin Subgraphs provide schemas description, with the corresponding indexing logic and templates for building your subgraph manifest.
