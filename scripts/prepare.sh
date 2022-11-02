@@ -26,7 +26,7 @@ function generate {
     printf '}'
     printf ']'
     printf '}'
-  } | jq . > ./configs/$name.json
+  } | npx jqn --color=false . > ./configs/$name.json
 
   npx graph-compiler --config configs/$name.json --include src/datasources --export-schema --export-subgraph || exit $?
 }
