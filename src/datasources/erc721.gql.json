@@ -27,7 +27,8 @@
     { "name": "owner",                   "type": "Account!"                            },
     { "name": "approval",                "type": "Account!"                            },
     { "name": "uri",                     "type": "String"                              },
-    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "token" }
+    { "name": "transfers",               "type": "ERC721Transfer!", "derived": "token" },
+    { "name": "mintBlock",               "type": "BigInt!"                             }
   ]
 },{
   "name": "ERC721Operator",

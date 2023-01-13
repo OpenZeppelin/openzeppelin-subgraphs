@@ -26,7 +26,8 @@
     { "name": "uri",                          "type": "String"                                     },
     { "name": "totalSupply",                  "type": "ERC1155Balance!"                            },
     { "name": "balances",                     "type": "ERC1155Balance!",  "derived": "token"       },
-    { "name": "transfers",                    "type": "ERC1155Transfer!", "derived": "token"       }
+    { "name": "transfers",                    "type": "ERC1155Transfer!", "derived": "token"       },
+    { "name": "mintBlock",                    "type": "BigInt!"                                    }
   ]
 },{
   "name": "ERC1155Balance",
