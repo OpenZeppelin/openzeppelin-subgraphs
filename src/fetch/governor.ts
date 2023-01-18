@@ -50,12 +50,16 @@ export function fetchProposal(contract: Governor, proposalId: BigInt): Proposal 
 	let proposal = Proposal.load(id)
 
 	if (proposal == null) {
-		proposal            = new Proposal(id)
-		proposal.governor   = contract.id
-		proposal.proposalId = proposalId
-		proposal.canceled   = false
-		proposal.queued     = false
-		proposal.executed   = false
+		proposal             = new Proposal(id)
+		proposal.governor    = contract.id
+		proposal.proposalId  = proposalId
+		proposal.proposer    = Address.zero()
+		proposal.startBlock  = BigInt.zero()
+		proposal.endBlock    = BigInt.zero()
+		proposal.description = ""
+		proposal.canceled    = false
+		proposal.queued      = false
+		proposal.executed    = false
 	}
 
 	return proposal as Proposal
