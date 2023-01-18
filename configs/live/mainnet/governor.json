@@ -1,0 +1,10 @@
+{
+  "output": "generated/live/mainnet/governor.",
+  "chain": "mainnet",
+  "datasources": [
+    { "startBlock": 9618878, "module": "governor"  }
+  ],
+  "deploy": [
+    { "type": "hosted-service", "name": "amxx/compound-governance" }
+  ]
+}
