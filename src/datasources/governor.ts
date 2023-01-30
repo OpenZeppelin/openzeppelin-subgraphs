@@ -11,7 +11,6 @@ import {
 } from '../../generated/schema'
 
 import {
-	Governor           as GovernorContract,
 	ProposalCreated    as ProposalCreatedEvent,
 	ProposalQueued     as ProposalQueuedEvent,
 	ProposalExecuted   as ProposalExecutedEvent,

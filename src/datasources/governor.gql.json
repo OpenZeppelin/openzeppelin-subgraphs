@@ -56,7 +56,6 @@
   ]
 },{
   "name": "ProposalSupport",
-  "immutable": true,
   "fields": [
     { "name": "proposal",             "type": "Proposal!"                                           },
     { "name": "support",              "type": "Int!"                                                },

@@ -297,7 +297,7 @@ type ProposalCall @entity(immutable: true) {
 	signature: String!
 	calldata: Bytes!
 }
-type ProposalSupport @entity(immutable: true) {
+type ProposalSupport @entity {
 	id: ID!
 	proposal: Proposal!
 	support: Int!
