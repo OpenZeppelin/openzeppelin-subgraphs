@@ -25,6 +25,6 @@ jobs:
       - name: Run prepare and check diff
         run: |
           npm run prepare
-          [ -z "$(git status --porcelain)" ] || echo "Repo is not clean, run npm run prepare and commit the updates" && return 1
+          [ -z "$(git status --porcelain)" ] || echo "ERROR: Repo is not clean, run npm run prepare and commit the updates" && exit
       - name: Run tests
         run: npm run test
