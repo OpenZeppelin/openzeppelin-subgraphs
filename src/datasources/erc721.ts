@@ -13,6 +13,7 @@ import {
 } from '../../generated/erc721/IERC721'
 
 import {
+	constants,
 	events,
 	transactions,
 } from '@amxx/graphprotocol-utils'
@@ -33,6 +34,10 @@ export function handleTransfer(event: TransferEvent): void {
 		let token = fetchERC721Token(contract, event.params.tokenId)
 		let from  = fetchAccount(event.params.from)
 		let to    = fetchAccount(event.params.to)
+
+		if(from.id == constants.ADDRESS_ZERO){
+			contract.supply = contract.supply.plus(constants.BIGINT_ONE);
+		}
 
 		token.owner    = to.id
 		token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer

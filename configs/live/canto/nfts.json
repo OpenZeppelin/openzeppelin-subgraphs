@@ -1,0 +1,8 @@
+{
+    "output": "generated/live/canto/nfts.",
+    "chain": "canto",
+    "datasources": [
+      { "startBlock": 400000, "module": "erc721"  },
+      { "startBlock": 400000, "module": "erc1155" }
+    ]
+  }

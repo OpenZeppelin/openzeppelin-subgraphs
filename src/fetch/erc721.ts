@@ -12,6 +12,10 @@ import {
 } from '../../generated/schema'
 
 import {
+	constants,
+} from '@amxx/graphprotocol-utils'
+
+import {
 	IERC721,
 } from '../../generated/erc721/IERC721'
 
@@ -54,6 +58,7 @@ export function fetchERC721(address: Address): ERC721Contract | null {
 		let try_symbol            = erc721.try_symbol()
 		contract.name             = try_name.reverted   ? '' : try_name.value
 		contract.symbol           = try_symbol.reverted ? '' : try_symbol.value
+		contract.supply           = constants.BIGINT_ZERO
 		contract.supportsMetadata = supportsInterface(erc721, '5b5e139f') // ERC721Metadata
 		contract.asAccount        = address
 		contract.save()

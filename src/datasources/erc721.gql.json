@@ -11,13 +11,13 @@
   ]
 },{
   "name": "ERC721Contract",
-  "immutable": true,
   "fields": [
     { "name": "id",                      "type": "Bytes!"                                 },
     { "name": "asAccount",               "type": "Account!"                               },
     { "name": "supportsMetadata",        "type": "Boolean"                                },
     { "name": "name",                    "type": "String"                                 },
     { "name": "symbol",                  "type": "String"                                 },
+    { "name": "supply",                  "type": "BigInt!"                                },
     { "name": "tokens",                  "type": "ERC721Token!",    "derived": "contract" },
     { "name": "operators",               "type": "ERC721Operator!", "derived": "contract" },
     { "name": "transfers",               "type": "ERC721Transfer!", "derived": "contract" }
