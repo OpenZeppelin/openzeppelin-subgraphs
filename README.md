@@ -6,7 +6,7 @@ This repo contains subgraph schema and templates to index the activity of OpenZe
 
 - **Primitives to generate a graphql schema:** `src/datasource/x.gql.json`
 
-  In order to allow composability, the schema are not defined in the graphql format but rather in a dedicated json format which is can be assembled and compiled to graphql using the `graph-compiler` tool from `@amxx/graphprotocol-utils`. Graphql version for each modules are also available in `generated/x.schema.graphql`
+  In order to allow composability, the schema are not defined in the graphql format but rather in a dedicated json format which can be assembled and compiled to graphql using the `graph-compiler` tool from `@amxx/graphprotocol-utils`. Graphql version for each module is also available in `generated/x.schema.graphql`
 
 - **Template to generate a subgraph manifest:** `src/datasource/x.yaml`
 
@@ -73,7 +73,7 @@ npx graph-compiler \
   --export-subgraph
 ```
 
-This will create two files, `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.
+This will create two files: `generated/sample.schema.graphql` and `generated/sample.subgraph.yaml` that can be used to build and deploy the corresponding subgraph.
 
 Note: `startBlock` is optional but will improve your subgraph initial indexing speed.
 
