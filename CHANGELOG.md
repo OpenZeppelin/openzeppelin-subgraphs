@@ -1,6 +1,8 @@
 # Changelog
 
 ### Unreleased
+ * Update dependency to @graphprotocol/graph-cli version 0.65.x
+ * Update dependency to @graphprotocol/graph-ts version 0.32.x
  * `Governor`: fix bug caused by duplicate write of immutable entity `ProposalSupport` ([#47](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/47))
  * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls ([#59](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/59))
 
