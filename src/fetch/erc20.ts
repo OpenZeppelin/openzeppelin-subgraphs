@@ -6,7 +6,6 @@ import {
 	Account,
 	ERC20Contract,
 	ERC20Balance,
-	ERC20Approval,
 } from '../../generated/schema'
 
 import {
@@ -61,20 +60,4 @@ export function fetchERC20Balance(contract: ERC20Contract, account: Account | nu
 	}
 
 	return balance as ERC20Balance
-}
-
-export function fetchERC20Approval(contract: ERC20Contract, owner: Account, spender: Account): ERC20Approval {
-	let id       = contract.id.toHex().concat('/').concat(owner.id.toHex()).concat('/').concat(spender.id.toHex())
-	let approval = ERC20Approval.load(id)
-
-	if (approval == null) {
-		approval                = new ERC20Approval(id)
-		approval.contract       = contract.id
-		approval.owner          = owner.id
-		approval.spender        = spender.id
-		approval.value          = constants.BIGDECIMAL_ZERO
-		approval.valueExact     = constants.BIGINT_ZERO
-	}
-
-	return approval as ERC20Approval
 }
