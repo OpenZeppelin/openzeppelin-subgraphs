@@ -1,6 +1,8 @@
 # Changelog
 
 ### Unreleased
+ * Update dependency to @graphprotocol/graph-cli version 0.65.x
+ * Update dependency to @graphprotocol/graph-ts version 0.32.x
  * Update dependency to @openzeppelin/contracts version 5.0.1
  * `Governor`: fix bug caused by duplicate write of immutable entity `ProposalSupport` ([#47](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/47))
  * `Governor`: rename `startBlock` to `voteStart` and `endBlock` to `voteEnd` ([#60](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/60))
