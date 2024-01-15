@@ -13,7 +13,7 @@
         - ERC1967
       abis:
         - name: ERC1967
-          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/ERC1967Upgrade.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC1967.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged

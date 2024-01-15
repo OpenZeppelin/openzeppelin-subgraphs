@@ -54,8 +54,8 @@ export function fetchProposal(contract: Governor, proposalId: BigInt): Proposal 
 		proposal.governor    = contract.id
 		proposal.proposalId  = proposalId
 		proposal.proposer    = Address.zero()
-		proposal.startBlock  = BigInt.zero()
-		proposal.endBlock    = BigInt.zero()
+		proposal.voteStart   = BigInt.zero()
+		proposal.voteEnd     = BigInt.zero()
 		proposal.description = ""
 		proposal.canceled    = false
 		proposal.queued      = false

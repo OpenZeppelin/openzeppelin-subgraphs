@@ -1,5 +1,6 @@
 import {
 	Address,
+	BigInt,
 } from '@graphprotocol/graph-ts'
 
 import {
@@ -7,10 +8,16 @@ import {
 } from '../../generated/schema'
 
 import {
-	Approval       as ApprovalEvent,
-	ApprovalForAll as ApprovalForAllEvent,
-	Transfer       as TransferEvent,
+	IERC721,
+	Approval            as ApprovalEvent,
+	ApprovalForAll      as ApprovalForAllEvent,
+	Transfer            as TransferEvent,
 } from '../../generated/erc721/IERC721'
+
+import {
+	MetadataUpdate      as MetadataUpdateEvent,
+	BatchMetadataUpdate as BatchMetadataUpdateEvent,
+} from '../../generated/erc721/IERC4906'
 
 import {
 	events,
@@ -97,5 +104,31 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 		// 	ev.operator    = operator.id
 		// 	ev.approved    = event.params.approved
 		// 	ev.save()
+	}
+}
+
+export function handleMetadataUpdate(event: MetadataUpdateEvent) : void {
+	let contract = fetchERC721(event.address)
+	if (contract != null) {
+		let erc721       = IERC721.bind(Address.fromBytes(contract.id))
+
+		let token        = fetchERC721Token(contract, event.params._tokenId)
+		let try_tokenURI = erc721.try_tokenURI(event.params._tokenId)
+		token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+		token.save()
+	}
+}
+
+export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : void {
+	let contract = fetchERC721(event.address)
+	if (contract != null) {
+		let erc721       = IERC721.bind(Address.fromBytes(contract.id))
+
+		for (let tokenId = event.params._fromTokenId.toU64(); tokenId <= event.params._toTokenId.toU64(); ++tokenId) {
+			let token        = fetchERC721Token(contract, BigInt.fromU64(tokenId))
+			let try_tokenURI = erc721.try_tokenURI(BigInt.fromU64(tokenId))
+			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+			token.save()
+		}
 	}
 }

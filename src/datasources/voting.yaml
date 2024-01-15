@@ -13,7 +13,7 @@
         - Voting
       abis:
         - name: Voting
-          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IVotes.json
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC5805.json
       eventHandlers:
         - event: DelegateChanged(indexed address,indexed address,indexed address)
           handler: handleDelegateChanged

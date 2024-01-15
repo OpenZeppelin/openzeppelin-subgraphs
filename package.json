@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.1.0",
-    "@openzeppelin/contracts": "^4.8.1"
+    "@openzeppelin/contracts": "^5.0.1"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.65.0",

@@ -52,8 +52,8 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 	const total    = fetchWeight(contract, null)
 	const weigth   = fetchWeight(contract, delegate)
 
-	total.value  = total.value.minus(event.params.previousBalance).plus(event.params.newBalance)
-	weigth.value = event.params.newBalance
+	total.value  = total.value.minus(event.params.previousVotes).plus(event.params.newVotes)
+	weigth.value = event.params.newVotes
 
 	total.save()
 	weigth.save()
@@ -65,7 +65,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 	ev.voteWeight  = weigth.id
 	ev.contract    = contract.id
 	ev.delegate    = delegate.id
-	ev.oldValue    = event.params.previousBalance
-	ev.newValue    = event.params.newBalance
+	ev.oldValue    = event.params.previousVotes
+	ev.newValue    = event.params.newVotes
 	ev.save()
 }
