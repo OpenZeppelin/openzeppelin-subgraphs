@@ -2,7 +2,7 @@
 
 ### Unreleased
  * `Governor`: fix bug caused by duplicate write of immutable entity `ProposalSupport` ([#47](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/47))
- * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls.
+ * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls ([#59](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/59))
 
 ### 0.1.8-5 (2022-07-29)
  * `AccessControl`: fix bug caused by duplicate write of immutable entity `AccessControl` ([#38](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/38))
