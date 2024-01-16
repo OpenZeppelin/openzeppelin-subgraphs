@@ -4,6 +4,7 @@ import {
 } from '@graphprotocol/graph-ts'
 
 import {
+	ERC721Contract,
 	ERC721Transfer,
 } from '../../generated/schema'
 
@@ -40,34 +41,39 @@ import {
 
 export function handleTransfer(event: TransferEvent): void {
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let token = fetchERC721Token(contract, event.params.tokenId)
-		let from  = fetchAccount(event.params.from)
-		let to    = fetchAccount(event.params.to)
+	if (contract == null) return
 
-		token.owner    = to.id
-		token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
-		token.save()
+	let token = fetchERC721Token(contract, event.params.tokenId)
+	let from  = fetchAccount(event.params.from)
+	let to    = fetchAccount(event.params.to)
 
-		let ev         = new ERC721Transfer(events.id(event))
-		ev.emitter     = contract.id
-		ev.transaction = transactions.log(event).id
-		ev.timestamp   = event.block.timestamp
-		ev.contract    = contract.id
-		ev.token       = token.id
-		ev.from        = from.id
-		ev.to          = to.id
-		ev.save()
-	}
+	token.owner    = to.id
+	token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
+	token.save()
+
+	let ev         = new ERC721Transfer(events.id(event))
+	ev.emitter     = contract.id
+	ev.transaction = transactions.log(event).id
+	ev.timestamp   = event.block.timestamp
+	ev.contract    = contract.id
+	ev.token       = token.id
+	ev.from        = from.id
+	ev.to          = to.id
+	ev.save()
 }
 
 export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let from  = fetchAccount(event.params.fromAddress)
-		let to    = fetchAccount(event.params.toAddress)
+	if (contract == null) return
 
-		for (let tokenId = event.params.fromTokenId.toU64(); tokenId <= event.params.toTokenId.toU64(); ++tokenId) {
+	let from        = fetchAccount(event.params.fromAddress)
+	let to          = fetchAccount(event.params.toAddress)
+	let fromTokenId = event.params.fromTokenId.toU64()
+	let toTokenId   = event.params.toTokenId.toU64()
+
+	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
+	if (toTokenId - fromTokenId <= 5000) {
+		for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
 			let token = fetchERC721Token(contract, BigInt.fromU64(tokenId))
 			token.owner    = to.id
 			token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
@@ -88,87 +94,89 @@ export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
 
 export function handleApproval(event: ApprovalEvent): void {
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let token    = fetchERC721Token(contract, event.params.tokenId)
-		let owner    = fetchAccount(event.params.owner)
-		let approved = fetchAccount(event.params.approved)
+	if (contract == null) return
 
-		token.owner    = owner.id // this should not be necessary, owner changed is signaled by a transfer event
-		token.approval = approved.id
+	let token    = fetchERC721Token(contract, event.params.tokenId)
+	let owner    = fetchAccount(event.params.owner)
+	let approved = fetchAccount(event.params.approved)
 
-		token.save()
-		owner.save()
-		approved.save()
+	token.owner    = owner.id // this should not be necessary, owner changed is signaled by a transfer event
+	token.approval = approved.id
 
-		// let ev = new Approval(events.id(event))
-		// ev.emitter     = contract.id
-		// ev.transaction = transactions.log(event).id
-		// ev.timestamp   = event.block.timestamp
-		// ev.token       = token.id
-		// ev.owner       = owner.id
-		// ev.approved    = approved.id
-		// ev.save()
-	}
+	token.save()
+	owner.save()
+	approved.save()
+
+	// let ev = new Approval(events.id(event))
+	// ev.emitter     = contract.id
+	// ev.transaction = transactions.log(event).id
+	// ev.timestamp   = event.block.timestamp
+	// ev.token       = token.id
+	// ev.owner       = owner.id
+	// ev.approved    = approved.id
+	// ev.save()
 }
 
 export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let owner      = fetchAccount(event.params.owner)
-		let operator   = fetchAccount(event.params.operator)
-		let delegation = fetchERC721Operator(contract, owner, operator)
+	if (contract == null) return
 
-		delegation.approved = event.params.approved
+	let owner      = fetchAccount(event.params.owner)
+	let operator   = fetchAccount(event.params.operator)
+	let delegation = fetchERC721Operator(contract, owner, operator)
 
-		delegation.save()
+	delegation.approved = event.params.approved
 
-		// 	let ev = new ApprovalForAll(events.id(event))
-		// 	ev.emitter     = contract.id
-		// 	ev.transaction = transactions.log(event).id
-		// 	ev.timestamp   = event.block.timestamp
-		// 	ev.delegation  = delegation.id
-		// 	ev.owner       = owner.id
-		// 	ev.operator    = operator.id
-		// 	ev.approved    = event.params.approved
-		// 	ev.save()
-	}
+	delegation.save()
+
+	// 	let ev = new ApprovalForAll(events.id(event))
+	// 	ev.emitter     = contract.id
+	// 	ev.transaction = transactions.log(event).id
+	// 	ev.timestamp   = event.block.timestamp
+	// 	ev.delegation  = delegation.id
+	// 	ev.owner       = owner.id
+	// 	ev.operator    = operator.id
+	// 	ev.approved    = event.params.approved
+	// 	ev.save()
 }
 
 export function handleMetadataUpdate(event: MetadataUpdateEvent) : void {
-	let erc721   = IERC721.bind(event.address)
 	let contract = fetchERC721(event.address)
+	if (contract == null) return
 
-	if (contract != null) {
-		if (contract.supportsMetadata) {
-			let token        = fetchERC721Token(contract, event.params._tokenId)
-			let try_tokenURI = erc721.try_tokenURI(event.params._tokenId)
-			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
-			token.save()
-		} else {
-			// add a warning ?
-		}
+	if (contract.supportsMetadata) {
+		_updateURI(contract, event.params._tokenId)
+	} else {
+		// add a warning ?
 	}
 }
 
 export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : void {
-	let erc721   = IERC721.bind(event.address)
 	let contract = fetchERC721(event.address)
+	if (contract == null) return
 
-	if (contract != null) {
-		if (contract.supportsMetadata) {
-			const from = event.params._fromTokenId.toU64();
-			const to   = event.params._toTokenId.toU64();
-			// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
-			if (to - from <= 5000) {
-				for (let tokenId =from; tokenId <= to; ++tokenId) {
-					let token        = fetchERC721Token(contract, BigInt.fromU64(tokenId))
-					let try_tokenURI = erc721.try_tokenURI(BigInt.fromU64(tokenId))
-					token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
-					token.save()
-				}
+	if (contract.supportsMetadata) {
+		let fromTokenId = event.params._fromTokenId.toU64()
+		let toTokenId   = event.params._toTokenId.toU64()
+		// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
+		if (toTokenId - fromTokenId <= 5000) {
+			for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
+				_updateURI(contract, BigInt.fromU64(tokenId))
 			}
-		} else {
-			// add a warning ?
 		}
+	} else {
+		// add a warning ?
+	}
+}
+
+function _updateURI(contract: ERC721Contract, tokenId: BigInt) : void {
+	let erc721       = IERC721.bind(Address.fromBytes(contract.id))
+	let token        = fetchERC721Token(contract, tokenId)
+	let try_tokenURI = erc721.try_tokenURI(tokenId)
+	token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+	// If token was never minted (transfered) then the owner was set to 0 by default in `fetchERC721Token`
+	// In that case we don't want to save to token to the database.
+	if (token.owner != Address.zero()) {
+		token.save()
 	}
 }
