@@ -15,9 +15,13 @@ import {
 } from '../../generated/erc721/IERC721'
 
 import {
+	ConsecutiveTransfer as ConsecutiveTransfer,
+} from '../../generated/erc721-concecutive/IERC2309'
+
+import {
 	MetadataUpdate      as MetadataUpdateEvent,
 	BatchMetadataUpdate as BatchMetadataUpdateEvent,
-} from '../../generated/erc721/IERC4906'
+} from '../../generated/erc721-metadataupdate/IERC4906'
 
 import {
 	events,
@@ -43,8 +47,6 @@ export function handleTransfer(event: TransferEvent): void {
 
 		token.owner    = to.id
 		token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
-
-		contract.save()
 		token.save()
 
 		let ev         = new ERC721Transfer(events.id(event))
@@ -56,6 +58,31 @@ export function handleTransfer(event: TransferEvent): void {
 		ev.from        = from.id
 		ev.to          = to.id
 		ev.save()
+	}
+}
+
+export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
+	let contract = fetchERC721(event.address)
+	if (contract != null) {
+		let from  = fetchAccount(event.params.fromAddress)
+		let to    = fetchAccount(event.params.toAddress)
+
+		for (let tokenId = event.params.fromTokenId.toU64(); tokenId <= event.params.toTokenId.toU64(); ++tokenId) {
+			let token = fetchERC721Token(contract, BigInt.fromU64(tokenId))
+			token.owner    = to.id
+			token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
+			token.save()
+
+			let ev         = new ERC721Transfer(events.id(event).concat('-').concat(tokenId.toString()))
+			ev.emitter     = contract.id
+			ev.transaction = transactions.log(event).id
+			ev.timestamp   = event.block.timestamp
+			ev.contract    = contract.id
+			ev.token       = token.id
+			ev.from        = from.id
+			ev.to          = to.id
+			ev.save()
+		}
 	}
 }
 

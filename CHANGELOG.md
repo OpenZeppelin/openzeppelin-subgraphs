@@ -7,6 +7,7 @@
  * `Governor`: fix bug caused by duplicate write of immutable entity `ProposalSupport` ([#47](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/47))
  * `Governor`: rename `startBlock` to `voteStart` and `endBlock` to `voteEnd` ([#60](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/60))
  * `ERC721`: add support for `ERC4906` events ([#60](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/60))
+ * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls ([#59](https://github.com/OpenZeppelin/openzeppelin-subgraphs/
 
 Please note that this is a breaking release: some elements of the GraphQL API are renamed or removed.
 

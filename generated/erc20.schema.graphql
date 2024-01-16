@@ -2,8 +2,6 @@ type Account @entity {
 	id: Bytes!
 	asERC20: ERC20Contract
 	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
-	ERC20approvalsOwner: [ERC20Approval!]! @derivedFrom(field: "owner")
-	ERC20approvalsSpender: [ERC20Approval!]! @derivedFrom(field: "spender")
 	ERC20transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "from")
 	ERC20transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "to")
 	events: [Event!]! @derivedFrom(field: "emitter")
@@ -16,7 +14,6 @@ type ERC20Contract @entity(immutable: true) {
 	decimals: Int!
 	totalSupply: ERC20Balance!
 	balances: [ERC20Balance!]! @derivedFrom(field: "contract")
-	approvals: [ERC20Approval!]! @derivedFrom(field: "contract")
 	transfers: [ERC20Transfer!]! @derivedFrom(field: "contract")
 }
 type ERC20Balance @entity {
@@ -27,14 +24,6 @@ type ERC20Balance @entity {
 	valueExact: BigInt!
 	transferFromEvent: [ERC20Transfer!]! @derivedFrom(field: "fromBalance")
 	transferToEvent: [ERC20Transfer!]! @derivedFrom(field: "toBalance")
-}
-type ERC20Approval @entity {
-	id: ID!
-	contract: ERC20Contract!
-	owner: Account!
-	spender: Account!
-	value: BigDecimal!
-	valueExact: BigInt!
 }
 type ERC20Transfer implements Event @entity(immutable: true) {
 	id: ID!

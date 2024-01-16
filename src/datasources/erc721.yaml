@@ -3,7 +3,7 @@
     network: {chain}
     source:
       address: "{address}"
-      abi: IERC4906
+      abi: IERC721
       startBlock: {startBlock}
     mapping:
       kind: ethereum/events
@@ -14,8 +14,6 @@
       abis:
         - name: IERC721
           file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC721Metadata.json
-        - name: IERC4906
-          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC4906.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -23,6 +21,44 @@
           handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+      file: {file}
+  - kind: ethereum/contract
+    name: {id}-concecutive
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: IERC2309
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ERC721Contract
+      abis:
+        - name: IERC2309
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC2309.json
+      eventHandlers:
+        - event: ConsecutiveTransfer(indexed uint256,uint256,indexed address,indexed address)
+          handler: handleConsecutiveTransfer
+      file: {file}
+  - kind: ethereum/contract
+    name: {id}-metadataupdate
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: IERC4906
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ERC721Contract
+      abis:
+        - name: IERC4906
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC4906.json
+      eventHandlers:
         - event: MetadataUpdate(uint256)
           handler: handleMetadataUpdate
         - event: BatchMetadataUpdate(uint256,uint256)
