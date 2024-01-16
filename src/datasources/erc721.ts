@@ -9,9 +9,9 @@ import {
 
 import {
 	IERC721,
-	Approval            as ApprovalEvent,
-	ApprovalForAll      as ApprovalForAllEvent,
-	Transfer            as TransferEvent,
+	Approval       as ApprovalEvent,
+	ApprovalForAll as ApprovalForAllEvent,
+	Transfer       as TransferEvent,
 } from '../../generated/erc721/IERC721'
 
 import {
