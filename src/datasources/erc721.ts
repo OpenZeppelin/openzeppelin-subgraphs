@@ -135,27 +135,40 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 }
 
 export function handleMetadataUpdate(event: MetadataUpdateEvent) : void {
+	let erc721   = IERC721.bind(event.address)
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let erc721       = IERC721.bind(Address.fromBytes(contract.id))
 
-		let token        = fetchERC721Token(contract, event.params._tokenId)
-		let try_tokenURI = erc721.try_tokenURI(event.params._tokenId)
-		token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
-		token.save()
+	if (contract != null) {
+		if (contract.supportsMetadata) {
+			let token        = fetchERC721Token(contract, event.params._tokenId)
+			let try_tokenURI = erc721.try_tokenURI(event.params._tokenId)
+			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+			token.save()
+		} else {
+			// add a warning ?
+		}
 	}
 }
 
 export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : void {
+	let erc721   = IERC721.bind(event.address)
 	let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let erc721       = IERC721.bind(Address.fromBytes(contract.id))
 
-		for (let tokenId = event.params._fromTokenId.toU64(); tokenId <= event.params._toTokenId.toU64(); ++tokenId) {
-			let token        = fetchERC721Token(contract, BigInt.fromU64(tokenId))
-			let try_tokenURI = erc721.try_tokenURI(BigInt.fromU64(tokenId))
-			token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
-			token.save()
+	if (contract != null) {
+		if (contract.supportsMetadata) {
+			const from = event.params._fromTokenId.toU64();
+			const to   = event.params._toTokenId.toU64();
+			// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
+			if (to - from <= 5000) {
+				for (let tokenId =from; tokenId <= to; ++tokenId) {
+					let token        = fetchERC721Token(contract, BigInt.fromU64(tokenId))
+					let try_tokenURI = erc721.try_tokenURI(BigInt.fromU64(tokenId))
+					token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+					token.save()
+				}
+			}
+		} else {
+			// add a warning ?
 		}
 	}
 }

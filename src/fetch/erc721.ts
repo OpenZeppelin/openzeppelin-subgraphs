@@ -71,10 +71,12 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 	let token = ERC721Token.load(id)
 
 	if (token == null) {
-		token            = new ERC721Token(id)
-		token.contract   = contract.id
-		token.identifier = identifier
-		token.approval   = fetchAccount(Address.zero()).id
+		const AddressZero = fetchAccount(Address.zero())
+		token             = new ERC721Token(id)
+		token.contract    = contract.id
+		token.identifier  = identifier
+		token.owner       = AddressZero.id
+		token.approval    = AddressZero.id
 
 		if (contract.supportsMetadata) {
 			let erc721       = IERC721.bind(Address.fromBytes(contract.id))
