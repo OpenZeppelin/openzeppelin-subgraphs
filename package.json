@@ -30,12 +30,12 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.1.0",
-    "@openzeppelin/contracts": "^5.0.1"
+    "@openzeppelin/contracts": "^5.0.2"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.65.0",
-    "@graphprotocol/graph-ts": "^0.32.0",
-    "@openzeppelin/docs-utils": "^0.1.3",
+    "@graphprotocol/graph-cli": "^0.68.5",
+    "@graphprotocol/graph-ts": "^0.33.0",
+    "@openzeppelin/docs-utils": "^0.1.5",
     "jq.node": "^2.4.0"
   }
 }
