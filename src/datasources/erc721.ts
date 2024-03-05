@@ -64,14 +64,14 @@ export function handleTransfer(event: TransferEvent): void {
 
 export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
 	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
-	if (event.params.toTokenId.minus(event.params.fromTokenId) > BigInt.fromI32(5000)) return;
+	if (event.params.toTokenId.minus(event.params.fromTokenId) > BigInt.fromI32(5000)) return
 
 	let contract = fetchERC721(event.address)
 	if (contract == null) return
 
 	let from  = fetchAccount(event.params.fromAddress)
 	let to    = fetchAccount(event.params.toAddress)
-	let count = event.params.toTokenId.minus(event.params.fromTokenId).toI32(); // This is <=5000 so won't revert
+	let count = event.params.toTokenId.minus(event.params.fromTokenId).toI32() // This is <=5000 so won't revert
 
 	for (let index = 0; index <= count; ++index) {
 		let tokenId    = event.params.fromTokenId.plus(BigInt.fromI32(index))
@@ -148,16 +148,16 @@ export function handleMetadataUpdate(event: MetadataUpdateEvent) : void {
 }
 
 export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : void {
+	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
+	if (event.params._toTokenId.minus(event.params._fromTokenId) > BigInt.fromI32(5000)) return
+
 	let contract = fetchERC721(event.address)
 	if (contract == null || !contract.supportsMetadata) return
 
-	let fromTokenId = event.params._fromTokenId.toU64()
-	let toTokenId   = event.params._toTokenId.toU64()
-	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
-	if (toTokenId - fromTokenId <= 5000) {
-		for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
-			_updateURI(contract, BigInt.fromU64(tokenId))
-		}
+	let count = event.params._toTokenId.minus(event.params._fromTokenId).toI32(); // This is <=5000 so won't revert
+
+	for (let index = 0; index <= count; ++index) {
+		_updateURI(contract, event.params._fromTokenId.plus(BigInt.fromI32(index)))
 	}
 }
 
