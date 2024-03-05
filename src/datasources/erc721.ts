@@ -162,13 +162,12 @@ export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : voi
 }
 
 function _updateURI(contract: ERC721Contract, tokenId: BigInt) : void {
-	let erc721       = IERC721.bind(Address.fromBytes(contract.id))
-	let token        = fetchERC721Token(contract, tokenId)
-	let try_tokenURI = erc721.try_tokenURI(tokenId)
-	token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
 	// If token was never minted (transfered) then the owner was set to 0 by default in `fetchERC721Token`
 	// In that case we don't want to save to token to the database.
-	if (token.owner != Address.zero()) {
-		token.save()
-	}
+	let token        = fetchERC721Token(contract, tokenId)
+	if (token.owner == Address.zero()) return
+
+	let try_tokenURI = IERC721.bind(Address.fromBytes(contract.id)).try_tokenURI(tokenId)
+	token.uri        = try_tokenURI.reverted ? '' : try_tokenURI.value
+	token.save()
 }
