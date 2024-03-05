@@ -142,30 +142,22 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 
 export function handleMetadataUpdate(event: MetadataUpdateEvent) : void {
 	let contract = fetchERC721(event.address)
-	if (contract == null) return
+	if (contract == null || !contract.supportsMetadata) return
 
-	if (contract.supportsMetadata) {
-		_updateURI(contract, event.params._tokenId)
-	} else {
-		// add a warning ?
-	}
+	_updateURI(contract, event.params._tokenId)
 }
 
 export function handleBatchMetadataUpdate(event: BatchMetadataUpdateEvent) : void {
 	let contract = fetchERC721(event.address)
-	if (contract == null) return
+	if (contract == null || !contract.supportsMetadata) return
 
-	if (contract.supportsMetadata) {
-		let fromTokenId = event.params._fromTokenId.toU64()
-		let toTokenId   = event.params._toTokenId.toU64()
-		// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
-		if (toTokenId - fromTokenId <= 5000) {
-			for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
-				_updateURI(contract, BigInt.fromU64(tokenId))
-			}
+	let fromTokenId = event.params._fromTokenId.toU64()
+	let toTokenId   = event.params._toTokenId.toU64()
+	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
+	if (toTokenId - fromTokenId <= 5000) {
+		for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
+			_updateURI(contract, BigInt.fromU64(tokenId))
 		}
-	} else {
-		// add a warning ?
 	}
 }
 
