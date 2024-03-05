@@ -63,11 +63,11 @@ export function handleTransfer(event: TransferEvent): void {
 }
 
 export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
-	let contract = fetchERC721(event.address)
-	if (contract == null) return
-
 	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
 	if (event.params.toTokenId.minus(event.params.fromTokenId) > BigInt.fromI32(5000)) return;
+
+	let contract = fetchERC721(event.address)
+	if (contract == null) return
 
 	let from  = fetchAccount(event.params.fromAddress)
 	let to    = fetchAccount(event.params.toAddress)
