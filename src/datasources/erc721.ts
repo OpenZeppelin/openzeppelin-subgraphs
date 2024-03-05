@@ -66,29 +66,29 @@ export function handleConsecutiveTransfer(event: ConsecutiveTransfer): void {
 	let contract = fetchERC721(event.address)
 	if (contract == null) return
 
-	let from        = fetchAccount(event.params.fromAddress)
-	let to          = fetchAccount(event.params.toAddress)
-	let fromTokenId = event.params.fromTokenId.toU64()
-	let toTokenId   = event.params.toTokenId.toU64()
-
 	// Updates of blocks larger than 5000 tokens may DoS the subgraph, we skip them
-	if (toTokenId - fromTokenId <= 5000) {
-		for (let tokenId = fromTokenId; tokenId <= toTokenId; ++tokenId) {
-			let token = fetchERC721Token(contract, BigInt.fromU64(tokenId))
-			token.owner    = to.id
-			token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
-			token.save()
+	if (event.params.toTokenId.minus(event.params.fromTokenId) > BigInt.fromI32(5000)) return;
 
-			let ev         = new ERC721Transfer(events.id(event).concat('-').concat(tokenId.toString()))
-			ev.emitter     = contract.id
-			ev.transaction = transactions.log(event).id
-			ev.timestamp   = event.block.timestamp
-			ev.contract    = contract.id
-			ev.token       = token.id
-			ev.from        = from.id
-			ev.to          = to.id
-			ev.save()
-		}
+	let from  = fetchAccount(event.params.fromAddress)
+	let to    = fetchAccount(event.params.toAddress)
+	let count = event.params.toTokenId.minus(event.params.fromTokenId).toI32(); // This is <=5000 so won't revert
+
+	for (let index = 0; index <= count; ++index) {
+		let tokenId    = event.params.fromTokenId.plus(BigInt.fromI32(index))
+		let token      = fetchERC721Token(contract, tokenId)
+		token.owner    = to.id
+		token.approval = fetchAccount(Address.zero()).id // implicit approval reset on transfer
+		token.save()
+
+		let ev         = new ERC721Transfer(events.id(event).concat('-').concat(tokenId.toString()))
+		ev.emitter     = contract.id
+		ev.transaction = transactions.log(event).id
+		ev.timestamp   = event.block.timestamp
+		ev.contract    = contract.id
+		ev.token       = token.id
+		ev.from        = from.id
+		ev.to          = to.id
+		ev.save()
 	}
 }
 
