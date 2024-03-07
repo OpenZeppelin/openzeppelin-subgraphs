@@ -42,3 +42,25 @@
         - event: ConsecutiveTransfer(indexed uint256,uint256,indexed address,indexed address)
           handler: handleConsecutiveTransfer
       file: {file}
+  - kind: ethereum/contract
+    name: {id}-metadataupdate
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: IERC4906
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ERC721Contract
+      abis:
+        - name: IERC4906
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC4906.json
+      eventHandlers:
+        - event: MetadataUpdate(uint256)
+          handler: handleMetadataUpdate
+        - event: BatchMetadataUpdate(uint256,uint256)
+          handler: handleBatchMetadataUpdate
+      file: {file}

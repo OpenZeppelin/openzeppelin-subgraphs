@@ -14,7 +14,7 @@ dataSources:
         - ERC1967
       abis:
         - name: ERC1967
-          file: ../node_modules/@openzeppelin/contracts/build/contracts/ERC1967Upgrade.json
+          file: ../node_modules/@openzeppelin/contracts/build/contracts/IERC1967.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged

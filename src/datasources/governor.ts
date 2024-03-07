@@ -43,8 +43,8 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 
 	let proposal         = fetchProposal(governor, event.params.proposalId)
 	proposal.proposer    = fetchAccount(event.params.proposer).id
-	proposal.startBlock  = event.params.startBlock
-	proposal.endBlock    = event.params.endBlock
+	proposal.voteStart   = event.params.voteStart
+	proposal.voteEnd     = event.params.voteEnd
 	proposal.description = event.params.description
 	proposal.save()
 
@@ -76,7 +76,7 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 
 	let proposal    = fetchProposal(governor, event.params.proposalId)
 	proposal.queued = true
-	proposal.eta    = event.params.eta
+	proposal.eta    = event.params.etaSeconds
 	proposal.save()
 
 	let ev         = new ProposalQueued(events.id(event))
@@ -85,7 +85,7 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	ev.timestamp   = event.block.timestamp
 	ev.governor    = governor.id
 	ev.proposal    = proposal.id
-	ev.eta         = event.params.eta
+	ev.eta         = event.params.etaSeconds
 	ev.save()
 }
 

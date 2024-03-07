@@ -3,8 +3,13 @@
 ### Unreleased
  * Update dependency to @graphprotocol/graph-cli version 0.65.x
  * Update dependency to @graphprotocol/graph-ts version 0.32.x
+ * Update dependency to @openzeppelin/contracts version 5.0.1
  * `Governor`: fix bug caused by duplicate write of immutable entity `ProposalSupport` ([#47](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/47))
- * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls ([#59](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/59))
+ * `ERC721`: add support for `ERC4906` events ([#60](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/60))
+
+#### Breaking Changes
+ * `Governor`: rename `startBlock` to `voteStart` and `endBlock` to `voteEnd` ([#60](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/60))
+ * `ERC20`: remove approval tracking as it cannot be consistently tracked during `transferFrom` calls ([#59](https://github.com/OpenZeppelin/openzeppelin-subgraphs/))
 
 ### 0.1.8-5 (2022-07-29)
  * `AccessControl`: fix bug caused by duplicate write of immutable entity `AccessControl` ([#38](https://github.com/OpenZeppelin/openzeppelin-subgraphs/pull/38))

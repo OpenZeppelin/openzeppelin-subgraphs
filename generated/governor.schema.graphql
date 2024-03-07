@@ -22,8 +22,8 @@ type Proposal @entity {
 	governor: Governor!
 	proposalId: BigInt!
 	proposer: Account!
-	startBlock: BigInt!
-	endBlock: BigInt!
+	voteStart: BigInt!
+	voteEnd: BigInt!
 	description: String!
 	eta: BigInt
 	canceled: Boolean!
