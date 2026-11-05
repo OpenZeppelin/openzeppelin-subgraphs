@@ -33,7 +33,7 @@
     "@openzeppelin/contracts": "^5.0.2"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.81.0",
+    "@graphprotocol/graph-cli": "^0.98.1",
     "@graphprotocol/graph-ts": "^0.35.1",
     "@openzeppelin/docs-utils": "^0.1.5",
     "jq.node": "^3.0.0"
